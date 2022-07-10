@@ -12,13 +12,13 @@ namespace zrok
         Down
     }
 
-    public enum WT {
-        NOUN,
-        VERB,
-        ADJECTIVE,
-        CONJUNCTION,
-        ARTICLE,
-        PREPOSITION,
+    public enum WordType {
+        NOUN,//people, places or things "dog"
+        VERB,//action word
+        ADJECTIVE,// descriptive word
+        DETERMINER,//introductory word, "the" cat
+        PRONOUN,//noun without specificity, "it"
+        PREPOSITION,//location word
         UNKNOWN,
         ERROR
     }

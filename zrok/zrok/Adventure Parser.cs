@@ -16,30 +16,51 @@ namespace zrok
         //
         //
 
-        Dictionary<string, WT> vocab = new Dictionary<string, WT>();
+        Dictionary<string, WordType> vocab = new Dictionary<string, WordType>();
 
         private void InitVocab() {
-            //vocab.Add("", WT.);
+            //vocab.Add("", WordType.);
             //including synonyms
             //verbs
-            vocab.Add("save", WT.VERB);
-            vocab.Add("load", WT.VERB);
-            vocab.Add("n", WT.VERB);
-            vocab.Add("e", WT.VERB);
-            vocab.Add("w", WT.VERB);
-            vocab.Add("s", WT.VERB);
+            vocab.Add("save", WordType.VERB);
+            vocab.Add("load", WordType.VERB);
+            vocab.Add("n", WordType.VERB);
+            vocab.Add("e", WordType.VERB);
+            vocab.Add("w", WordType.VERB);
+            vocab.Add("s", WordType.VERB);
 
             //nouns 
-            vocab.Add("mailbox", WT.VERB);
-            vocab.Add("box", WT.);
+            vocab.Add("mailbox", WordType.VERB);
+            vocab.Add("box", WordType.);
 
             //adjectives
+
+
             //determiners
+
+
             //prepositions
+
+
             //pronouns
             
 
+        }
 
+        public static void ProcessCommand(List<string> StringList)
+        {
+
+            foreach(string word in StringList) 
+            {
+                if(vocab.ContainsKey(word))
+                {
+
+                }
+                else
+                {
+                    return;
+                }
+            }
         }
 
         public static void ParseCommand(string command)
@@ -50,11 +71,12 @@ namespace zrok
             if(lowstr == "")
             {
                 Console.WriteLine("Enter a valid command");
+                return;
             }
             else
             {
                 StringList = new List<string>(inputstr.Split(Delims, StringSplitOptions.RemoveEmptyEntries));
-                Process(StringList);
+                ProcessCommand(StringList);
             }
         }
     }

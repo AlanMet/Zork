@@ -9,12 +9,8 @@ namespace zrok
     class GameRunner
     {
         Adventure adv;
+
         public GameRunner()
-        {
-            InitGame();
-        }
-        
-        private void InitGame()
         {
             adv = new Adventure();
             Login();

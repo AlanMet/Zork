@@ -21,11 +21,6 @@ namespace zrok
             return null;
         }
 
-        public static void ParseCommand(string command)
-        {
-            
-        }
-
         static Room Setup(string filename)
         {
             Room room;
