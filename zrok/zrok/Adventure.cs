@@ -10,9 +10,10 @@ namespace zrok
     {
         private Room Room;
 
+
         public Adventure()
         {
-            Room = new Room();
+            Room = Setup("");
         }
 
         static Room SetupFromFile(string filename)
