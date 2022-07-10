@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace zrok
 {
-    partial class Adventure
+    public partial class Adventure
     {
         //command types:
         //Verb: North or Look
@@ -16,22 +16,22 @@ namespace zrok
         //
         //
 
-        Dictionary<string, WordType> vocab = new Dictionary<string, WordType>();
+        private Dictionary<string, WordType> Vocab = new Dictionary<string, WordType>();
 
         private void InitVocab() {
             //vocab.Add("", WordType.);
             //including synonyms
             //verbs
-            vocab.Add("save", WordType.VERB);
-            vocab.Add("load", WordType.VERB);
-            vocab.Add("n", WordType.VERB);
-            vocab.Add("e", WordType.VERB);
-            vocab.Add("w", WordType.VERB);
-            vocab.Add("s", WordType.VERB);
+            Vocab.Add("save", WordType.VERB);
+            Vocab.Add("load", WordType.VERB);
+            Vocab.Add("n", WordType.VERB);
+            Vocab.Add("e", WordType.VERB);
+            Vocab.Add("w", WordType.VERB);
+            Vocab.Add("s", WordType.VERB);
 
             //nouns 
-            vocab.Add("mailbox", WordType.VERB);
-            vocab.Add("box", WordType.);
+            Vocab.Add("mailbox", WordType.NOUN);
+            Vocab.Add("box", WordType.NOUN);
 
             //adjectives
 
@@ -47,14 +47,15 @@ namespace zrok
 
         }
 
-        public static void ProcessCommand(List<string> StringList)
+        public void ProcessCommand(List<string> StringList)
         {
-
-            foreach(string word in StringList) 
+            Dictionary<string, WordType> WordAndType = new Dictionary<string, WordType>();
+            WordType wordtype;
+            foreach (string word in StringList) 
             {
-                if(vocab.ContainsKey(word))
+                if(Vocab.ContainsKey(word))
                 {
-
+                    wordtype = Vocab[word];
                 }
                 else
                 {
@@ -63,7 +64,7 @@ namespace zrok
             }
         }
 
-        public static void ParseCommand(string command)
+        public void ParseCommand(string command)
         {
             char[] Delims = { ' ', '.' };
             List<string> StringList;
@@ -75,7 +76,7 @@ namespace zrok
             }
             else
             {
-                StringList = new List<string>(inputstr.Split(Delims, StringSplitOptions.RemoveEmptyEntries));
+                StringList = new List<string>(command.Split(Delims, StringSplitOptions.RemoveEmptyEntries));
                 ProcessCommand(StringList);
             }
         }

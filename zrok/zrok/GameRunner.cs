@@ -14,6 +14,12 @@ namespace zrok
         {
             adv = new Adventure();
             Login();
+            StartGame();
+        }
+
+        public void Login()
+        {
+            return;
         }
 
         private void StartGame()
@@ -23,8 +29,8 @@ namespace zrok
             {
                 Console.Write("> ");
                 input = Console.ReadLine().ToLower();
-                Adventure.ParseCommand(input);
-            } while (input != "q");
+                adv.ParseCommand(input);
+            } while (input != "q" && input !="quit");
         }
     }
 }

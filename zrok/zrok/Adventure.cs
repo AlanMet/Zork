@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace zrok
 {
-    partial class Adventure
+    public partial class Adventure
     {
         private Room Room;
 
@@ -14,6 +14,7 @@ namespace zrok
         public Adventure()
         {
             Room = Setup("");
+            InitVocab();
         }
 
         static Room SetupFromFile(string filename)
