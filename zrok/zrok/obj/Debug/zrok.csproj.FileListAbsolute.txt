@@ -1,0 +1,7 @@
+C:\Users\alanm\OneDrive\Documents\ppap\zrok\zrok\bin\Debug\zrok.exe.config
+C:\Users\alanm\OneDrive\Documents\ppap\zrok\zrok\bin\Debug\zrok.exe
+C:\Users\alanm\OneDrive\Documents\ppap\zrok\zrok\bin\Debug\zrok.pdb
+C:\Users\alanm\OneDrive\Documents\ppap\zrok\zrok\obj\Debug\zrok.csproj.AssemblyReference.cache
+C:\Users\alanm\OneDrive\Documents\ppap\zrok\zrok\obj\Debug\zrok.csproj.CoreCompileInputs.cache
+C:\Users\alanm\OneDrive\Documents\ppap\zrok\zrok\obj\Debug\zrok.exe
+C:\Users\alanm\OneDrive\Documents\ppap\zrok\zrok\obj\Debug\zrok.pdb
