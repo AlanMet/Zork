@@ -6,16 +6,25 @@ using System.Threading.Tasks;
 
 namespace zrok
 {
-    class Adventure
+    partial class Adventure
     {
+        private Room Room;
 
+        public Adventure()
+        {
+            Room = new Room();
+        }
 
         static Room SetupFromFile(string filename)
         {
+            //create map using file
             return null;
         }
 
-
+        public static void ParseCommand(string command)
+        {
+            
+        }
 
         static Room Setup(string filename)
         {
