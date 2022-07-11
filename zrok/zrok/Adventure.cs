@@ -42,6 +42,21 @@ namespace zrok
             }
         }
 
+        //commands
+        //move
+        //look
+        //save
+        //restore
+        //restart
+        //verbose
+        //score
+        //diagnostic
+        //brief
+        //superbrief
+        //climb
+        //g
+        //
+
         static Room Move(Direction direction, Room room)
         {
             Room destination;
