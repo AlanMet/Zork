@@ -47,6 +47,7 @@ namespace zrok
 
         }
 
+
         public void ProcessCommand(List<string> StringList)
         {
             Dictionary<string, WordType> WordAndType = new Dictionary<string, WordType>();
@@ -66,6 +67,12 @@ namespace zrok
 
         public void ParseCommand(string command)
         {
+            //first check, valid command? parse
+            //second check, valid words? process
+            //third check, valid combination? run type
+            //run command
+
+
             char[] Delims = { ' ', '.' };
             List<string> StringList;
             string lowstr = command.Trim().ToLower();
