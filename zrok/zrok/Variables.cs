@@ -22,10 +22,4 @@ namespace zrok
         UNKNOWN,
         ERROR
     }
-
-    public enum HealthState
-    {
-        Healthy,
-
-    }
 }
