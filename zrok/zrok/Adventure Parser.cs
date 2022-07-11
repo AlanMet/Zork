@@ -77,7 +77,7 @@ namespace zrok
             string lowstr = command.Trim().ToLower();
             if(lowstr == "")
             {
-                Console.WriteLine("Enter a valid command");
+                Console.WriteLine("I beg your pardon?");
                 return;
             }
             else
