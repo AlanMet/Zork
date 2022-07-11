@@ -47,7 +47,6 @@ namespace zrok
 
         }
 
-
         public void ProcessCommand(List<string> StringList)
         {
             Dictionary<string, WordType> WordAndType = new Dictionary<string, WordType>();

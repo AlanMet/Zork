@@ -55,6 +55,7 @@ namespace zrok
         //superbrief
         //climb
         //g
+        //enter
         //
 
         static Room Move(Direction direction, Room room)
