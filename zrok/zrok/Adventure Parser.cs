@@ -56,6 +56,7 @@ namespace zrok
                 if(Vocab.ContainsKey(word))
                 {
                     wordtype = Vocab[word];
+                    WordAndType.Add(word,wordtype);
                 }
                 else
                 {
@@ -81,7 +82,6 @@ namespace zrok
                 return;
             }
             else
-            {
                 StringList = new List<string>(command.Split(Delims, StringSplitOptions.RemoveEmptyEntries));
                 ProcessCommand(StringList);
             }
