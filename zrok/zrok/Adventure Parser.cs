@@ -49,20 +49,21 @@ namespace zrok
 
         public void ProcessCommand(List<string> StringList)
         {
-            Dictionary<string, WordType> WordAndType = new Dictionary<string, WordType>();
+            List<WordAndType> wordandtype = new List<WordAndType>();
             WordType wordtype;
             foreach (string word in StringList) 
             {
                 if(Vocab.ContainsKey(word))
                 {
-                    wordtype = Vocab[word];
-                    WordAndType.Add(word,wordtype);
+                    wordandtype.Add(WordAndType(word,wordtype));
                 }
                 else
                 {
+                    Console.WriteLine($"I don't understand {word}");
                     return;
                 }
             }
+            
         }
 
         public void ParseCommand(string command)
