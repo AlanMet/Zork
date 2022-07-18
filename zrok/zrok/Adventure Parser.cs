@@ -147,7 +147,6 @@ namespace zrok{
                         break;
                 }
             }
-            return s;
         }
         public void ProcessVerbPrepositionNoun(List<WordAndType> StringList)
         {
@@ -175,7 +174,6 @@ namespace zrok{
                         break;
                 }
             }
-            return s;
         }
         public void ProcessVerbNounPrepositionNoun(List<WordAndType> StringList)
         {
@@ -209,7 +207,6 @@ namespace zrok{
                         break;
                 }
             }
-            return s;
         }
 
         public void RunCommand(List<WordAndType> StringList)
