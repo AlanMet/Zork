@@ -32,6 +32,8 @@ namespace zrok{
             Vocab.Add("w", WordType.VERB);
             Vocab.Add("nw", WordType.VERB);
             Vocab.Add("go", WordType.VERB);
+            Vocab.Add("look", WordType.VERB);
+            Vocab.Add("inventory", WordType.VERB);
 
 
             //nouns 
@@ -62,9 +64,177 @@ namespace zrok{
 
         }
 
+        public void ProcessVerb(List<WordAndType> StringList)
+        {
+            WordAndType wt = StringList[0];
+            if (wt.GetType() != WordType.VERB)
+            {
+                Console.WriteLine($"Can't do this because '{wt.GetWord()}' is not a command!");
+            }
+            else
+            {
+                switch (wt.GetWord())
+                {
+                    case "i":               
+                    case "inventory":
+                        //ShowInventory();
+                        break;
+                    case "describe":
+                    case "look":
+                        room.Describe();
+                        break;
+                    case "n":
+                        room = Move(Direction.North, room);
+                        break;
+                    case "s":
+                        room = Move(Direction.South, room);
+                        break;
+                    case "w":
+                        room = Move(Direction.West, room);
+                        break;
+                    case "e":
+                        room = Move(Direction.East, room);
+                        break;
+                    case "up":
+                        room = Move(Direction.Up, room);
+                        break;
+                    case "down":
+                        room = Move(Direction.Down, room);
+                        break;
+                    default:
+                        Console.WriteLine($"Sorry, I can't {wt.GetWord()}!");
+                        break;
+                }
+            }
+        }
+        public void ProcessVerbNoun(List<WordAndType> StringList)
+        {
+            WordAndType wt = command[0];
+            WordAndType wt2 = command[1];
+            string s = "";
+            if (wt.Type != WT.VERB)
+            {
+                s = $"Can't do this because '{wt.Word}' is not a command!";
+            }
+            else if (wt2.Type != WT.NOUN)
+            {
+                s = $"Can't do this because '{wt2.Word}' is not an object!";
+            }
+            else
+            {
+                switch (wt.Word)
+                {
+                    case "take":
+                        s = TakeOb(wt2.Word);
+                        break;
+                    case "drop":
+                        s = DropOb(wt2.Word);
+                        break;
+                    case "open":
+                        s = OpenOb(wt2.Word);
+                        break;
+                    case "close":
+                        s = CloseOb(wt2.Word);
+                        break;
+                    case "pull":
+                        s = PullOb(wt2.Word);
+                        break;
+                    case "push":
+                        s = PushOb(wt2.Word);
+                        break;
+                    default:
+                        s = $"I don't know how to {wt.Word} a {wt2.Word}!";
+                        break;
+                }
+            }
+            return s;
+        }
+        public void ProcessVerbPrepositionNoun(List<WordAndType> StringList)
+        {
+            WordAndType wt = command[0];
+            WordAndType wt2 = command[1];
+            WordAndType wt3 = command[2];
+            string s = "";
+            if ((wt.Type != WT.VERB) || (wt2.Type != WT.PREPOSITION))
+            {
+                s = $"Can't do this because I don't understand '{wt.Word} {wt2.Word}' !";
+            }
+            else if (wt3.Type != WT.NOUN)
+            {
+                s = $"Can't do this because '{wt3.Word}' is not an object!\r\n";
+            }
+            else
+            {
+                switch (wt.Word + wt2.Word)
+                {
+                    case "lookat":
+                        s = LookAtOb(wt3.Word);
+                        break;
+                    default:
+                        s = $"I don't know how to {wt.Word} {wt2.Word} a {wt3.Word}!";
+                        break;
+                }
+            }
+            return s;
+        }
+        public void ProcessVerbNounPrepositionNoun(List<WordAndType> StringList)
+        {
+            WordAndType wt1 = command[0];
+            WordAndType wt2 = command[1];
+            WordAndType wt3 = command[2];
+            WordAndType wt4 = command[3];
+            string s = "";
+            if ((wt1.Type != WT.VERB) || (wt3.Type != WT.PREPOSITION))
+            {
+                s = $"Can't do this because I don't understand how to {wt1.Word} something {wt3.Word} something else!";
+            }
+            else if (wt2.Type != WT.NOUN)
+            {
+                s = $"Can't do this because '{wt2.Word}' is not an object!";
+            }
+            else if (wt4.Type != WT.NOUN)
+            {
+                s = $"Can't do this because '{wt4.Word}' is not an object!";
+            }
+            else
+            {
+                switch (wt1.Word + wt3.Word)
+                {
+                    case "putin":
+                    case "putinto":         // allow either "put in" or "put into"...
+                        s = PutObInContainer(wt2.Word, wt4.Word);
+                        break;
+                    default:
+                        s = $"I don't know how to {wt1.Word} {wt2.Word} {wt3.Word} {wt4.Word}!";
+                        break;
+                }
+            }
+            return s;
+        }
+
         public void RunCommand(List<WordAndType> StringList)
         {
-            return;
+            int length = StringList.Count;
+            if (length == 1)
+            {
+                ProcessVerb(StringList);
+            }
+            else if (length == 2)
+            {
+                ProcessVerbNoun(StringList);
+            }
+            else if (length == 3)
+            {
+                ProcessVerbPrepositionNoun(StringList);
+            }
+            else if (length == 4)
+            {
+                ProcessVerbNounPrepositionNoun(StringList);
+            }
+            else if (length >= 5)
+            {
+                Console.WriteLine("Command is too long!");
+            }
         }
 
         public void ProcessCommand(List<string> StringList)
@@ -76,7 +246,13 @@ namespace zrok{
                 if(Vocab.ContainsKey(word))
                 {
                     wordtype = Vocab[word];
-                    wordandtype.Add(new WordAndType(word,wordtype));
+                    if (wordtype == WordType.PREPOSITION)
+                    {
+                    }
+                    else
+                    {
+                        wordandtype.Add(new WordAndType(word, wordtype));
+                    }
                 }
                 else
                 {

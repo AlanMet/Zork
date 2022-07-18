@@ -6,24 +6,23 @@ using System.Threading.Tasks;
 
 namespace zrok
 {
-    public partial class Adventure
+    partial class Adventure
     {
-        private Room Room;
-
+        private Room room;
 
         public Adventure()
         {
-            Room = Setup("");
+             room = Setup("");
             InitVocab();
         }
 
-        static Room SetupFromFile(string filename)
+        public Room SetupFromFile(string filename)
         {
             //create map using file
             return null;
         }
 
-        static Room Setup(string filename)
+        public Room Setup(string filename)
         {
             Room room;
             if (filename != "")
@@ -40,6 +39,11 @@ namespace zrok
 
                 return main;
             }
+        }
+
+        public Room GetRoom()
+        {
+            return room;
         }
 
         //commands
@@ -64,10 +68,11 @@ namespace zrok
 
             if (room.GetExits().TryGetValue(direction, out destination))
             {
-                return room = destination;
+                return destination;
             }
             else
             {
+                Console.WriteLine("You cannot go that way");
                 return null;
             }
         }

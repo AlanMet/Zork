@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace zrok
 {
-    class Room
+    public class Room
     {
         private string Name;
         private string Description;
