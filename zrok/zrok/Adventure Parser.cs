@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace zrok
-{
+namespace zrok{
     public partial class Adventure
     {
         //command types:
@@ -25,9 +24,15 @@ namespace zrok
             Vocab.Add("save", WordType.VERB);
             Vocab.Add("load", WordType.VERB);
             Vocab.Add("n", WordType.VERB);
+            Vocab.Add("ne", WordType.VERB);
             Vocab.Add("e", WordType.VERB);
-            Vocab.Add("w", WordType.VERB);
+            Vocab.Add("se", WordType.VERB);
             Vocab.Add("s", WordType.VERB);
+            Vocab.Add("sw", WordType.VERB);
+            Vocab.Add("w", WordType.VERB);
+            Vocab.Add("nw", WordType.VERB);
+            Vocab.Add("go", WordType.VERB);
+
 
             //nouns 
             Vocab.Add("mailbox", WordType.NOUN);
@@ -40,11 +45,26 @@ namespace zrok
 
 
             //prepositions
-
+            Vocab.Add("with", WordType.NOUN);
+            Vocab.Add("at", WordType.NOUN);
+            Vocab.Add("to", WordType.NOUN);
+            Vocab.Add("in", WordType.NOUN);
+            Vocab.Add("down", WordType.NOUN);
+            Vocab.Add("up", WordType.NOUN);
+            Vocab.Add("under", WordType.NOUN);
 
             //pronouns
+
+
+            //other
             
 
+
+        }
+
+        public void RunCommand(List<WordAndType> StringList)
+        {
+            return;
         }
 
         public void ProcessCommand(List<string> StringList)
@@ -55,7 +75,8 @@ namespace zrok
             {
                 if(Vocab.ContainsKey(word))
                 {
-                    wordandtype.Add(WordAndType(word,wordtype));
+                    wordtype = Vocab[word];
+                    wordandtype.Add(new WordAndType(word,wordtype));
                 }
                 else
                 {
@@ -63,7 +84,7 @@ namespace zrok
                     return;
                 }
             }
-            
+            RunCommand(wordandtype);
         }
 
         public void ParseCommand(string command)
@@ -88,4 +109,4 @@ namespace zrok
             }
         }
     }
-}
+

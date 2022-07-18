@@ -19,6 +19,7 @@ namespace zrok
         DETERMINER,//introductory word, "the" cat
         PRONOUN,//noun without specificity, "it"
         PREPOSITION,//location word
+        OTHER,
         UNKNOWN,
         ERROR
     }

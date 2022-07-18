@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace zrok
 {
-    class WordAndType
+    public class WordAndType
     {
         private string Word;
-        private wordtype Type;
+        private WordType Type;
 
-        public WordAndType(string word, wordtype type){
+        public WordAndType(string word, WordType type){
             Word = word;
             Type = type;
         }
@@ -20,7 +20,7 @@ namespace zrok
             return Word;
         }
 
-        public wordtype GetType(){
+        public new WordType GetType(){
             return Type;
         }
     }
