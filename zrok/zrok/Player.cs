@@ -9,14 +9,10 @@ namespace zrok
     class Player
     {
         private Room room;
-        List<Item> inventory = new List<Item>();
 
         public Player(Room _room)
         {
             room = _room;
         }
-
-
-
     }
 }
