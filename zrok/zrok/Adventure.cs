@@ -9,6 +9,7 @@ namespace zrok
     partial class Adventure
     {
         private Room room;
+        private Player player;
 
         public Adventure()
         {
