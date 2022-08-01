@@ -46,6 +46,7 @@
     <Compile Include="Adventure Parser.cs" />
     <Compile Include="Adventure.cs" />
     <Compile Include="GameRunner.cs" />
+    <Compile Include="Inventory.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
