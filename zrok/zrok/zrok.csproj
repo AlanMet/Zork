@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Adventure Parser.cs" />
     <Compile Include="Adventure.cs" />
+    <Compile Include="Container.cs" />
     <Compile Include="GameRunner.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="Item.cs" />

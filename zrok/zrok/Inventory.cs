@@ -8,9 +8,26 @@ namespace zrok
 {
     class Inventory
     {
-        public Inventory()
-        {
+        int maxitems = 8;
+        List<Item> items;
 
+        public void Add(Item item)
+        {
+            if (items.Count >= maxitems)
+            {
+                Random random = new Random();
+                if (random.Next(0,100)>=80)
+                {
+                    items.Add(item);
+                }
+            }
+            else
+            {
+                items.Add(item);
+            }
         }
+
+
+
     }
 }

@@ -64,9 +64,9 @@ namespace zrok{
 
         }
 
-        public void ProcessVerb(List<WordAndType> StringList)
+        public void ProcessVerb(List<WordAndType> WordAndType)
         {
-            WordAndType wt = StringList[0];
+            WordAndType wt = WordAndType[0];
             if (wt.GetType() != WordType.VERB)
             {
                 Console.WriteLine($"Can't do this because '{wt.GetWord()}' is not a command!");
@@ -81,25 +81,25 @@ namespace zrok{
                         break;
                     case "describe":
                     case "look":
-                        room.Describe();
+                        player.GetRoom().Describe();
                         break;
                     case "n":
-                        room = Move(Direction.North, room);
+                        player.Move(Direction.North);
                         break;
                     case "s":
-                        room = Move(Direction.South, room);
+                        player.Move(Direction.South);
                         break;
                     case "w":
-                        room = Move(Direction.West, room);
+                        player.Move(Direction.West);
                         break;
                     case "e":
-                        room = Move(Direction.East, room);
+                        player.Move(Direction.East);
                         break;
                     case "up":
-                        room = Move(Direction.Up, room);
+                        player.Move(Direction.Up);
                         break;
                     case "down":
-                        room = Move(Direction.Down, room);
+                        player.Move(Direction.Down);
                         break;
                     default:
                         Console.WriteLine($"Sorry, I can't {wt.GetWord()}!");
@@ -107,126 +107,177 @@ namespace zrok{
                 }
             }
         }
-        public void ProcessVerbNoun(List<WordAndType> StringList)
+        public void ProcessVerbNoun(List<WordAndType> WordAndType)
         {
-            WordAndType wt = command[0];
-            WordAndType wt2 = command[1];
-            string s = "";
-            if (wt.Type != WT.VERB)
+            WordAndType wt = WordAndType[0];
+            WordAndType wt2 = WordAndType[1];
+            if (wt.GetType() != WordType.VERB)
             {
-                s = $"Can't do this because '{wt.Word}' is not a command!";
+                Console.WriteLine($"Can't do this because '{wt.GetWord()}' is not a command!");
             }
-            else if (wt2.Type != WT.NOUN)
+            else if (wt2.GetType() != WordType.NOUN)
             {
-                s = $"Can't do this because '{wt2.Word}' is not an object!";
+                Console.WriteLine($"Can't do this because '{wt2.GetWord()}' is not an object!");
             }
             else
             {
-                switch (wt.Word)
+                switch (wt.GetWord())
                 {
+                    case "move":
+                        if (wt2.GetWord() == "North" || wt2.GetWord() == "n")
+                        {
+                            player.Move(Direction.North);
+                        }
+                        else if (wt2.GetWord() == "East" || wt2.GetWord() == "e")
+                        {
+                            player.Move(Direction.East);
+                        }
+                        else if (wt2.GetWord() == "South" || wt2.GetWord() == "s")
+                        {
+                            player.Move(Direction.South);
+                        }
+                        else if (wt2.GetWord() == "West" || wt2.GetWord() == "w")
+                        {
+                            player.Move(Direction.West);
+                        }
+                        else if (wt2.GetWord() == "Up" || wt2.GetWord() == "u")
+                        {
+                            player.Move(Direction.Up);
+                        }
+                        else if (wt2.GetWord() == "Down" || wt2.GetWord() == "d")
+                        {
+                            player.Move(Direction.Down);
+                        }
+                        break;
                     case "take":
-                        s = TakeOb(wt2.Word);
+                        player.TakeObject(wt2.GetWord());
                         break;
                     case "drop":
-                        s = DropOb(wt2.Word);
+                        //DropOb(wt2.Word);
                         break;
                     case "open":
-                        s = OpenOb(wt2.Word);
+                        //OpenOb(wt2.Word);
                         break;
                     case "close":
-                        s = CloseOb(wt2.Word);
+                        //CloseOb(wt2.Word);
                         break;
                     case "pull":
-                        s = PullOb(wt2.Word);
+                        //PullOb(wt2.Word);
                         break;
                     case "push":
-                        s = PushOb(wt2.Word);
+                        //PushOb(wt2.Word);
                         break;
                     default:
-                        s = $"I don't know how to {wt.Word} a {wt2.Word}!";
+                        Console.WriteLine($"I don't know how to {wt.GetWord()} a {wt2.GetWord()}!");
                         break;
                 }
             }
         }
-        public void ProcessVerbPrepositionNoun(List<WordAndType> StringList)
+        public void ProcessVerbPrepositionNoun(List<WordAndType> WordAndType)
         {
-            WordAndType wt = command[0];
-            WordAndType wt2 = command[1];
-            WordAndType wt3 = command[2];
+            WordAndType wt = WordAndType[0];
+            WordAndType wt2 = WordAndType[1];
+            WordAndType wt3 = WordAndType[2];
             string s = "";
-            if ((wt.Type != WT.VERB) || (wt2.Type != WT.PREPOSITION))
+            if ((wt.GetType() != WordType.VERB) || (wt2.GetType() != WordType.PREPOSITION))
             {
-                s = $"Can't do this because I don't understand '{wt.Word} {wt2.Word}' !";
+                s = $"Can't do this because I don't understand '{wt.GetWord()} {wt2.GetWord()}' !";
             }
-            else if (wt3.Type != WT.NOUN)
+            else if (wt3.GetType() != WordType.NOUN)
             {
-                s = $"Can't do this because '{wt3.Word}' is not an object!\r\n";
+                s = $"Can't do this because '{wt3.GetWord()}' is not an object!\r\n";
             }
             else
             {
-                switch (wt.Word + wt2.Word)
+                switch (wt.GetWord() + wt2.GetWord())
                 {
                     case "lookat":
-                        s = LookAtOb(wt3.Word);
+                        //LookAtOb(wt3.Word);
+                        break;
+                    case "move":
+                        if (wt2.GetWord() == "North" || wt2.GetWord() == "n")
+                        {
+                            if (wt3.GetWord() == "East" || wt3.GetWord() == "e")
+                            {
+                                player.Move(Direction.NorthEast);
+                            }
+                            else if (wt3.GetWord() == "west" || wt3.GetWord() == "w")
+                            {
+                                player.Move(Direction.NorthWest);
+                            }
+                            
+                        }
+                        else if (wt2.GetWord() == "South" || wt2.GetWord() == "s")
+                        {
+                            if (wt3.GetWord() == "East" || wt3.GetWord() == "e")
+                            {
+                                player.Move(Direction.SouthEast);
+                            }
+                            else if (wt3.GetWord() == "west" || wt3.GetWord() == "w")
+                            {
+                                player.Move(Direction.SouthWest);
+                            }
+
+                        }
                         break;
                     default:
-                        s = $"I don't know how to {wt.Word} {wt2.Word} a {wt3.Word}!";
+                        Console.WriteLine($"I don't know how to {wt.GetWord()} {wt2.GetWord()} a {wt3.GetWord()}!");
                         break;
                 }
             }
         }
-        public void ProcessVerbNounPrepositionNoun(List<WordAndType> StringList)
+        public void ProcessVerbNounPrepositionNoun(List<WordAndType> WordAndType)
         {
-            WordAndType wt1 = command[0];
-            WordAndType wt2 = command[1];
-            WordAndType wt3 = command[2];
-            WordAndType wt4 = command[3];
+            WordAndType wt1 = WordAndType[0];
+            WordAndType wt2 = WordAndType[1];
+            WordAndType wt3 = WordAndType[2];
+            WordAndType wt4 = WordAndType[3];
             string s = "";
-            if ((wt1.Type != WT.VERB) || (wt3.Type != WT.PREPOSITION))
+            if ((wt1.GetType() != WordType.VERB) || (wt3.GetType() != WordType.PREPOSITION))
             {
-                s = $"Can't do this because I don't understand how to {wt1.Word} something {wt3.Word} something else!";
+                s = $"Can't do this because I don't understand how to {wt1.GetWord()} something {wt3.GetWord()} something else!";
             }
-            else if (wt2.Type != WT.NOUN)
+            else if (wt2.GetType() != WordType.NOUN)
             {
-                s = $"Can't do this because '{wt2.Word}' is not an object!";
+                s = $"Can't do this because '{wt2.GetWord()}' is not an object!";
             }
-            else if (wt4.Type != WT.NOUN)
+            else if (wt4.GetType() != WordType.NOUN)
             {
-                s = $"Can't do this because '{wt4.Word}' is not an object!";
+                s = $"Can't do this because '{wt4.GetWord()}' is not an object!";
             }
             else
             {
-                switch (wt1.Word + wt3.Word)
+                switch (wt1.GetWord() + wt3.GetWord())
                 {
                     case "putin":
                     case "putinto":         // allow either "put in" or "put into"...
-                        s = PutObInContainer(wt2.Word, wt4.Word);
+                        //PutObInContainer(wt2.Word, wt4.Word);
                         break;
                     default:
-                        s = $"I don't know how to {wt1.Word} {wt2.Word} {wt3.Word} {wt4.Word}!";
+                        Console.WriteLine($"I don't know how to {wt1.GetWord()} {wt2.GetWord()} {wt3.GetWord()} {wt4.GetWord()}!");
                         break;
                 }
             }
         }
 
-        public void RunCommand(List<WordAndType> StringList)
+        public void RunCommand(List<WordAndType> WordAndType)
         {
-            int length = StringList.Count;
+            int length = WordAndType.Count;
             if (length == 1)
             {
-                ProcessVerb(StringList);
+                ProcessVerb(WordAndType);
             }
             else if (length == 2)
             {
-                ProcessVerbNoun(StringList);
+                ProcessVerbNoun(WordAndType);
             }
             else if (length == 3)
             {
-                ProcessVerbPrepositionNoun(StringList);
+                ProcessVerbPrepositionNoun(WordAndType);
             }
             else if (length == 4)
             {
-                ProcessVerbNounPrepositionNoun(StringList);
+                ProcessVerbNounPrepositionNoun(WordAndType);
             }
             else if (length >= 5)
             {

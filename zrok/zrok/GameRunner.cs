@@ -27,7 +27,7 @@ namespace zrok
             string input;
             do
             {
-                adv.GetRoom().Describe();
+                adv.Describe();
                 Console.Write("> ");
                 input = Console.ReadLine().ToLower();
                 adv.ParseCommand(input);

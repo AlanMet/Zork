@@ -5,9 +5,13 @@ namespace zrok
     public enum Direction
     {
         North,
-        South,
+        NorthEast,
         East,
+        SouthEast,
+        South,
+        SouthWest,
         West,
+        NorthWest,
         Up,
         Down
     }
