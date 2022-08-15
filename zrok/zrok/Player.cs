@@ -37,13 +37,28 @@ namespace zrok
             }
             else
             {
-                Room main = new Room("Main", "This is the main room.");
-                Room eastWing = new Room("East Wing", "This is the east wing.") { };
+                //above ground
+                Room WestOfHouse = new Room("West of House", "west of house");
+                Room SouthOfHouse = new Room("South Of House", "");
+                Room BehindHouse = new Room("Behind House", "");
+                Room NorthOfHouse = new Room("North Of House", "");
+                Room ForestPath = new Room("Forest Path", "");
+                Room UpaTree = new Room("Up a Tree", "");
+                Room Clearing1 = new Room("Clearing", "");
+                Room Clearing2 = new Room("", "");
+                Room Forest1 = new Room("", "");
+                Room Forest2 = new Room("", "");
+                Room Forest3 = new Room("", "");
+                Room Forest4 = new Room("", "");
+                Room CanyonView = new Room("Canyon View", "");
+                Room RockyLedge = new Room("", "");
+                Room CanyonBottom = new Room("", "");
+                Room EndOfRainbow = new Room("", "");
 
-                main.AddExit(Direction.East, eastWing);
-                eastWing.AddExit(Direction.West, main);
+                WestOfHouse.AddExit(Direction.North, NorthOfHouse);
 
-                return main;
+
+                return WestOfHouse;
             }
         }
 
