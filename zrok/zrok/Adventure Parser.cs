@@ -55,11 +55,21 @@ namespace zrok{
             Vocab.Add("up", WordType.NOUN);
             Vocab.Add("under", WordType.NOUN);
 
+            Vocab.Add("north", WordType.NOUN);
+            Vocab.Add("east", WordType.NOUN);
+            Vocab.Add("south", WordType.NOUN);
+            Vocab.Add("west", WordType.NOUN);
+
+            Vocab.Add("northwest", WordType.NOUN);
+            Vocab.Add("northeast", WordType.NOUN);
+            Vocab.Add("southeast", WordType.NOUN);
+            Vocab.Add("southwest", WordType.NOUN);
+
             //pronouns
 
 
             //other
-            
+
 
 
         }
@@ -86,8 +96,20 @@ namespace zrok{
                     case "n":
                         player.Move(Direction.North);
                         break;
+                    case "ne":
+                        player.Move(Direction.NorthEast);
+                        break;
+                    case "nw":
+                        player.Move(Direction.NorthWest);
+                        break;
                     case "s":
                         player.Move(Direction.South);
+                        break;
+                    case "sw":
+                        player.Move(Direction.SouthWest);
+                        break;
+                    case "se":
+                        player.Move(Direction.SouthEast);
                         break;
                     case "w":
                         player.Move(Direction.West);
@@ -123,30 +145,46 @@ namespace zrok{
             {
                 switch (wt.GetWord())
                 {
-                    case "move":
-                        if (wt2.GetWord() == "North" || wt2.GetWord() == "n")
+                    case "go":
+                        if (wt2.GetWord() == "north" || wt2.GetWord() == "n")
                         {
                             player.Move(Direction.North);
                         }
-                        else if (wt2.GetWord() == "East" || wt2.GetWord() == "e")
+                        if (wt2.GetWord() == "northwest" || wt2.GetWord() == "nw")
+                        {
+                            player.Move(Direction.NorthWest);
+                        }
+                        else if (wt2.GetWord() == "northeast" || wt2.GetWord() == "ne")
+                        {
+                            player.Move(Direction.NorthEast);
+                        }
+                        else if (wt2.GetWord() == "east" || wt2.GetWord() == "e")
                         {
                             player.Move(Direction.East);
                         }
-                        else if (wt2.GetWord() == "South" || wt2.GetWord() == "s")
+                        else if (wt2.GetWord() == "southeast" || wt2.GetWord() == "se")
+                        {
+                            player.Move(Direction.SouthEast);
+                        }
+                        else if (wt2.GetWord() == "south" || wt2.GetWord() == "s")
                         {
                             player.Move(Direction.South);
                         }
-                        else if (wt2.GetWord() == "West" || wt2.GetWord() == "w")
+                        else if (wt2.GetWord() == "southwest" || wt2.GetWord() == "sw")
+                        {
+                            player.Move(Direction.SouthWest);
+                        }
+                        else if (wt2.GetWord() == "down" || wt2.GetWord() == "d")
+                        {
+                            player.Move(Direction.Down);
+                        }
+                        else if (wt2.GetWord() == "west" || wt2.GetWord() == "w")
                         {
                             player.Move(Direction.West);
                         }
-                        else if (wt2.GetWord() == "Up" || wt2.GetWord() == "u")
+                        else if (wt2.GetWord() == "up" || wt2.GetWord() == "u")
                         {
                             player.Move(Direction.Up);
-                        }
-                        else if (wt2.GetWord() == "Down" || wt2.GetWord() == "d")
-                        {
-                            player.Move(Direction.Down);
                         }
                         break;
                     case "take":

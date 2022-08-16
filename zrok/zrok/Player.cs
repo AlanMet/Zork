@@ -45,17 +45,46 @@ namespace zrok
                 Room ForestPath = new Room("Forest Path", "");
                 Room UpaTree = new Room("Up a Tree", "");
                 Room Clearing1 = new Room("Clearing", "");
-                Room Clearing2 = new Room("", "");
-                Room Forest1 = new Room("", "");
-                Room Forest2 = new Room("", "");
-                Room Forest3 = new Room("", "");
-                Room Forest4 = new Room("", "");
+                Room Clearing2 = new Room("Clearing", "");
+                Room Forest1 = new Room("Forest", "");
+                Room Forest2 = new Room("Forest", "");
+                Room Forest3 = new Room("Forest", "");
+                Room Forest4 = new Room("Forest", "");
                 Room CanyonView = new Room("Canyon View", "");
-                Room RockyLedge = new Room("", "");
-                Room CanyonBottom = new Room("", "");
-                Room EndOfRainbow = new Room("", "");
+                Room RockyLedge = new Room("Rocky Ledge", "");
+                Room CanyonBottom = new Room("Canyon Bottom", "");
+                Room EndOfRainbow = new Room("End of Rainbow", "");
 
+                //west of house exits
                 WestOfHouse.AddExit(Direction.North, NorthOfHouse);
+                WestOfHouse.AddExit(Direction.West, Forest1);
+                WestOfHouse.AddExit(Direction.South, SouthOfHouse);
+
+                //north of house exits
+                NorthOfHouse.AddExit(Direction.North, ForestPath);
+                NorthOfHouse.AddExit(Direction.West, WestOfHouse);
+                NorthOfHouse.AddExit(Direction.East, BehindHouse);
+
+                //south of house exits
+                SouthOfHouse.AddExit(Direction.West, WestOfHouse);
+                SouthOfHouse.AddExit(Direction.East, BehindHouse);
+                SouthOfHouse.AddExit(Direction.South, Forest3);
+
+                //behind house exits
+                BehindHouse.AddExit(Direction.North, NorthOfHouse);
+                BehindHouse.AddExit(Direction.South, SouthOfHouse);
+                BehindHouse.AddExit(Direction.East, Clearing1);
+
+                //clearing 1 exits
+                Clearing1.AddExit(Direction.East, CanyonView);
+                Clearing1.AddExit(Direction.West, BehindHouse);
+                Clearing1.AddExit(Direction.South, Forest3);
+                Clearing1.AddExit(Direction.North, Forest2);
+
+                //canyon view exits
+                CanyonView.AddExit(Direction.South, Forest3);
+                CanyonView.AddExit(Direction.NorthWest, BehindHouse);
+
 
 
                 return WestOfHouse;
