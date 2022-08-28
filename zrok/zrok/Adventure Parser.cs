@@ -146,46 +146,33 @@ namespace zrok{
                 switch (wt.GetWord())
                 {
                     case "go":
-                        if (wt2.GetWord() == "north" || wt2.GetWord() == "n")
+                        switch (wt2.GetWord())
                         {
-                            player.Move(Direction.North);
-                        }
-                        if (wt2.GetWord() == "northwest" || wt2.GetWord() == "nw")
-                        {
-                            player.Move(Direction.NorthWest);
-                        }
-                        else if (wt2.GetWord() == "northeast" || wt2.GetWord() == "ne")
-                        {
-                            player.Move(Direction.NorthEast);
-                        }
-                        else if (wt2.GetWord() == "east" || wt2.GetWord() == "e")
-                        {
-                            player.Move(Direction.East);
-                        }
-                        else if (wt2.GetWord() == "southeast" || wt2.GetWord() == "se")
-                        {
-                            player.Move(Direction.SouthEast);
-                        }
-                        else if (wt2.GetWord() == "south" || wt2.GetWord() == "s")
-                        {
-                            player.Move(Direction.South);
-                        }
-                        else if (wt2.GetWord() == "southwest" || wt2.GetWord() == "sw")
-                        {
-                            player.Move(Direction.SouthWest);
-                        }
-                        else if (wt2.GetWord() == "down" || wt2.GetWord() == "d")
-                        {
-                            player.Move(Direction.Down);
-                        }
-                        else if (wt2.GetWord() == "west" || wt2.GetWord() == "w")
-                        {
-                            player.Move(Direction.West);
-                        }
-                        else if (wt2.GetWord() == "up" || wt2.GetWord() == "u")
-                        {
-                            player.Move(Direction.Up);
-                        }
+                            case "north":
+                                player.Move(Direction.North);
+                                break;
+                            case "northeast":
+                                player.Move(Direction.NorthEast);
+                                break;
+                            case "east":
+                                player.Move(Direction.East);
+                                break;
+                            case "southeast":
+                                player.Move(Direction.SouthEast);
+                                break;
+                            case "south":
+                                player.Move(Direction.South);
+                                break;
+                            case "southwest":
+                                player.Move(Direction.SouthWest);
+                                break;
+                            case "West":
+                                player.Move(Direction.West);
+                                break;
+                            case "northwest":
+                                player.Move(Direction.NorthWest);
+                                break;
+                        };
                         break;
                     case "take":
                         player.TakeObject(wt2.GetWord());
