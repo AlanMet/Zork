@@ -19,22 +19,14 @@ namespace zrok
             Description = description;
         }
 
-        public Item(string name, string description, int health)
+        public string GetName()
         {
-            Name = name;
-            Description = description;
+            return Name;
         }
 
-        public void listen()
+        public string GetDescription()
         {
-            if (Sound == null)
-            {
-                Console.WriteLine($"The {Name} makes no sound.");
-            }
-            else
-            {
-                Console.WriteLine($"The {Name} {Sound}");
-            }
+            return Description;
         }
     }
 }

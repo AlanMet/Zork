@@ -145,35 +145,6 @@ namespace zrok{
             {
                 switch (wt.GetWord())
                 {
-                    case "go":
-                        switch (wt2.GetWord())
-                        {
-                            case "north":
-                                player.Move(Direction.North);
-                                break;
-                            case "northeast":
-                                player.Move(Direction.NorthEast);
-                                break;
-                            case "east":
-                                player.Move(Direction.East);
-                                break;
-                            case "southeast":
-                                player.Move(Direction.SouthEast);
-                                break;
-                            case "south":
-                                player.Move(Direction.South);
-                                break;
-                            case "southwest":
-                                player.Move(Direction.SouthWest);
-                                break;
-                            case "West":
-                                player.Move(Direction.West);
-                                break;
-                            case "northwest":
-                                player.Move(Direction.NorthWest);
-                                break;
-                        };
-                        break;
                     case "take":
                         player.TakeObject(wt2.GetWord());
                         break;
@@ -198,6 +169,67 @@ namespace zrok{
                 }
             }
         }
+
+        public void ProcessVerbVerb(List<WordAndType> WordAndType)
+        {
+            WordAndType wt = WordAndType[0];
+            WordAndType wt2 = WordAndType[1];
+            if (wt.GetType() != WordType.VERB)
+            {
+                Console.WriteLine($"Can't do this because '{wt.GetWord()}' is not a command!");
+            }
+            else if (wt2.GetType() != WordType.VERB)
+            {
+                Console.WriteLine($"Can't do this because '{wt2.GetWord()}' is not a direction!");
+            }
+            else
+            {
+                switch (wt.GetWord())
+                {
+                    case "move":
+                    case "go":
+                        switch (wt2.GetWord())
+                        {
+                            case "n":
+                            case "north":
+                                player.Move(Direction.North);
+                                break;
+                            case "ne":
+                            case "northeast":
+                                player.Move(Direction.NorthEast);
+                                break;
+                            case "e":
+                            case "east":
+                                player.Move(Direction.East);
+                                break;
+                            case "se":
+                            case "southeast":
+                                player.Move(Direction.SouthEast);
+                                break;
+                            case "s":
+                            case "south":
+                                player.Move(Direction.South);
+                                break;
+                            case "sw":
+                            case "southwest":
+                                player.Move(Direction.SouthWest);
+                                break;
+                            case "West":
+                                player.Move(Direction.West);
+                                break;
+                            case "northwest":
+                                player.Move(Direction.NorthWest);
+                                break;
+                        };
+                        break;
+                    default:
+                        Console.WriteLine($"I don't know how to {wt.GetWord()} {wt2.GetWord()}!");
+                        break;
+                }
+            }
+        }
+
+
         public void ProcessVerbPrepositionNoun(List<WordAndType> WordAndType)
         {
             WordAndType wt = WordAndType[0];
@@ -294,6 +326,8 @@ namespace zrok{
             }
             else if (length == 2)
             {
+                //check if second word is a direction
+
                 ProcessVerbNoun(WordAndType);
             }
             else if (length == 3)
