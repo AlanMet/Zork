@@ -28,7 +28,7 @@ namespace zrok
             return null;
         }
 
-        public Room Setup(string filename)
+        private Room Setup(string filename)
         {
             Room room;
             if (filename != "")
