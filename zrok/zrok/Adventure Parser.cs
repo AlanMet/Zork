@@ -23,14 +23,24 @@ namespace zrok{
             //verbs
             Vocab.Add("save", WordType.VERB);
             Vocab.Add("load", WordType.VERB);
+            Vocab.Add("u", WordType.VERB);
+            Vocab.Add("up", WordType.VERB);
             Vocab.Add("n", WordType.VERB);
+            Vocab.Add("north", WordType.VERB);
             Vocab.Add("ne", WordType.VERB);
+            Vocab.Add("northeast", WordType.VERB);
             Vocab.Add("e", WordType.VERB);
+            Vocab.Add("east", WordType.VERB);
             Vocab.Add("se", WordType.VERB);
+            Vocab.Add("southeast", WordType.VERB);
             Vocab.Add("s", WordType.VERB);
+            Vocab.Add("south", WordType.VERB);
             Vocab.Add("sw", WordType.VERB);
+            Vocab.Add("southwest", WordType.VERB);
             Vocab.Add("w", WordType.VERB);
+            Vocab.Add("west", WordType.VERB);
             Vocab.Add("nw", WordType.VERB);
+            Vocab.Add("northwest", WordType.VERB);
             Vocab.Add("go", WordType.VERB);
             Vocab.Add("look", WordType.VERB);
             Vocab.Add("inventory", WordType.VERB);
@@ -54,16 +64,6 @@ namespace zrok{
             Vocab.Add("down", WordType.NOUN);
             Vocab.Add("up", WordType.NOUN);
             Vocab.Add("under", WordType.NOUN);
-
-            Vocab.Add("north", WordType.NOUN);
-            Vocab.Add("east", WordType.NOUN);
-            Vocab.Add("south", WordType.NOUN);
-            Vocab.Add("west", WordType.NOUN);
-
-            Vocab.Add("northwest", WordType.NOUN);
-            Vocab.Add("northeast", WordType.NOUN);
-            Vocab.Add("southeast", WordType.NOUN);
-            Vocab.Add("southwest", WordType.NOUN);
 
             //pronouns
 
@@ -117,6 +117,7 @@ namespace zrok{
                     case "e":
                         player.Move(Direction.East);
                         break;
+                    case "climb":
                     case "up":
                         player.Move(Direction.Up);
                         break;
@@ -165,6 +166,57 @@ namespace zrok{
                         break;
                     default:
                         Console.WriteLine($"I don't know how to {wt.GetWord()} a {wt2.GetWord()}!");
+                        break;
+                }
+            }
+        }
+
+        public void ProcessVerbVerbVerb(List<WordAndType> WordAndType)
+        {
+            WordAndType wt = WordAndType[0];
+            WordAndType wt2 = WordAndType[1];
+            WordAndType wt3 = WordAndType[2];
+            if (wt.GetType() != WordType.VERB)
+            {
+                Console.WriteLine($"Can't do this because '{wt.GetWord()}' is not a command!");
+            }
+            else if (wt2.GetType() != WordType.VERB)
+            {
+                Console.WriteLine($"Can't do this because '{wt2.GetWord()}' is not a direction!");
+            }
+            else if(wt3.GetType() != WordType.VERB)
+            {
+                Console.WriteLine($"Can't do this because '{wt2.GetWord()}' is not a direction!");
+            }
+            else
+            {
+                switch (wt.GetWord())
+                {
+                    case "move":
+                        if (wt2.GetWord() == "north" || wt2.GetWord() == "n")
+                        {
+                            if (wt3.GetWord() == "east" || wt3.GetWord() == "e")
+                            {
+                                player.Move(Direction.NorthEast);
+                            }
+                            else if (wt3.GetWord() == "west" || wt3.GetWord() == "w")
+                            {
+                                player.Move(Direction.NorthWest);
+                            }
+
+                        }
+                        else if (wt2.GetWord() == "south" || wt2.GetWord() == "s")
+                        {
+                            if (wt3.GetWord() == "east" || wt3.GetWord() == "e")
+                            {
+                                player.Move(Direction.SouthEast);
+                            }
+                            else if (wt3.GetWord() == "west" || wt3.GetWord() == "w")
+                            {
+                                player.Move(Direction.SouthWest);
+                            }
+
+                        }
                         break;
                 }
             }
@@ -250,32 +302,6 @@ namespace zrok{
                 {
                     case "lookat":
                         //LookAtOb(wt3.Word);
-                        break;
-                    case "move":
-                        if (wt2.GetWord() == "North" || wt2.GetWord() == "n")
-                        {
-                            if (wt3.GetWord() == "East" || wt3.GetWord() == "e")
-                            {
-                                player.Move(Direction.NorthEast);
-                            }
-                            else if (wt3.GetWord() == "west" || wt3.GetWord() == "w")
-                            {
-                                player.Move(Direction.NorthWest);
-                            }
-                            
-                        }
-                        else if (wt2.GetWord() == "South" || wt2.GetWord() == "s")
-                        {
-                            if (wt3.GetWord() == "East" || wt3.GetWord() == "e")
-                            {
-                                player.Move(Direction.SouthEast);
-                            }
-                            else if (wt3.GetWord() == "west" || wt3.GetWord() == "w")
-                            {
-                                player.Move(Direction.SouthWest);
-                            }
-
-                        }
                         break;
                     default:
                         Console.WriteLine($"I don't know how to {wt.GetWord()} {wt2.GetWord()} a {wt3.GetWord()}!");
