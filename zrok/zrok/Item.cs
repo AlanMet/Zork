@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace zrok
     {
         private string Name;
         private string Description;
+        private string Sound = null;
 
         public Item(string name, string description)
         {
@@ -17,10 +19,14 @@ namespace zrok
             Description = description;
         }
 
-        public Item(string name, string description, int health)
+        public string GetName()
         {
-            Name = name;
-            Description = description;
+            return Name;
+        }
+
+        public string GetDescription()
+        {
+            return Description;
         }
     }
 }

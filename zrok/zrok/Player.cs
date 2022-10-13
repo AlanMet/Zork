@@ -28,7 +28,7 @@ namespace zrok
             return null;
         }
 
-        public Room Setup(string filename)
+        private Room Setup(string filename)
         {
             Room room;
             if (filename != "")
@@ -54,6 +54,7 @@ namespace zrok
                 Room RockyLedge = new Room("Rocky Ledge", "");
                 Room CanyonBottom = new Room("Canyon Bottom", "");
                 Room EndOfRainbow = new Room("End of Rainbow", "");
+                Room Kitchen = new Room("Kitchen", "");
 
                 //west of house exits
                 WestOfHouse.AddExit(Direction.North, NorthOfHouse);
