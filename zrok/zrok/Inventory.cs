@@ -27,6 +27,23 @@ namespace zrok
             }
         }
 
+        public Item Remove(string name)
+        {
+            foreach (Item item in items)
+            {
+                if (item.GetName() == name)
+                {
+                    return item;
+                }
+            }
+            Console.WriteLine("You don't have that item on you");
+            return null;
+        }
+
+        public int GetSize()
+        {
+            return items.Count;
+        }
 
 
     }
