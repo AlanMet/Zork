@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace zrok
 {
-    class Item
+    public class Item
     {
         private string Name;
         private string Description;

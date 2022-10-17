@@ -11,12 +11,14 @@ namespace zrok
         private string Name;
         private string Description;
         private Dictionary<Direction, Room> Exits;
+        private List<Item> items;
 
         public Room(string name, string description)
         {
             Name = name;
             Description = description;
             Exits = new Dictionary<Direction, Room>();
+            items = new List<Item>();
         }
 
         public void AddExit(Direction direction, Room room)
@@ -42,6 +44,35 @@ namespace zrok
         public void Describe()
         {
             Console.WriteLine($"{this.Name}, \n{this.Description}");
+        }
+
+        public void AddItem(Item Object)
+        {
+            items.Add(Object);
+        }
+
+        public Item RemoveItem(String Object) 
+        {
+            bool found = false;
+            Item founditem = null;
+            foreach (var item in items)
+            {
+                if (item.GetName() == Object)
+                {
+                    found = true;
+                    founditem = item;
+                }
+            }
+            if (found)
+            {
+                items.Remove(founditem);
+                return founditem;
+            }
+            else
+            {
+                Console.WriteLine("This Item is not in this room");
+                return founditem;
+            }
         }
     }
 }

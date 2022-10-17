@@ -110,5 +110,10 @@ namespace zrok
         {
 
         }
+
+        public void DropObject(string Object)
+        {
+
+        }
     }
 }

@@ -150,7 +150,8 @@ namespace zrok{
                         player.TakeObject(wt2.GetWord());
                         break;
                     case "drop":
-                        //DropOb(wt2.Word);
+                        player.
+                        player.DropObject(wt2.GetWord());
                         break;
                     case "open":
                         //OpenOb(wt2.Word);

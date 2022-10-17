@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -38,6 +39,18 @@ namespace zrok
             }
             Console.WriteLine("You don't have that item on you");
             return null;
+        }
+
+        public bool find(string name)
+        {
+            foreach (var item in items)
+            {
+                if (item.GetName() == name)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public int GetSize()

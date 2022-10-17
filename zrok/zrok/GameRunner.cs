@@ -13,13 +13,7 @@ namespace zrok
         public GameRunner()
         {
             adv = new Adventure();
-            Login();
             StartGame();
-        }
-
-        public void Login()
-        {
-            return;
         }
 
         private void StartGame()
