@@ -10,6 +10,7 @@ namespace zrok
     {
         private string Name;
         private string Description;
+        private bool Underground = false;
         private Dictionary<Direction, Room> Exits;
         private List<Item> items;
 
@@ -19,6 +20,15 @@ namespace zrok
             Description = description;
             Exits = new Dictionary<Direction, Room>();
             items = new List<Item>();
+        }
+
+        public Room(string name, string description, bool underground)
+        {
+            Name = name;
+            Description = description;
+            Exits = new Dictionary<Direction, Room>();
+            items = new List<Item>();
+            Underground = underground;
         }
 
         public void AddExit(Direction direction, Room room)

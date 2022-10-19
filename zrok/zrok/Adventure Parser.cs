@@ -150,11 +150,10 @@ namespace zrok{
                         player.TakeObject(wt2.GetWord());
                         break;
                     case "drop":
-                        player.
                         player.DropObject(wt2.GetWord());
                         break;
                     case "open":
-                        //OpenOb(wt2.Word);
+                        //player.OpenOb(wt2.Word);
                         break;
                     case "close":
                         //CloseOb(wt2.Word);
@@ -165,6 +164,8 @@ namespace zrok{
                     case "push":
                         //PushOb(wt2.Word);
                         break;
+                    case "move":
+                        //MoveOb(w2.Word)
                     default:
                         Console.WriteLine($"I don't know how to {wt.GetWord()} a {wt2.GetWord()}!");
                         break;
