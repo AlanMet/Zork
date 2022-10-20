@@ -12,7 +12,7 @@ namespace zrok
         int maxitems = 8;
         List<Item> items;
 
-        public void Add(Item item)
+        public bool Add(Item item)
         {
             if (items.Count >= maxitems)
             {
@@ -20,11 +20,17 @@ namespace zrok
                 if (random.Next(0,100)>=80)
                 {
                     items.Add(item);
+                    return true;
+                }
+                else
+                {
+                    return false;
                 }
             }
             else
             {
                 items.Add(item);
+                return true;
             }
         }
 

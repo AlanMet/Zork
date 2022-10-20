@@ -13,19 +13,13 @@ namespace zrok
 
         public Player()
         {
-            Setup();
+            room = Setup();
             Inventory = new Inventory();
         }
 
         public Room GetRoom()
         {
             return room;
-        }
-
-        public Room SetupFromFile(string filename)
-        {
-            //create map using file
-            return null;
         }
 
         private Room Setup()
@@ -79,6 +73,23 @@ namespace zrok
             CanyonView.AddExit(Direction.South, Forest3);
             CanyonView.AddExit(Direction.NorthWest, BehindHouse);
 
+            //underground
+            Room Cellar= new Room("Cellar", "");
+            Room  EastOfChasmRoom = new Room("East of Chasm", "");
+            Room Gallery= new Room("", "");
+            Room Studio= new Room("", "");
+            Room StrangePassage= new Room("", "");
+            Room CyclopsRoom= new Room("", "");
+            Room TreasureRoom= new Room("", "");
+            Room TrollRoom= new Room("", "");
+            Room EastWestPassage= new Room("", "");
+            Room RoundRoom= new Room("", "");
+            Room NarrowPassage= new Room("", "");
+            Room SouthMirrorRoom= new Room("", "");
+            Room WindingPassage= new Room("", "");
+            Room Cave= new Room("", "");
+            Room EntranceToHades= new Room("", "");
+
 
             return WestOfHouse;
         }
@@ -99,8 +110,18 @@ namespace zrok
 
         public void TakeObject(string Object)
         {
-            this.Inventory.Add(this.room.RemoveItem(Object));
-            Console.WriteLine("Taken");
+            Item item = this.room.RemoveItem(Object);
+
+            bool confirmed = this.Inventory.Add(item);
+            if (confirmed)
+            {
+                Console.WriteLine("Taken");
+            }
+            else
+            {
+                Console.WriteLine("You are holding too many items");
+            }
+
         }
 
         public void DropObject(string Object)

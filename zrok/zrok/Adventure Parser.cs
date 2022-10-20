@@ -153,7 +153,7 @@ namespace zrok{
                         player.DropObject(wt2.GetWord());
                         break;
                     case "open":
-                        //player.OpenOb(wt2.Word);
+                        //zplayer.OpenOb(wt2.Word);
                         break;
                     case "close":
                         //CloseOb(wt2.Word);
@@ -168,6 +168,15 @@ namespace zrok{
                         //MoveOb(w2.Word)
                     default:
                         Console.WriteLine($"I don't know how to {wt.GetWord()} a {wt2.GetWord()}!");
+                        break;
+                }
+                switch (wt.GetWord() + wt2.GetWord())
+                {
+                    case "takeall":
+                        //LookAtOb(wt3.Word);
+                        break;
+                    default:
+                        Console.WriteLine($"I don't know how to {wt.GetWord()} {wt2.GetWord()}!");
                         break;
                 }
             }
@@ -282,7 +291,6 @@ namespace zrok{
                 }
             }
         }
-
 
         public void ProcessVerbPrepositionNoun(List<WordAndType> WordAndType)
         {
@@ -404,7 +412,6 @@ namespace zrok{
             //second check, valid words? process
             //third check, valid combination? run type
             //run command
-
 
             char[] Delims = { ' ', '.' };
             List<string> StringList;
