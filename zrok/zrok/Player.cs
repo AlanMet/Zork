@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace zrok
 {
-    class Player
+    public class Player
     {
         private Room room;
         private Inventory Inventory;
@@ -20,6 +22,11 @@ namespace zrok
         public Room GetRoom()
         {
             return room;
+        }
+
+        public Inventory GetInventory()
+        {
+            return Inventory;
         }
 
         private Room Setup()
@@ -124,12 +131,40 @@ namespace zrok
 
         }
 
+        public void TakeAll()
+        {
+            int count = 0;
+            foreach (Item value in room.GetItems())
+            {
+                Item item = this.room.RemoveItem(value.GetName());
+
+                bool confirmed = this.Inventory.Add(item);
+                if (confirmed)
+                {
+                    count++;
+                    Console.WriteLine($"Taken {value.GetName()}");
+                }
+                else
+                {
+                    Console.WriteLine("You are holding too many items");
+                    Console.WriteLine($"Took {count} items");
+                    return;
+                }
+            }
+        }
+
         public void DropObject(string Object)
         {
             this.room.AddItem(this.Inventory.Remove(Object));
             Console.WriteLine("Dropped");
         }
 
+        public void LookAt(string Object)
+        {
+            if (Object == room.GetName())
+            {
 
+            }
+        }
     }
 }

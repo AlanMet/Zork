@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace zrok
 {
-    class Inventory
+    public class Inventory
     {
         int maxitems = 8;
         List<Item> items;
@@ -64,6 +64,18 @@ namespace zrok
             return items.Count;
         }
 
+        public int GetTreasureCount()
+        {
+            int count = 0;
+            foreach (var item in items)
+            {
+                if (item.IsTreasure())
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
 
     }
 }

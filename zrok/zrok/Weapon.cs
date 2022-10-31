@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace zrok
 {
-    class Weapon : Item
+    public class Weapon : Item
     {
         private int Damage;
         

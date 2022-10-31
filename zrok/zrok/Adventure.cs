@@ -22,6 +22,11 @@ namespace zrok
             player.GetRoom().Describe();
         }
 
+        public Player GetPlayer()
+        {
+            return this.player;
+        }
+
         //commands
         //move
         //look

@@ -56,6 +56,11 @@ namespace zrok
             Console.WriteLine($"{this.Name}, \n{this.Description}");
         }
 
+        public List<Item> GetItems()
+        {
+            return items;
+        }
+
         public void AddItem(Item Object)
         {
             items.Add(Object);
@@ -83,6 +88,11 @@ namespace zrok
                 Console.WriteLine("This Item is not in this room");
                 return founditem;
             }
+        }
+
+        public bool IsUnderground()
+        {
+            return Underground;
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace zrok
 {
-    class GameRunner
+    public class GameRunner
     {
         Adventure adv;
 
@@ -22,6 +22,10 @@ namespace zrok
             do
             {
                 adv.Describe();
+                if (adv.GetPlayer().GetRoom().IsUnderground() && adv.GetPlayer().GetInventory().GetTreasureCount() > 0)
+                {
+                    //Thief thief = new Thief(100 );
+                }
                 Console.Write("> ");
                 input = Console.ReadLine().ToLower();
                 adv.ParseCommand(input);

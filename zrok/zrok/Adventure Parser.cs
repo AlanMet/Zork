@@ -153,7 +153,8 @@ namespace zrok{
                         player.DropObject(wt2.GetWord());
                         break;
                     case "open":
-                        //zplayer.OpenOb(wt2.Word);
+                        //check for containers
+                        //player.OpenOb(wt2.Word);
                         break;
                     case "close":
                         //CloseOb(wt2.Word);
@@ -164,8 +165,6 @@ namespace zrok{
                     case "push":
                         //PushOb(wt2.Word);
                         break;
-                    case "move":
-                        //MoveOb(w2.Word)
                     default:
                         Console.WriteLine($"I don't know how to {wt.GetWord()} a {wt2.GetWord()}!");
                         break;
@@ -173,7 +172,7 @@ namespace zrok{
                 switch (wt.GetWord() + wt2.GetWord())
                 {
                     case "takeall":
-                        //LookAtOb(wt3.Word);
+                        player.TakeAll();
                         break;
                     default:
                         Console.WriteLine($"I don't know how to {wt.GetWord()} {wt2.GetWord()}!");
@@ -311,7 +310,7 @@ namespace zrok{
                 switch (wt.GetWord() + wt2.GetWord())
                 {
                     case "lookat":
-                        //LookAtOb(wt3.Word);
+                        Player.LookAt(wt3.GetWord());
                         break;
                     default:
                         Console.WriteLine($"I don't know how to {wt.GetWord()} {wt2.GetWord()} a {wt3.GetWord()}!");

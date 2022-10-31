@@ -12,11 +12,19 @@ namespace zrok
         private string Name;
         private string Description;
         private string Sound = null;
+        private bool Treasure = false;
 
         public Item(string name, string description)
         {
             Name = name;
             Description = description;
+        }
+
+        public Item(string name, string description, bool treasure)
+        {
+            Name = name;
+            Description = description;
+            Treasure = treasure;
         }
 
         public string GetName()
@@ -27,6 +35,11 @@ namespace zrok
         public string GetDescription()
         {
             return Description;
+        }
+
+        public bool IsTreasure()
+        {
+            return Treasure;
         }
     }
 }
