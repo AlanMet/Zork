@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace zrok{
@@ -26,6 +27,8 @@ namespace zrok{
             Vocab.Add("u", WordType.VERB);
             Vocab.Add("up", WordType.VERB);
             Vocab.Add("n", WordType.VERB);
+            Vocab.Add("down", WordType.VERB);
+            Vocab.Add("d", WordType.VERB);
             Vocab.Add("north", WordType.VERB);
             Vocab.Add("ne", WordType.VERB);
             Vocab.Add("northeast", WordType.VERB);
@@ -42,13 +45,17 @@ namespace zrok{
             Vocab.Add("nw", WordType.VERB);
             Vocab.Add("northwest", WordType.VERB);
             Vocab.Add("go", WordType.VERB);
+            Vocab.Add("move", WordType.VERB);
             Vocab.Add("look", WordType.VERB);
+            Vocab.Add("climb", WordType.VERB);
             Vocab.Add("inventory", WordType.VERB);
 
 
             //nouns 
             Vocab.Add("mailbox", WordType.NOUN);
             Vocab.Add("box", WordType.NOUN);
+            Vocab.Add("room", WordType.NOUN);
+            Vocab.Add("sword", WordType.NOUN);
 
             //adjectives
 
@@ -61,8 +68,6 @@ namespace zrok{
             Vocab.Add("at", WordType.NOUN);
             Vocab.Add("to", WordType.NOUN);
             Vocab.Add("in", WordType.NOUN);
-            Vocab.Add("down", WordType.NOUN);
-            Vocab.Add("up", WordType.NOUN);
             Vocab.Add("under", WordType.NOUN);
 
             //pronouns
@@ -87,42 +92,63 @@ namespace zrok{
                 {
                     case "i":               
                     case "inventory":
-                        //ShowInventory();
+                        player.ShowInventory();
                         break;
                     case "describe":
                     case "look":
                         player.GetRoom().Describe();
                         break;
+                    case "north":
                     case "n":
                         player.Move(Direction.North);
                         break;
+                    case "northeast":
                     case "ne":
                         player.Move(Direction.NorthEast);
                         break;
+                    case "northwest":
                     case "nw":
                         player.Move(Direction.NorthWest);
                         break;
+                    case "south":
                     case "s":
                         player.Move(Direction.South);
                         break;
+                    case "southwest":
                     case "sw":
                         player.Move(Direction.SouthWest);
                         break;
+                    case "southeast":
                     case "se":
                         player.Move(Direction.SouthEast);
                         break;
+                    case "west":
                     case "w":
                         player.Move(Direction.West);
                         break;
+                    case "east":
                     case "e":
                         player.Move(Direction.East);
                         break;
                     case "climb":
                     case "up":
+                    case "u":
                         player.Move(Direction.Up);
                         break;
                     case "down":
+                    case "d":
                         player.Move(Direction.Down);
+                        break;
+                    case "restart":
+                        Console.WriteLine("Are you sure? y/n ");
+                        string choice = Console.ReadKey().ToString().ToLower();
+                        if (choice == "y")
+                        {
+                            //restart();
+                        }
+                        else
+                        {
+                        }
                         break;
                     default:
                         Console.WriteLine($"Sorry, I can't {wt.GetWord()}!");
@@ -202,6 +228,7 @@ namespace zrok{
             {
                 switch (wt.GetWord())
                 {
+                    case "go":
                     case "move":
                         if (wt2.GetWord() == "north" || wt2.GetWord() == "n")
                         {
@@ -284,6 +311,32 @@ namespace zrok{
                                 break;
                         };
                         break;
+                    case "south":
+                        switch (wt2.GetWord())
+                        {
+                            case "east":
+                                player.Move(Direction.SouthEast);
+                                break;
+                            case "west":
+                                player.Move(Direction.SouthWest);
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case "north":
+                        switch (wt2.GetWord())
+                        {
+                            case "east":
+                                player.Move(Direction.NorthEast);
+                                break;
+                            case "west":
+                                player.Move(Direction.NorthWest);
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
                     default:
                         Console.WriteLine($"I don't know how to {wt.GetWord()} {wt2.GetWord()}!");
                         break;
@@ -310,7 +363,7 @@ namespace zrok{
                 switch (wt.GetWord() + wt2.GetWord())
                 {
                     case "lookat":
-                        Player.LookAt(wt3.GetWord());
+                        player.LookAt(wt3.GetWord());
                         break;
                     default:
                         Console.WriteLine($"I don't know how to {wt.GetWord()} {wt2.GetWord()} a {wt3.GetWord()}!");
@@ -354,6 +407,7 @@ namespace zrok{
 
         public void RunCommand(List<WordAndType> WordAndType)
         {
+            //runs based on length 
             int length = WordAndType.Count;
             if (length == 1)
             {
@@ -362,12 +416,26 @@ namespace zrok{
             else if (length == 2)
             {
                 //check if second word is a direction
-
-                ProcessVerbNoun(WordAndType);
+                if (WordAndType[1].GetType() == WordType.NOUN)
+                {
+                    ProcessVerbNoun(WordAndType);
+                }
+                else
+                {
+                    ProcessVerbVerb(WordAndType);
+                } 
             }
             else if (length == 3)
             {
-                ProcessVerbPrepositionNoun(WordAndType);
+                if (WordAndType[1].GetType() == WordType.VERB && WordAndType[2].GetType() == WordType.VERB)
+                {
+                    ProcessVerbVerbVerb(WordAndType);
+                }
+                else
+                {
+                    ProcessVerbPrepositionNoun(WordAndType);
+                }
+                
             }
             else if (length == 4)
             {

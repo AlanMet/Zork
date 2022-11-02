@@ -14,7 +14,7 @@ namespace zrok
         Inventory inventory;
         int Health;
 
-        public Thief(int health, ref Player)
+        public Thief(int health, ref Player player)
         {
             inventory = new Inventory();
             Health = health;

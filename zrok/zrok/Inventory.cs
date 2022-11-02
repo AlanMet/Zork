@@ -12,6 +12,11 @@ namespace zrok
         int maxitems = 8;
         List<Item> items;
 
+        public Inventory()
+        {
+            items = new List<Item>();
+        }
+
         public bool Add(Item item)
         {
             if (items.Count >= maxitems)
@@ -31,6 +36,22 @@ namespace zrok
             {
                 items.Add(item);
                 return true;
+            }
+        }
+
+        public void Show()
+        {
+            if (items.Count == 0)
+            {
+                Console.WriteLine("Your inventory does not contain any items");
+            }
+            else
+            {
+                Console.WriteLine("Inventory contains: ");
+                foreach (var item in items)
+                {
+                    Console.WriteLine(item.GetName());
+                }
             }
         }
 
