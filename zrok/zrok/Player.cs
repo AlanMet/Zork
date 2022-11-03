@@ -33,22 +33,24 @@ namespace zrok
         {
             //above ground
             Room WestOfHouse = new Room("West of House", "You are standing in an open field west of a white house, with a boarded front door.");
-            Room SouthOfHouse = new Room("South Of House", "");
-            Room BehindHouse = new Room("Behind House", "");
-            Room NorthOfHouse = new Room("North Of House", "");
-            Room ForestPath = new Room("Forest Path", "");
-            Room UpaTree = new Room("Up a Tree", "");
-            Room Clearing1 = new Room("Clearing", "");
-            Room Clearing2 = new Room("Clearing", "");
-            Room Forest1 = new Room("Forest", "");
-            Room Forest2 = new Room("Forest", "");
-            Room Forest3 = new Room("Forest", "");
-            Room Forest4 = new Room("Forest", "");
-            Room CanyonView = new Room("Canyon View", "");
-            Room RockyLedge = new Room("Rocky Ledge", "");
-            Room CanyonBottom = new Room("Canyon Bottom", "");
-            Room EndOfRainbow = new Room("End of Rainbow", "");
-            Room Kitchen = new Room("Kitchen", "");
+            Room SouthOfHouse = new Room("South Of House", "You are facing the south side of a white house. There is no door here and all the windows are boarded.");
+            Room BehindHouse = new Room("Behind House", "You are behind the white house. A path leads to the forest to the east. In one corner of the house there is a small window which is slightly ajar.");
+            Room NorthOfHouse = new Room("North Of House", "You are facing the north side of a white house. There is no door here, and all the windows are boarded up. To the north a narrow path winds through thre trees.");
+            Room ForestPath = new Room("Forest Path", "This is a path winding through a dimly lit forest. The path heads north-south here. One particularly large tree with some low branches stands at the edge of the path.");
+            Room UpaTree = new Room("Up a Tree", "You are about 10 feet above the ground nestled among some large branches. The nearest branch above you is above your reach.");
+            Room Clearing1 = new Room("Clearing", "You are in a clearing, with a forest surrounding you on all sides. A path leads south.");
+            Room Clearing2 = new Room("Clearing", "You are in a small clearing in a well marked forest path that extends to the east and west.");
+            Room Forest1 = new Room("Forest", "This is a forest, with trees in all directions. To the east there appears to be sunlight.");
+            Room Forest2 = new Room("Forest", "This is a dimly lit forest, with large trees all around.");
+            Room Forest3 = new Room("Forest", "This is a dimly lit forest, with large trees all around.");
+            Room Forest4 = new Room("Forest", "The forest thins out, revealing impassable mountains ");
+            Room CanyonView = new Room("Canyon View", "You are at the top of the Great Canyon on its west wall. From here there is a marvelous view of the canyon and parts of the Frigid river upstream. Across the canyon, the walls of the White Cliffs join the mighty ramparts of the Flathead mountains to the east. Following the Canyon upstream to the north, Aragain Falls may be seen complete with a rainbow. The might Frigid River flows out from a great dark cavern. To the west and south can be seen an immense forest stretching for miles around. A path leads northwest. It is possible to climb down into the canyon from here.");
+            Room RockyLedge = new Room("Rocky Ledge", "You are on a ledge halfway up the wall of the river canyon. You can see from here yjay yje main flow from Argain falls twists with along a passage which it is impossible to for you to enter. Below you is the canyon bottom. Above you is more cliff, which appears climbable.");
+            Room CanyonBottom = new Room("Canyon Bottom", "You are beneath the walls of the river canyon which may be climbable here. The lesser part of the runoff of Argain Falls flows by below. To the north is a narrow path.");
+            Room EndOfRainbow = new Room("End of Rainbow", "You are on a small, rocky beach on the continuation of the Frigid River past the Falls. The beach is narrow due to the presence of the White Cliffs. the river canyon opens here and the sunlight shines in from above. A rainbow crosses over the falls the east and a narrow path continues to the southwest.");
+            Room Kitchen = new Room("Kitchen", "You are in the kitchen of the white house. A table seems to have been used recently for the preparation of food. A passage leads to the west and a dark staircase can be seen leading upward. A dark chimney leads down and to the east is a small window which is {state}");
+            Room LivingRoom = new Room("Living Room", "You are in the living room. There is a doorway to the east, a wooden door with strange gothic lettering to the west, which appears to be nailed shut, a trophy case, and a large oriental rug is in the center of the room.");
+            Room Cellar = new Room("Attic","This is the attic. The only exit is a stairway leading down.");
 
             //underground
             Room Cellar= new Room("Cellar", "");

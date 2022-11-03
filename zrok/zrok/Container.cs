@@ -13,7 +13,7 @@ namespace zrok
 
         List<Item> items;
 
-        public Container(string name, string description):base(name, description)
+        public Container(string name, string description, bool treasure):base(name, description, treasure)
         {
             items = new List<Item>();
             Opened = false;

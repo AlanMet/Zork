@@ -11,6 +11,7 @@ namespace zrok
     {
         private string Name;
         private string Description;
+        private string State;
         private string Sound = null;
         private bool Treasure = false;
 
