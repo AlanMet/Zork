@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace zrok
 {
+    [Serializable]
     public class WordAndType
     {
         private string Word;

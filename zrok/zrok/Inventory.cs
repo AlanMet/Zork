@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace zrok
 {
+    [Serializable]
     public class Inventory
     {
         int maxitems = 8;
@@ -50,7 +51,7 @@ namespace zrok
                 Console.WriteLine("Inventory contains: ");
                 foreach (var item in items)
                 {
-                    Console.WriteLine(item.GetName());
+                    Console.WriteLine(item.GetName() + item.GetState());
                 }
             }
         }

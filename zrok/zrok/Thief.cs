@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace zrok
 {
+    [Serializable]
     public class Thief
     {
         //The thief is a dangerous man who may kill you and steal your belongings. He wanders around the dungeon with his brief case,

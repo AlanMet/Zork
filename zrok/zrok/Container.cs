@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace zrok
 {
+    [Serializable]
     public class Container: Item
     {
         private bool Opened;

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace zrok
 {
+    [Serializable]
     public class Player
     {
         private Room room;
@@ -53,7 +54,6 @@ namespace zrok
             Room Cellar = new Room("Attic","This is the attic. The only exit is a stairway leading down.");
 
             //underground
-            Room Cellar= new Room("Cellar", "");
             Room EastOfChasmRoom = new Room("East of Chasm", "");
             Room Gallery= new Room("", "");
             Room Studio= new Room("", "");

@@ -365,6 +365,13 @@ namespace zrok{
                     case "lookat":
                         player.LookAt(wt3.GetWord());
                         break;
+
+                    case "turnon":
+                        //player.TurnOn(wt3.GetWord());
+                        break;
+                    case "turnoff":
+                        //player.TurnOff(wt3.GetWord());
+                        break;
                     default:
                         Console.WriteLine($"I don't know how to {wt.GetWord()} {wt2.GetWord()} a {wt3.GetWord()}!");
                         break;

@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace zrok
 {
+    [Serializable]
     public class Item
     {
         private string Name;
         private string Description;
-        private string State;
+        private string State = "";
         private string Sound = null;
         private bool Treasure = false;
 
@@ -41,6 +42,16 @@ namespace zrok
         public bool IsTreasure()
         {
             return Treasure;
+        }
+
+        public string GetState()
+        {
+            return State;
+        }
+
+        public void ChangeState(string state)
+        {
+            State = state;
         }
     }
 }
