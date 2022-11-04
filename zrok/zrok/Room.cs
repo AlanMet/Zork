@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace zrok
         private string Name;
         private string Description;
         private bool Underground = false;
+        private bool Entered = false;
         private Dictionary<Direction, Room> Exits;
         private List<Item> items;
 
@@ -57,6 +59,11 @@ namespace zrok
             Console.WriteLine($"{this.Name}, \n{this.Description}");
         }
 
+        public void SimpleDescribe()
+        {
+            Console.WriteLine($"{this.Name}");
+        }
+
         public List<Item> GetItems()
         {
             return items;
@@ -94,6 +101,16 @@ namespace zrok
         public bool IsUnderground()
         {
             return Underground;
+        }
+
+        public void entered()
+        {
+            Entered = true;
+        }
+
+        public bool GetEntered()
+        {
+            return Entered;
         }
     }
 }

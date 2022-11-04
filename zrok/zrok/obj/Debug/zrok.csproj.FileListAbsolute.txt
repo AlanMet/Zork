@@ -27,3 +27,11 @@ C:\Users\alanm\Documents\GitHub\Zork-exe\zrok\zrok\obj\Debug\zrok.pdb
 C:\Users\alanm\Documents\GitHub\Zork-exe\zrok\zrok\bin\Debug\zrok.exe.config
 C:\Users\alanm\Documents\GitHub\Zork-exe\zrok\zrok\bin\Debug\zrok.exe
 C:\Users\alanm\Documents\GitHub\Zork-exe\zrok\zrok\bin\Debug\zrok.pdb
+G:\Zork-exe\zrok\zrok\bin\Debug\zrok.exe.config
+G:\Zork-exe\zrok\zrok\bin\Debug\zrok.exe
+G:\Zork-exe\zrok\zrok\bin\Debug\zrok.pdb
+G:\Zork-exe\zrok\zrok\obj\Debug\zrok.csproj.AssemblyReference.cache
+G:\Zork-exe\zrok\zrok\obj\Debug\zrok.csproj.SuggestedBindingRedirects.cache
+G:\Zork-exe\zrok\zrok\obj\Debug\zrok.csproj.CoreCompileInputs.cache
+G:\Zork-exe\zrok\zrok\obj\Debug\zrok.exe
+G:\Zork-exe\zrok\zrok\obj\Debug\zrok.pdb

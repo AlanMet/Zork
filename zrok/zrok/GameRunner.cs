@@ -25,6 +25,7 @@ namespace zrok
             do
             {
                 adv.Describe();
+                adv.GetPlayer().GetRoom().entered();
                 if (adv.GetPlayer().GetRoom().IsUnderground() && adv.GetPlayer().GetInventory().GetTreasureCount() > 0)
                 {
                     //Thief thief = new Thief(100 );

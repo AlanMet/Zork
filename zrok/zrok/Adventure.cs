@@ -20,7 +20,14 @@ namespace zrok
 
         public void Describe()
         {
-            player.GetRoom().Describe();
+            if (player.GetRoom().GetEntered())
+            {
+                player.GetRoom().SimpleDescribe();
+            }
+            else
+            {
+                player.GetRoom().Describe();
+            }
         }
 
         public Player GetPlayer()
