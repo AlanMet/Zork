@@ -150,10 +150,16 @@ namespace zrok
             Room DeadEnd4 = new Room("", "");//up maze12
 
 
-            //west of house exits
+            //west of house exits and items
             WestOfHouse.AddExit(Direction.North, NorthOfHouse);
             WestOfHouse.AddExit(Direction.West, Forest1);
             WestOfHouse.AddExit(Direction.South, SouthOfHouse);
+
+            Item leaflet = new Item("Leaflet", "'Welcome To Zork!'\n\n Zork is a game of adventure and danger, and low cunnin. In it you will explore some of the most amazing territory ever seen by mortals. No comuter should be without one! ");
+            Container mailbox = new Container("mailbox", "mailbox");
+
+            WestOfHouse.AddItem(mailbox);
+
 
             //north of house exits
             NorthOfHouse.AddExit(Direction.North, ForestPath);
@@ -317,6 +323,18 @@ namespace zrok
                 Console.WriteLine("You are holding too many items");
             }
 
+        }
+
+        public void OpenObject(string Object)
+        {
+            Console.WriteLine("hi?");
+            foreach (var item in room.GetItems())
+            {
+                if (item.GetType() == typeof(Container))
+                {
+                    Console.WriteLine(item.GetName() + " is a container");
+                }
+            }
         }
 
         public void TakeAll()

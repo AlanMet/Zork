@@ -49,6 +49,7 @@ namespace zrok{
             Vocab.Add("look", WordType.VERB);
             Vocab.Add("climb", WordType.VERB);
             Vocab.Add("inventory", WordType.VERB);
+            Vocab.Add("open", WordType.VERB);
 
 
             //nouns 
@@ -180,8 +181,8 @@ namespace zrok{
                         break;
                     case "open":
                         //check for containers
-                        //player.OpenOb(wt2.Word);
-                        break;
+                        player.OpenObject(wt2.GetWord());
+                        return;
                     case "close":
                         //CloseOb(wt2.Word);
                         break;

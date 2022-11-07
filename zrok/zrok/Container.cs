@@ -14,7 +14,13 @@ namespace zrok
 
         List<Item> items;
 
-        public Container(string name, string description, bool treasure):base(name, description, treasure)
+        public Container(string name, string description):base(name, description)
+        {
+            items = new List<Item>();
+            Opened = false;
+        }
+
+        public Container(string name, string description, bool treasure) : base(name, description, treasure)
         {
             items = new List<Item>();
             Opened = false;
@@ -28,6 +34,22 @@ namespace zrok
         public void Close()
         {
             Opened = false;
+        }
+
+        public void AddItem(Item item)
+        {
+            items.Add(item);
+        }
+
+        public void RemoveItem(Item item)
+        {
+            foreach (var Item in items)
+            {
+                if (Item.GetName() == item.GetName())
+                {
+
+                }
+            }
         }
     }
 }
