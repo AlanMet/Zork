@@ -157,8 +157,9 @@ namespace zrok
 
             Item leaflet = new Item("Leaflet", "'Welcome To Zork!'\n\n Zork is a game of adventure and danger, and low cunnin. In it you will explore some of the most amazing territory ever seen by mortals. No comuter should be without one! ");
             Container mailbox = new Container("mailbox", "mailbox");
-
+            mailbox.
             WestOfHouse.AddItem(mailbox);
+
 
 
             //north of house exits
