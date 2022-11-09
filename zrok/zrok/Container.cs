@@ -19,6 +19,7 @@ namespace zrok
             items = new List<Item>();
         }
 
+
         public Container(string name, string description, bool treasure) : base(name, description, treasure)
         {
             items = new List<Item>();
@@ -27,14 +28,28 @@ namespace zrok
 
         public void Open()
         {
-            Opened = true;
-            Console.WriteLine("Closed");
+            if (Opened == true)
+            {
+                Console.WriteLine($"{this.GetName()} is already open.");
+            }
+            else
+            {
+                Opened = true;
+                Console.WriteLine("Opened.");
+            }
         }
 
         public void Close()
         {
-            Opened = false;
-            Console.WriteLine("Opened");
+            if (Opened == false)
+            {
+                Console.WriteLine($"{this.GetName()} is already closed.");
+            }
+            else
+            {
+                Opened = false;
+                Console.WriteLine("Closed.");
+            }
         }
 
         public void AddItem(Item item)

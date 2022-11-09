@@ -50,6 +50,8 @@ namespace zrok{
             Vocab.Add("climb", WordType.VERB);
             Vocab.Add("inventory", WordType.VERB);
             Vocab.Add("open", WordType.VERB);
+            Vocab.Add("close", WordType.VERB);
+            Vocab.Add("take", WordType.VERB);
 
 
             //nouns 
@@ -175,26 +177,29 @@ namespace zrok{
                 {
                     case "take":
                         player.TakeObject(wt2.GetWord());
-                        break;
+                        return;
+                    case "read":
+                        //player.ReadObject(wt2.GetWord());
+                        return;
                     case "drop":
                         player.DropObject(wt2.GetWord());
-                        break;
+                        return;
                     case "open":
                         //check for containers
                         player.OpenObject(wt2.GetWord());
                         return;
                     case "close":
-                        //CloseOb(wt2.Word);
-                        break;
+                        player.CloseObject(wt2.GetWord());
+                        return;
                     case "pull":
                         //PullOb(wt2.Word);
-                        break;
+                        return;
                     case "push":
                         //PushOb(wt2.Word);
-                        break;
+                        return;
                     default:
                         Console.WriteLine($"I don't know how to {wt.GetWord()} a {wt2.GetWord()}!");
-                        break;
+                        return;
                 }
                 switch (wt.GetWord() + wt2.GetWord())
                 {

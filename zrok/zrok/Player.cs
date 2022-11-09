@@ -156,7 +156,8 @@ namespace zrok
             WestOfHouse.AddExit(Direction.South, SouthOfHouse);
 
             Item leaflet = new Item("Leaflet", "'Welcome To Zork!'\n\n Zork is a game of adventure and danger, and low cunnin. In it you will explore some of the most amazing territory ever seen by mortals. No comuter should be without one! ");
-            Container mailbox = new Container("mailbox", "mailbox");
+            Container mailbox = new Container("mailbox", "mailbox", );
+            mailbox.AddSynonym("box");
             WestOfHouse.AddItem(mailbox);
 
 
@@ -314,27 +315,40 @@ namespace zrok
             Item item = this.room.RemoveItem(Object);
 
             bool confirmed = this.Inventory.Add(item);
-            if (confirmed)
+            if (item.GetTakeable())
             {
-                Console.WriteLine("Taken");
+                string dialogue = item.GetTakeableDialogue();
+                if (confirmed)
+                {
+                    Console.WriteLine(dialogue);
+                }
+                else
+                {
+                    Console.WriteLine("You are holding too many items");
+                }
             }
-            else
-            {
-                Console.WriteLine("You are holding too many items");
-            }
-
         }
 
         public void OpenObject(string Object)
         {
-            Console.WriteLine("hi?");
             foreach (var item in room.GetItems())
             {
-                if (item.GetType() == typeof(Container) && item.GetName() == Object)
+                if (item.GetType() == typeof(Container) && item.IsSynonym(Object))
                 {
                     var newitem = (Container)item;
                     newitem.Open();
-                    Console.WriteLine(item.GetName() + " is a container");
+                }
+            }
+        }
+
+        public void CloseObject(string Object)
+        {
+            foreach (var item in room.GetItems())
+            {
+                if (item.GetType() == typeof(Container) && item.IsSynonym(Object))
+                {
+                    var newitem = (Container)item;
+                    newitem.Close();
                 }
             }
         }

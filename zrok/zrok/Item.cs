@@ -11,15 +11,29 @@ namespace zrok
     public class Item
     {
         private string Name;
+        private List<string> Synonyms;
         private string Description;
         private string State = "";
         private string Sound = null;
         private bool Treasure = false;
+        private bool Takeable = true;
+        private string TakeableNegative;
 
         public Item(string name, string description)
         {
             Name = name;
             Description = description;
+            Synonyms = new List<string>();
+        }
+
+        public Item(string name, string description, bool takeable,  string negative)
+        {
+            Name = name;
+            Description = description;
+            Synonyms = new List<string>();
+            takeable = Takeable;
+            TakeableNegative = negative;
+
         }
 
         public Item(string name, string description, bool treasure)
@@ -27,6 +41,60 @@ namespace zrok
             Name = name;
             Description = description;
             Treasure = treasure;
+            Synonyms = new List<string>();
+        }
+
+        public void AddSynonym(string word)
+        {
+            Synonyms.Add(word);
+        }
+        
+        public string GetTakeableDialogue()
+        {
+            if (Takeable)
+            {
+                return "Taken.";
+            }
+            else
+            {
+                return TakeableNegative;
+            }
+        }
+
+        public void SetTakeable()
+        {
+            if (Takeable)
+            {
+                Takeable = false;
+            }
+            else
+            {
+                Takeable = true;
+            }
+        }
+
+        public bool GetTakeable()
+        { 
+            return Takeable;
+        }
+
+        public bool IsSynonym(string word)
+        {
+            if (word == this.GetName())
+            {
+                return true;
+            }
+            else
+            {
+                foreach (var item in Synonyms)
+                {
+                    if (item == word)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
         }
 
         public string GetName()
