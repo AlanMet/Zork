@@ -157,8 +157,10 @@ namespace zrok
 
             
             Item leaflet = new Item("Leaflet", "'Welcome To Zork!'\n\n Zork is a game of adventure and danger, and low cunnin. In it you will explore some of the most amazing territory ever seen by mortals. No comuter should be without one! ");
-            Container mailbox = new Container("mailbox", "mailbox");
+            Container mailbox = new Container("mailbox", "mailbox", false, "It is firmly attached to the ground");
             mailbox.AddSynonym("box");
+            //string name, string description, bool takeable,  string negative
+            mailbox.SetTakeable();
             WestOfHouse.AddItem(mailbox);
 
 
@@ -314,11 +316,10 @@ namespace zrok
         public void TakeObject(string Object)
         {
             Item item = this.room.RemoveItem(Object);
-
+            string dialogue = item.GetTakeableDialogue();
             bool confirmed = this.Inventory.Add(item);
             if (item.GetTakeable())
             {
-                string dialogue = item.GetTakeableDialogue();
                 if (confirmed)
                 {
                     Console.WriteLine(dialogue);
@@ -327,6 +328,11 @@ namespace zrok
                 {
                     Console.WriteLine("You are holding too many items");
                 }
+            }
+            else
+            {
+                
+                Console.WriteLine(dialogue);
             }
         }
 

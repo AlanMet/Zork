@@ -25,6 +25,13 @@ namespace zrok
             items = new List<Item>();
             Opened = false;
         }
+        //string name, string description, bool takeable,  string negative
+        public Container(string name, string description, bool takeable, string negative) : base(name, description, takeable, negative)
+        {
+            items = new List<Item>();
+            Opened = false;
+
+        }
 
         public void Open()
         {
