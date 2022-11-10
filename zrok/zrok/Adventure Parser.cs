@@ -49,6 +49,8 @@ namespace zrok{
             Vocab.Add("look", WordType.VERB);
             Vocab.Add("climb", WordType.VERB);
             Vocab.Add("inventory", WordType.VERB);
+            Vocab.Add("i", WordType.VERB);
+            Vocab.Add("inv", WordType.VERB);
             Vocab.Add("open", WordType.VERB);
             Vocab.Add("close", WordType.VERB);
             Vocab.Add("take", WordType.VERB);
@@ -56,6 +58,7 @@ namespace zrok{
 
             //nouns 
             Vocab.Add("mailbox", WordType.NOUN);
+            Vocab.Add("leaflet", WordType.NOUN);
             Vocab.Add("box", WordType.NOUN);
             Vocab.Add("room", WordType.NOUN);
             Vocab.Add("sword", WordType.NOUN);
@@ -93,7 +96,8 @@ namespace zrok{
             {
                 switch (wt.GetWord())
                 {
-                    case "i":               
+                    case "i":
+                    case "inv":
                     case "inventory":
                         player.ShowInventory();
                         break;
@@ -179,7 +183,7 @@ namespace zrok{
                         player.TakeObject(wt2.GetWord());
                         return;
                     case "read":
-                        //player.ReadObject(wt2.GetWord());
+                        player.LookAt(wt2.GetWord());
                         return;
                     case "drop":
                         player.DropObject(wt2.GetWord());

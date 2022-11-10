@@ -187,8 +187,35 @@ namespace zrok
             Clearing1.AddExit(Direction.North, Forest2);
 
             //canyon view exits
-            CanyonView.AddExit(Direction.South, Forest3);
+            CanyonView.AddExit(Direction.West, Forest3);
             CanyonView.AddExit(Direction.NorthWest, BehindHouse);
+            CanyonView.AddExit(Direction.Down, RockyLedge);
+            
+            //rocky ledge exits
+            RockyLedge.AddExit(Direction.Up, CanyonView);
+            RockyLedge.AddExit(Direction.Down, CanyonBottom);
+
+            //Canyon bottom exits
+            CanyonBottom.AddExit(Direction.Up, RockyLedge);
+            CanyonBottom.AddExit(Direction.North, EndOfRainbow);
+
+
+            //forest 3 exits
+            Forest3.AddExit(Direction.North, Clearing1);
+            Forest3.AddExit(Direction.NorthWest, SouthOfHouse);
+            Forest3.AddExit(Direction.West, Forest1);
+
+            //forest1 exits
+            Forest1.AddExit(Direction.North, Clearing1);
+            Forest1.AddExit(Direction.East, ForestPath);
+            Forest1.AddExit(Direction.South, Forest3);
+
+            //forest path exits
+            ForestPath.AddExit(Direction.South, SouthOfHouse);
+            ForestPath.AddExit(Direction.North , Clearing2);//hmm
+            ForestPath.AddExit(Direction.West , Forest1);
+            ForestPath.AddExit(Direction.East , Forest2);
+            ForestPath.AddExit(Direction.Up , UpaTree);
 
 
             //Maze1 exits
@@ -315,11 +342,28 @@ namespace zrok
 
         public void TakeObject(string Object)
         {
-            Item item = this.room.RemoveItem(Object);
-            string dialogue = item.GetTakeableDialogue();
-            bool confirmed = this.Inventory.Add(item);
-            if (item.GetTakeable())
+            Item newitem;
+            try
             {
+                newitem = this.room.RemoveItem(Object);
+
+            }
+            catch (Exception)
+            {
+                foreach (var item in room.GetItems())
+                {
+                    if (item.GetType() == typeof(Container) && item.IsSynonym(Object))
+                    {
+                        Container container = (Container)item;
+                        newitem = container.RemoveItem(Object);
+                    }
+                }
+                throw;
+            }
+            string dialogue = newitem.GetTakeableDialogue();
+            if (newitem.GetTakeable())
+            {
+                bool confirmed = this.Inventory.Add(newitem);
                 if (confirmed)
                 {
                     Console.WriteLine(dialogue);
@@ -331,7 +375,6 @@ namespace zrok
             }
             else
             {
-                
                 Console.WriteLine(dialogue);
             }
         }

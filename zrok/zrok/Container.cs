@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -42,7 +43,11 @@ namespace zrok
             else
             {
                 Opened = true;
-                Console.WriteLine("Opened.");
+                Console.WriteLine($"{this.GetName()} contains:");
+                foreach (var item in items)
+                {
+                    Console.WriteLine(item.GetName());
+                }
             }
         }
 
@@ -64,15 +69,26 @@ namespace zrok
             items.Add(item);
         }
 
-        public void RemoveItem(Item item)
+        public Item RemoveItem(string Object)
         {
-            foreach (var Item in items)
+            Item item;
+            foreach (var x in items)
             {
-                if (Item.GetName() == item.GetName())
+                if (Object == x.GetName())
                 {
-
+                    item = x;
+                    foreach (var Item in items)
+                    {
+                        if (Item.GetName() == item.GetName())
+                        {
+                            return item;
+                        }
+                    }
+                    Console.WriteLine("that item doesn't exist");
+                    return null;
                 }
             }
+            return null;
         }
     }
 }
