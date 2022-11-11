@@ -159,6 +159,7 @@ namespace zrok
             Item leaflet = new Item("Leaflet", "'Welcome To Zork!'\n\n Zork is a game of adventure and danger, and low cunnin. In it you will explore some of the most amazing territory ever seen by mortals. No comuter should be without one! ");
             Container mailbox = new Container("mailbox", "mailbox", false, "It is firmly attached to the ground");
             mailbox.AddSynonym("box");
+            mailbox.AddItem(leaflet);
             //string name, string description, bool takeable,  string negative
             mailbox.SetTakeable();
             WestOfHouse.AddItem(mailbox);
@@ -342,6 +343,45 @@ namespace zrok
 
         public void TakeObject(string Object)
         {
+            bool found = false;
+            bool confirmed = false;
+            Item newitem;
+
+            foreach (var item in this.room.GetItems())
+            {
+                if (item.GetName() == Object)
+                {
+                    newitem = this.room.RemoveItem(Object);
+                    confirmed = this.Inventory.Add(newitem);
+                    found = true;
+                }
+            }
+
+            if (found && confirmed)
+            {
+                Console.WriteLine("Taken.");
+            }
+            else
+            {
+                foreach (var item in this.room.GetItems())
+                {
+                    if (item.GetType() == typeof(Container))
+                    {
+                        Container buffer = (Container)item;
+                        foreach (var x in buffer.GetItems())
+                        {
+                            if (x.GetName() == Object)
+                            {
+                                newitem = this.room.RemoveItem(Object);
+                                confirmed = this.Inventory.Add(newitem);
+                                found = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+
             Item newitem;
             try
             {
@@ -363,7 +403,7 @@ namespace zrok
             string dialogue = newitem.GetTakeableDialogue();
             if (newitem.GetTakeable())
             {
-                bool confirmed = this.Inventory.Add(newitem);
+                confirmed = this.Inventory.Add(newitem);
                 if (confirmed)
                 {
                     Console.WriteLine(dialogue);

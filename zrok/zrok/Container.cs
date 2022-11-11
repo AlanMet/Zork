@@ -31,7 +31,11 @@ namespace zrok
         {
             items = new List<Item>();
             Opened = false;
+        }
 
+        public List<Item> GetItems()
+        {
+            return items;
         }
 
         public void Open()
@@ -43,10 +47,17 @@ namespace zrok
             else
             {
                 Opened = true;
-                Console.WriteLine($"{this.GetName()} contains:");
-                foreach (var item in items)
+                if (items.Count > 0)
                 {
-                    Console.WriteLine(item.GetName());
+                    Console.WriteLine($"{this.GetName()} contains:");
+                    foreach (var item in items)
+                    {
+                        Console.WriteLine(item.GetName());
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"{this.GetName()} is empty");
                 }
             }
         }

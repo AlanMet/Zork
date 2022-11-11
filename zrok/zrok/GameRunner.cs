@@ -24,6 +24,7 @@ namespace zrok
             string input;
             do
             {
+                Console.WriteLine();
                 adv.Describe();
                 adv.GetPlayer().GetRoom().entered();
                 if (adv.GetPlayer().GetRoom().IsUnderground() && adv.GetPlayer().GetInventory().GetTreasureCount() > 0)
