@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -49,11 +50,22 @@ namespace zrok
                 Opened = true;
                 if (items.Count > 0)
                 {
-                    Console.WriteLine($"{this.GetName()} contains:");
-                    foreach (var item in items)
+                    Console.Write($"You open the {this.GetName()} revealing");
+                    if (items.Count > 1)
                     {
-                        Console.WriteLine(item.GetName());
+                        for (int i = 0; i < items.Count-1; i++)
+                        {
+                            Console.Write(", ");
+                            Console.Write(items[i]);
+                        }
                     }
+                    else
+                    {
+                        Console.Write(", ");
+                        Console.Write(items[0].GetName());
+                    }
+                    
+
                 }
                 else
                 {

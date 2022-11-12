@@ -341,24 +341,58 @@ namespace zrok
             }
         }
 
-        public void TakeObject(string Object)
+        public bool TakeRoomItem(string Object)
         {
-            bool found = false;
+            return true;
+        }
+
+        public void TakeObject(string Object, List<Item> roomitems)
+        {
             bool confirmed = false;
-            Item newitem;
+            bool found = false;
+
+            foreach (var item in roomitems)
+            {
+                if (typeof(Container) == item.GetType())
+                {
+                    Container container = (Container)item;
+                    List<Item> items = container.GetItems();
+                    TakeObject(Object, items);
+                }
+                else
+                {
+                    if (item.GetName() == Object)
+                    {
+                        Item newitem = this.room.RemoveItem(Object);
+                        confirmed = this.Inventory.Add(newitem);
+                        Console.WriteLine("Taken.");
+                    }
+                }
+            }
+
+
+
+
+
+
+
+
+            Item founditem = null;
+
 
             foreach (var item in this.room.GetItems())
             {
                 if (item.GetName() == Object)
                 {
-                    newitem = this.room.RemoveItem(Object);
-                    confirmed = this.Inventory.Add(newitem);
+                    founditem = item;
                     found = true;
                 }
             }
 
             if (found && confirmed)
             {
+                newitem = this.room.RemoveItem(Object);
+                confirmed = this.Inventory.Add(newitem);
                 Console.WriteLine("Taken.");
             }
             else
@@ -380,9 +414,7 @@ namespace zrok
                     }
                 }
             }
-
-
-            Item newitem;
+;
             try
             {
                 newitem = this.room.RemoveItem(Object);

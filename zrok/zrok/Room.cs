@@ -93,7 +93,6 @@ namespace zrok
             }
             else
             {
-                Console.WriteLine("This Item is not in this room");
                 return founditem;
             }
         }
