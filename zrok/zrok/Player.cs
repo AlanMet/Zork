@@ -424,6 +424,7 @@ namespace zrok
             {
                 foreach (var item in room.GetItems())
                 {
+                    
                     if (item.GetType() == typeof(Container) && item.IsSynonym(Object))
                     {
                         Container container = (Container)item;
