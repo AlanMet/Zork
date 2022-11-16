@@ -113,5 +113,10 @@ namespace zrok
             }
             return null;
         }
+
+        public bool GetOpened()
+        {
+            return Opened;
+        }
     }
 }

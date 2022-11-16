@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -157,6 +158,9 @@ namespace zrok
 
             
             Item leaflet = new Item("Leaflet", "'Welcome To Zork!'\n\n Zork is a game of adventure and danger, and low cunnin. In it you will explore some of the most amazing territory ever seen by mortals. No comuter should be without one! ");
+            leaflet.AddSynonym("leaflet");
+            leaflet.AddSynonym("Leaflet");
+            leaflet.AddSynonym("paper");
             Container mailbox = new Container("mailbox", "mailbox", false, "It is firmly attached to the ground");
             mailbox.AddSynonym("box");
             mailbox.AddItem(leaflet);
@@ -346,36 +350,48 @@ namespace zrok
             return true;
         }
 
-        public void TakeObject(string Object, List<Item> roomitems)
+        public bool TakeObject(string Object, List<Item> items)
         {
             bool confirmed = false;
             bool found = false;
 
-            foreach (var item in roomitems)
+            foreach (var item in items)
             {
                 if (typeof(Container) == item.GetType())
                 {
                     Container container = (Container)item;
-                    List<Item> items = container.GetItems();
-                    TakeObject(Object, items);
+                    List<Item> containeritems = container.GetItems();
+                    if (container.GetOpened())
+                    {
+                        found = TakeObject(Object, containeritems);
+                    }
                 }
                 else
                 {
-                    if (item.GetName() == Object)
+                    Console.WriteLine(item.GetName());
+                    if (item.IsSynonym(Object))
                     {
+                        found = true;
                         if (item.GetTakeable())
                         {
                             Item newitem = this.room.RemoveItem(Object);
                             confirmed = this.Inventory.Add(newitem);
-                            Console.WriteLine("Taken.");
+                            Console.WriteLine(item.GetTakeableDialogue());
+                            return true;
                         }
                         else
                         {
                             Console.WriteLine(item.GetTakeableDialogue());
+                            return true;
                         }
                     }
                 }
             }
+            if (found == false)
+            {
+                Console.WriteLine($"You can't see any {Object} here!");
+            }
+            return found;
         }
 
         public void OpenObject(string Object)
