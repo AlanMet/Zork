@@ -363,92 +363,18 @@ namespace zrok
                 {
                     if (item.GetName() == Object)
                     {
-                        Item newitem = this.room.RemoveItem(Object);
-                        confirmed = this.Inventory.Add(newitem);
-                        Console.WriteLine("Taken.");
-                    }
-                }
-            }
-
-
-
-
-
-
-
-
-            Item founditem = null;
-
-
-            foreach (var item in this.room.GetItems())
-            {
-                if (item.GetName() == Object)
-                {
-                    founditem = item;
-                    found = true;
-                }
-            }
-
-            if (found && confirmed)
-            {
-                newitem = this.room.RemoveItem(Object);
-                confirmed = this.Inventory.Add(newitem);
-                Console.WriteLine("Taken.");
-            }
-            else
-            {
-                foreach (var item in this.room.GetItems())
-                {
-                    if (item.GetType() == typeof(Container))
-                    {
-                        Container buffer = (Container)item;
-                        foreach (var x in buffer.GetItems())
+                        if (item.GetTakeable())
                         {
-                            if (x.GetName() == Object)
-                            {
-                                newitem = this.room.RemoveItem(Object);
-                                confirmed = this.Inventory.Add(newitem);
-                                found = true;
-                            }
+                            Item newitem = this.room.RemoveItem(Object);
+                            confirmed = this.Inventory.Add(newitem);
+                            Console.WriteLine("Taken.");
+                        }
+                        else
+                        {
+                            Console.WriteLine(item.GetTakeableDialogue());
                         }
                     }
                 }
-            }
-;
-            try
-            {
-                newitem = this.room.RemoveItem(Object);
-
-            }
-            catch (Exception)
-            {
-                foreach (var item in room.GetItems())
-                {
-                    
-                    if (item.GetType() == typeof(Container) && item.IsSynonym(Object))
-                    {
-                        Container container = (Container)item;
-                        newitem = container.RemoveItem(Object);
-                    }
-                }
-                throw;
-            }
-            string dialogue = newitem.GetTakeableDialogue();
-            if (newitem.GetTakeable())
-            {
-                confirmed = this.Inventory.Add(newitem);
-                if (confirmed)
-                {
-                    Console.WriteLine(dialogue);
-                }
-                else
-                {
-                    Console.WriteLine("You are holding too many items");
-                }
-            }
-            else
-            {
-                Console.WriteLine(dialogue);
             }
         }
 

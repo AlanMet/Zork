@@ -180,7 +180,7 @@ namespace zrok{
                 switch (wt.GetWord())
                 {
                     case "take":
-                        player.TakeObject(wt2.GetWord());
+                        player.TakeObject(wt2.GetWord(), player.GetRoom().GetItems());
                         break;
                     case "read":
                         player.LookAt(wt2.GetWord());
