@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace zrok
 {
@@ -350,48 +351,69 @@ namespace zrok
             return true;
         }
 
-        public bool TakeObject(string Object, List<Item> items)
+        public void TakeObject(string Object)
         {
-            bool confirmed = false;
-            bool found = false;
-
-            foreach (var item in items)
+            Item item1 = null;
+            string dialogue = null;
+            foreach (var item in room.GetItems())
             {
-                if (typeof(Container) == item.GetType())
+                if (item.IsSynonym(Object))
                 {
-                    Container container = (Container)item;
-                    List<Item> containeritems = container.GetItems();
-                    if (container.GetOpened())
+                    if (item.GetTakeable())
                     {
-                        found = TakeObject(Object, containeritems);
+                        bool succesful = this.Inventory.Add(item);
+                        if (succesful)
+                        {
+                            room.RemoveItem(item.GetName());
+                            dialogue = item.GetTakeableDialogue();
+                        }
                     }
+                    else
+                    {
+                        dialogue = item.GetTakeableDialogue();
+                    }
+                    
                 }
                 else
                 {
-                    Console.WriteLine(item.GetName());
-                    if (item.IsSynonym(Object))
+                    if (item.GetType() == typeof(Container))
                     {
-                        found = true;
-                        if (item.GetTakeable())
+                        Container container2 = (Container)item;
+                        if (container2.GetOpened())
                         {
-                            Item newitem = this.room.RemoveItem(Object);
-                            confirmed = this.Inventory.Add(newitem);
-                            Console.WriteLine(item.GetTakeableDialogue());
-                            return true;
-                        }
-                        else
-                        {
-                            Console.WriteLine(item.GetTakeableDialogue());
-                            return true;
+                            Container container = (Container)item;
+                            foreach (var containeritem in container.GetItems())
+                            {
+                                if (containeritem.IsSynonym(Object))
+                                {
+                                    if (containeritem.GetTakeable())
+                                    {
+                                        bool succesful = this.Inventory.Add(containeritem);
+                                        if (succesful)
+                                        {
+                                            container.RemoveItem(containeritem.GetName());
+                                            item1 = item;
+                                            dialogue = containeritem.GetTakeableDialogue();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        dialogue = containeritem.GetTakeableDialogue();
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             }
-            if (found == false)
+            if (dialogue != null)
             {
-                Console.WriteLine($"You can't see any {Object} here!");
+                Console.WriteLine(dialogue);
             }
-            return found;
+            else
+            {
+                Console.WriteLine("You don't see that");
+            }
         }
 
         public void OpenObject(string Object)
