@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace zrok
 {
-    public class WindowRoom: Room
+    public class Window
     {
         bool Open;
-        List<Direction> WindowDirections;
 
-        public WindowRoom(string name, string description, Direction direction) : base(name, description)
+        public Window()
         {
-            this.WindowDirections.Add(direction);
         }
 
         public void OpenWindow()

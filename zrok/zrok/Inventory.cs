@@ -60,8 +60,9 @@ namespace zrok
         {
             foreach (Item item in items)
             {
-                if (item.GetName() == name)
+                if (item.IsSynonym(name))
                 {
+                    items.Remove(item);
                     return item;
                 }
             }
@@ -97,6 +98,11 @@ namespace zrok
                 }
             }
             return count;
+        }
+
+        public List<Item> GetItems()
+        {
+            return items;
         }
 
     }

@@ -54,7 +54,9 @@ namespace zrok{
             Vocab.Add("open", WordType.VERB);
             Vocab.Add("close", WordType.VERB);
             Vocab.Add("take", WordType.VERB);
-
+            Vocab.Add("read", WordType.VERB);
+            Vocab.Add("drop", WordType.VERB);
+            Vocab.Add("describe", WordType.VERB);
 
             //nouns 
             Vocab.Add("mailbox", WordType.NOUN);
@@ -183,7 +185,15 @@ namespace zrok{
                         player.TakeObject(wt2.GetWord());
                         break;
                     case "read":
-                        player.LookAt(wt2.GetWord());
+                        foreach (var item in player.GetInventory().GetItems())
+                        {
+                            if (item.IsSynonym(wt2.GetWord()))
+                            {
+                                Console.WriteLine(item.GetDescription());
+                                return;
+                            }
+                        }
+                        Console.WriteLine("You don't see that");
                         break;
                     case "drop":
                         player.DropObject(wt2.GetWord());
