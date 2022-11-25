@@ -37,7 +37,7 @@ namespace zrok
             //above ground
             Room WestOfHouse = new Room("West of House", "You are standing in an open field west of a white house, with a boarded front door.");
             Room SouthOfHouse = new Room("South Of House", "You are facing the south side of a white house. There is no door here and all the windows are boarded.");
-            Room BehindHouse = new Room("Behind House", "You are behind the white house. A path leads to the forest to the east. In one corner of the house there is a small window which is slightly ajar.");
+            WindowRoom BehindHouse = new WindowRoom("Behind House", "You are behind the white house. A path leads to the forest to the east. In one corner of the house there is a small window which is slightly ajar.");
             Room NorthOfHouse = new Room("North Of House", "You are facing the north side of a white house. There is no door here, and all the windows are boarded up. To the north a narrow path winds through thre trees.");
             Room ForestPath = new Room("Forest Path", "This is a path winding through a dimly lit forest. The path heads north-south here. One particularly large tree with some low branches stands at the edge of the path.");
             Room UpaTree = new Room("Up a Tree", "You are about 10 feet above the ground nestled among some large branches. The nearest branch above you is above your reach.");
@@ -185,6 +185,7 @@ namespace zrok
             BehindHouse.AddExit(Direction.North, NorthOfHouse);
             BehindHouse.AddExit(Direction.South, SouthOfHouse);
             BehindHouse.AddExit(Direction.East, Clearing1);
+            BehindHouse.AddWindowExit(Direction.East, Kitchen);
 
             //clearing 1 exits
             Clearing1.AddExit(Direction.East, CanyonView);
@@ -334,11 +335,31 @@ namespace zrok
 
         public void Move(Direction direction)
         {
+            //check room type of exit and current room
+            //if current room or exit room is a windowroom
+            //check Open type of room
             Room destination;
+            WindowRoom destination2;
 
             if (room.GetExits().TryGetValue(direction, out destination))
             {
-                room = destination;
+                if (destination.GetType() == typeof(WindowRoom))
+                {
+                    destination2 = (WindowRoom)destination;
+                    if (destination2.GetOpen())
+                    {
+                        room = destination;
+                    }
+                }
+                if (room.GetType() == typeof(WindowRoom))
+                {
+                    destination2 = (WindowRoom)room;
+                    if (destination2.GetOpen())
+                    {
+                        room = destination;
+                    }
+                }
+                
             }
             else
             {
@@ -418,12 +439,20 @@ namespace zrok
 
         public void OpenObject(string Object)
         {
+            if (Object == "Window")
+            {
+                if (room.GetType() == typeof(WindowRoom))
+                {
+
+                }
+            }
             foreach (var item in room.GetItems())
             {
                 if (item.GetType() == typeof(Container) && item.IsSynonym(Object))
                 {
                     var newitem = (Container)item;
                     newitem.Open();
+                    return;
                 }
             }
         }
