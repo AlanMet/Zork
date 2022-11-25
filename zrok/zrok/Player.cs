@@ -185,7 +185,7 @@ namespace zrok
             BehindHouse.AddExit(Direction.North, NorthOfHouse);
             BehindHouse.AddExit(Direction.South, SouthOfHouse);
             BehindHouse.AddExit(Direction.East, Clearing1);
-            BehindHouse.AddWindowExit(Direction.East, Kitchen);
+            BehindHouse.AddExit(Direction.West, Kitchen);
 
             //clearing 1 exits
             Clearing1.AddExit(Direction.East, CanyonView);
@@ -340,7 +340,6 @@ namespace zrok
             //check Open type of room
             Room destination;
             WindowRoom destination2;
-
             if (room.GetExits().TryGetValue(direction, out destination))
             {
                 if (destination.GetType() == typeof(WindowRoom))
@@ -350,6 +349,10 @@ namespace zrok
                     {
                         room = destination;
                     }
+                    else
+                    {
+                        Console.WriteLine("You can't go that way.");
+                    }
                 }
                 if (room.GetType() == typeof(WindowRoom))
                 {
@@ -358,12 +361,19 @@ namespace zrok
                     {
                         room = destination;
                     }
+                    else
+                    {
+                        Console.WriteLine("You can't go that way.");
+                    }
                 }
-                
+                else
+                {
+                    room = destination;
+                }
             }
             else
             {
-                Console.WriteLine("You cannot go that way");
+                Console.WriteLine("You can't go that way");
             }
         }
 
@@ -376,7 +386,7 @@ namespace zrok
         {
             Item item1 = null;
             string dialogue = null;
-            foreach (var item in room.GetItems())
+            foreach (var item in room.GetItems().ToList())
             {
                 if (item.IsSynonym(Object))
                 {
@@ -439,12 +449,49 @@ namespace zrok
 
         public void OpenObject(string Object)
         {
-            if (Object == "Window")
+            WindowRoom currentroom;
+            //if the current room is a window room, open it
+            //if any of the exits is a windowroom, open it
+            if (Object == "window")
             {
                 if (room.GetType() == typeof(WindowRoom))
                 {
-
+                    currentroom = (WindowRoom)this.room;
+                    if (currentroom.GetOpen())
+                    {
+                        Console.WriteLine("That is already open.");
+                        return;
+                    }
+                    else
+                    {
+                        currentroom.OpenWindow();
+                        Console.WriteLine("Opened.");
+                        return;
+                    }
+                    
                 }
+                else
+                {
+                    foreach (var room in this.room.GetExits())
+                    {
+                        if (room.GetType() == typeof(WindowRoom))
+                        {
+                            currentroom = (WindowRoom)this.room;
+                            if (currentroom.GetOpen())
+                            {
+                                Console.WriteLine("That is already open");
+                                return;
+                            }
+                            else
+                            {
+                                currentroom.OpenWindow();
+                                Console.WriteLine("Opened.");
+                                return;
+                            }
+                        }
+                    }
+                }
+                Console.WriteLine("You don't see that here");
             }
             foreach (var item in room.GetItems())
             {
@@ -493,7 +540,8 @@ namespace zrok
 
         public void DropObject(string Object)
         {
-            this.room.AddItem(this.Inventory.Remove(Object));
+            Item item = this.Inventory.Remove(Object);
+            this.room.AddItem(item);
             Console.WriteLine("Dropped");
         }
 

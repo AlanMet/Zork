@@ -64,6 +64,7 @@ namespace zrok{
             Vocab.Add("box", WordType.NOUN);
             Vocab.Add("room", WordType.NOUN);
             Vocab.Add("sword", WordType.NOUN);
+            Vocab.Add("window", WordType.NOUN);
 
             //adjectives
 
@@ -254,6 +255,10 @@ namespace zrok{
                             else if (wt3.GetWord() == "west" || wt3.GetWord() == "w")
                             {
                                 player.Move(Direction.NorthWest);
+                            }
+                            else
+                            {
+                                player.Move(Direction.North);
                             }
 
                         }

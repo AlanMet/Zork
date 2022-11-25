@@ -10,11 +10,9 @@ namespace zrok
     {
         private bool Open;
 
-        private Dictionary<Direction, Room> WindowExits;
 
         public WindowRoom(string name, string description): base(name, description)
         {
-            WindowExits = new Dictionary<Direction, Room>();
         }
 
         public void OpenWindow()
@@ -34,7 +32,6 @@ namespace zrok
 
         public void AddWindowExit(Direction direction, Room room)
         {
-            this.WindowExits.Add(direction, room);
         }
     }
 }
