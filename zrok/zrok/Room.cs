@@ -13,6 +13,7 @@ namespace zrok
         private string Name;
         private string Description;
         private bool Underground = false;
+        private bool Dark = false;
         private bool Entered = false;
         private Dictionary<Direction, Room> Exits;
         private List<Item> items;
@@ -23,15 +24,6 @@ namespace zrok
             Description = description;
             Exits = new Dictionary<Direction, Room>();
             items = new List<Item>();
-        }
-
-        public Room(string name, string description, bool underground)
-        {
-            Name = name;
-            Description = description;
-            Exits = new Dictionary<Direction, Room>();
-            items = new List<Item>();
-            Underground = underground;
         }
 
         public void AddExit(Direction direction, Room room)
@@ -62,6 +54,16 @@ namespace zrok
         public void SimpleDescribe()
         {
             Console.WriteLine($"{this.Name}");
+        }
+
+        public void SetDark(bool choice)
+        {
+            Dark = choice;
+        }
+
+        public bool GetDark()
+        {
+            return Dark;
         }
 
         public List<Item> GetItems()

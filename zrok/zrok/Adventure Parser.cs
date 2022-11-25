@@ -57,6 +57,8 @@ namespace zrok{
             Vocab.Add("read", WordType.VERB);
             Vocab.Add("drop", WordType.VERB);
             Vocab.Add("describe", WordType.VERB);
+            Vocab.Add("enter", WordType.VERB);
+            Vocab.Add("turn", WordType.VERB);
 
             //nouns 
             Vocab.Add("mailbox", WordType.NOUN);
@@ -65,6 +67,11 @@ namespace zrok{
             Vocab.Add("room", WordType.NOUN);
             Vocab.Add("sword", WordType.NOUN);
             Vocab.Add("window", WordType.NOUN);
+            Vocab.Add("rug", WordType.NOUN);
+            Vocab.Add("trapdoor", WordType.NOUN);
+            Vocab.Add("lantern", WordType.NOUN);
+            Vocab.Add("lamp", WordType.NOUN);
+            Vocab.Add("painting", WordType.NOUN);
 
             //adjectives
 
@@ -73,17 +80,18 @@ namespace zrok{
 
 
             //prepositions
-            Vocab.Add("with", WordType.NOUN);
-            Vocab.Add("at", WordType.NOUN);
-            Vocab.Add("to", WordType.NOUN);
-            Vocab.Add("in", WordType.NOUN);
-            Vocab.Add("under", WordType.NOUN);
+            Vocab.Add("with", WordType.PREPOSITION);
+            Vocab.Add("at", WordType.PREPOSITION);
+            Vocab.Add("to", WordType.PREPOSITION);
+            Vocab.Add("in", WordType.PREPOSITION);
+            Vocab.Add("under", WordType.PREPOSITION);
+            Vocab.Add("on", WordType.PREPOSITION);
 
             //pronouns
 
 
             //other
-
+            Vocab.Add("the", WordType.OTHER);
 
 
         }
@@ -211,6 +219,17 @@ namespace zrok{
                         break;
                     case "push":
                         //PushOb(wt2.Word);
+                        break;
+                    case "move":
+                        if (wt2.GetWord() == "rug" || wt2.GetWord() == "leaves")
+                        {
+                            if (player.GetRoom().GetType() == typeof(TrapDoorRoom))
+                            {
+                                TrapDoorRoom aroom = (TrapDoorRoom)player.GetRoom();
+                                aroom.Move();
+                                Console.WriteLine($"With a great effort, the {wt2.GetWord()} is moved to one side of the room, revealing the dusty cover of a closed trap door.");
+                            }
+                        }
                         break;
                     default:
                         Console.WriteLine($"I don't know how to {wt.GetWord()} a {wt2.GetWord()}!");
@@ -387,12 +406,13 @@ namespace zrok{
                         break;
 
                     case "turnon":
-                        //player.TurnOn(wt3.GetWord());
+                        player.TurnOn();
                         break;
                     case "turnoff":
                         //player.TurnOff(wt3.GetWord());
                         break;
                     default:
+                        Console.WriteLine("right ");
                         Console.WriteLine($"I don't know how to {wt.GetWord()} {wt2.GetWord()} a {wt3.GetWord()}!");
                         break;
                 }
@@ -426,6 +446,7 @@ namespace zrok{
                         //PutObInContainer(wt2.Word, wt4.Word);
                         break;
                     default:
+                        Console.WriteLine("left");
                         Console.WriteLine($"I don't know how to {wt1.GetWord()} {wt2.GetWord()} {wt3.GetWord()} {wt4.GetWord()}!");
                         break;
                 }
@@ -484,6 +505,10 @@ namespace zrok{
                 {
                     wordtype = Vocab[word];
                     if (wordtype == WordType.PREPOSITION)
+                    {
+                        wordandtype.Add(new WordAndType(word, wordtype));
+                    }
+                    else if(wordtype == WordType.OTHER)
                     {
                     }
                     else

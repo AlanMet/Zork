@@ -51,14 +51,16 @@ namespace zrok
             Room RockyLedge = new Room("Rocky Ledge", "You are on a ledge halfway up the wall of the river canyon. You can see from here yjay yje main flow from Argain falls twists with along a passage which it is impossible to for you to enter. Below you is the canyon bottom. Above you is more cliff, which appears climbable.");
             Room CanyonBottom = new Room("Canyon Bottom", "You are beneath the walls of the river canyon which may be climbable here. The lesser part of the runoff of Argain Falls flows by below. To the north is a narrow path.");
             Room EndOfRainbow = new Room("End of Rainbow", "You are on a small, rocky beach on the continuation of the Frigid River past the Falls. The beach is narrow due to the presence of the White Cliffs. the river canyon opens here and the sunlight shines in from above. A rainbow crosses over the falls the east and a narrow path continues to the southwest.");
-            Room Kitchen = new Room("Kitchen", "You are in the kitchen of the white house. A table seems to have been used recently for the preparation of food. A passage leads to the west and a dark staircase can be seen leading upward. A dark chimney leads down and to the east is a small window which is {state}");
-            Room LivingRoom = new Room("Living Room", "You are in the living room. There is a doorway to the east, a wooden door with strange gothic lettering to the west, which appears to be nailed shut, a trophy case, and a large oriental rug is in the center of the room.");
-            Room Cellar = new Room("Attic","This is the attic. The only exit is a stairway leading down.");
+            Room Kitchen = new Room("Kitchen", $"You are in the kitchen of the white house. A table seems to have been used recently for the preparation of food. A passage leads to the west and a dark staircase can be seen leading upward. A dark chimney leads down and to the east is a small window which is open");
+            TrapDoorRoom LivingRoom = new TrapDoorRoom("Living Room", "You are in the living room. There is a doorway to the east, a wooden door with strange gothic lettering to the west, which appears to be nailed shut, a trophy case, and a large oriental rug is in the center of the room.");
+            Room Attic = new Room("Attic","This is the attic. The only exit is a stairway leading down.");
+            Room Cellar = new Room("Cellar", "You are in a dark and damp cellar with a narrow passageway leading north, and a crawlway to the south. On the west is the bottom of a steep metal ramp which is unclimbable. The trap door crashes shut, and you hear someone barring it.");
+            
 
             //underground
-            Room EastOfChasmRoom = new Room("East of Chasm", "");
-            Room Gallery= new Room("", "");
-            Room Studio= new Room("", "");
+            Room EastOfChasmRoom = new Room("East of Chasm", "You are on the east edge of a chasm, the bottom of which cannot be seen. A narrow passage goes north, and the path you are on continues to the east.");
+            Room Gallery= new Room("Gallery", "This is an art gallery. Most of the paintings have been stolen by vandals with exceptional taste. The vandals left through either the north or west exits.\r\n\r\nFortunately, there is still one chance for you to be a vandal, for on the far wall is a painting of unparalleled beauty.\r\n\r\n ");
+            Room Studio= new Room("Studio", "This appears to have been an artist's studio. The walls and floors are splattered with paints of 69 different colors. Strangely enough, nothing of value is hanging here. At the south end of the room is an open door (also covered with paint). A dark and narrow chimney leads up from a fireplace; although you might be able to get up it, it seems unlikely you could get back down.\r\n\r\nLoosely attached to a wall is a small piece of paper.\r\n\r\n ");
             Room StrangePassage= new Room("", "");
             Room CyclopsRoom= new Room("", "");
             Room TreasureRoom= new Room("", "");
@@ -160,7 +162,6 @@ namespace zrok
             
             Item leaflet = new Item("Leaflet", "'Welcome To Zork!'\n\n Zork is a game of adventure and danger, and low cunnin. In it you will explore some of the most amazing territory ever seen by mortals. No comuter should be without one! ");
             leaflet.AddSynonym("leaflet");
-            leaflet.AddSynonym("Leaflet");
             leaflet.AddSynonym("paper");
             Container mailbox = new Container("mailbox", "mailbox", false, "It is firmly attached to the ground");
             mailbox.AddSynonym("box");
@@ -186,6 +187,42 @@ namespace zrok
             BehindHouse.AddExit(Direction.South, SouthOfHouse);
             BehindHouse.AddExit(Direction.East, Clearing1);
             BehindHouse.AddExit(Direction.West, Kitchen);
+
+            //kitchen exits
+            Kitchen.AddExit(Direction.West, LivingRoom);
+            Kitchen.AddExit(Direction.East, BehindHouse);
+
+            //living room exits
+            LivingRoom.AddExit(Direction.Down, Cellar);
+            LivingRoom.AddExit(Direction.East, Kitchen);
+
+            //living room items
+            Lamp BrassLantern = new Lamp("Brass Lantern", "");
+            BrassLantern.AddSynonym("lantern");
+            BrassLantern.AddSynonym("lamp");
+            LivingRoom.AddItem(BrassLantern);
+
+            //cellar exits
+            Cellar.AddExit(Direction.South, EastOfChasmRoom);
+            Cellar.AddExit(Direction.Up, StrangePassage);
+            Cellar.AddExit(Direction.North, TrollRoom);
+
+            //eastofchasmroom exits
+            EastOfChasmRoom.AddExit(Direction.North, Cellar);
+            EastOfChasmRoom.AddExit(Direction.East, Gallery);
+
+            //gallery exits
+            Gallery.AddExit(Direction.West, EastOfChasmRoom);
+            Gallery.AddExit(Direction.North, Studio);
+
+            //gallery items
+            Item Painting = new Item("Painting", "A painting of unparalleled beauty");
+            Gallery.AddItem(Painting);
+            Painting.SetTrasure(true);
+
+            //studio exits
+            Studio.AddExit(Direction.South, Gallery);
+            Studio.AddExit(Direction.Up, Kitchen);
 
             //clearing 1 exits
             Clearing1.AddExit(Direction.East, CanyonView);
@@ -325,12 +362,47 @@ namespace zrok
             DeadEnd4.AddExit(Direction.South, Maze12);
 
 
+
+            //setting dark rooms
+            Attic.SetDark(true);
+            Cellar.SetDark(true);
+
             return WestOfHouse;
         }
 
         public void ShowInventory()
         {
             Inventory.Show();
+        }
+
+        public bool GetLampStatus()
+        {
+            Lamp currentitem;
+            foreach (var item in Inventory.GetItems())
+            {
+                if (item.GetType() == typeof(Lamp))
+                {
+                    currentitem = (Lamp)item;
+                    return currentitem.GetLit();
+                }
+            }
+            return false;
+        }
+
+        public void TurnOn()
+        {
+            Lamp currentitem;
+            foreach (var item in Inventory.GetItems())
+            {
+                if (item.GetType() == typeof(Lamp))
+                {
+                    currentitem = (Lamp)item;
+                    currentitem.Light();
+                    return;
+                }
+            }
+            Console.WriteLine("You do not have that");
+            return;
         }
 
         public void Move(Direction direction)
@@ -449,11 +521,12 @@ namespace zrok
 
         public void OpenObject(string Object)
         {
-            WindowRoom currentroom;
+            
             //if the current room is a window room, open it
             //if any of the exits is a windowroom, open it
             if (Object == "window")
             {
+                WindowRoom currentroom;
                 if (room.GetType() == typeof(WindowRoom))
                 {
                     currentroom = (WindowRoom)this.room;
@@ -493,6 +566,56 @@ namespace zrok
                 }
                 Console.WriteLine("You don't see that here");
             }
+
+            if (Object == "trapdoor")
+            {
+                TrapDoorRoom currentroom;
+                if (room.GetType() == typeof(TrapDoorRoom))
+                {
+                    currentroom = (TrapDoorRoom)this.room;
+                    if (currentroom.GetOpen())
+                    {
+                        Console.WriteLine("That is already open.");
+                        return;
+                    }
+                    else
+                    {
+                        if (currentroom.GetMove())
+                        {
+                            currentroom.Open();
+                            Console.WriteLine("Opened.");
+                            return;
+                        }
+                    }
+
+                }
+                else
+                {
+                    foreach (var room in this.room.GetExits())
+                    {
+                        if (room.GetType() == typeof(WindowRoom))
+                        {
+                            currentroom = (TrapDoorRoom)this.room;
+                            if (currentroom.GetOpen())
+                            {
+                                Console.WriteLine("That is already open");
+                                return;
+                            }
+                            else
+                            {
+                                currentroom.Open();
+                                Console.WriteLine("Opened.");
+                                return;
+                            }
+                        }
+                    }
+                }
+                Console.WriteLine("You don't see that here");
+            }
+
+
+
+
             foreach (var item in room.GetItems())
             {
                 if (item.GetType() == typeof(Container) && item.IsSynonym(Object))
@@ -558,7 +681,14 @@ namespace zrok
                 {
                     if (item.GetName() == Object)
                     {
-                        Console.WriteLine(item.GetDescription());
+                        if (item.GetDescription() == "")
+                        {
+                            Console.WriteLine($"I see nothing special about this {item.GetName()}");
+                        }
+                        else
+                        {
+                            Console.WriteLine(item.GetDescription());
+                        }
                         return;
                     }
                 }

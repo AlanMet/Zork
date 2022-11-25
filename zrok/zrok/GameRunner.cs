@@ -21,15 +21,34 @@ namespace zrok
 
         private void StartGame()
         {
+            int darkcounter = 0;
             string input;
             do
             {
                 Console.WriteLine();
-                adv.Describe();
-                adv.GetPlayer().GetRoom().entered();
-                if (adv.GetPlayer().GetRoom().IsUnderground() && adv.GetPlayer().GetInventory().GetTreasureCount() > 0)
+                
+                
+                if (adv.GetPlayer().GetRoom().GetDark() == true && adv.GetPlayer().GetLampStatus() == false)
                 {
-                    //Thief thief = new Thief(100 );
+                    
+                    darkcounter++;
+                    if (darkcounter == 1)
+                    {
+                        Console.WriteLine("It is pitch black. You are likely to be eaten by a Grue.");
+                    }
+                    if (darkcounter >= 2)
+                    {
+                        Console.WriteLine("Oh, no!  A fearsome grue slithered into the room and devoured you.");
+                        Console.WriteLine();
+                        Console.WriteLine("You have died.");
+                        restart();
+                    }
+                }
+                else
+                {
+                    adv.Describe();
+                    adv.GetPlayer().GetRoom().entered();
+                    darkcounter = 0;
                 }
                 Console.Write("> ");
                 input = Console.ReadLine().ToLower();

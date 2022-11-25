@@ -112,6 +112,11 @@ namespace zrok
             return Treasure;
         }
 
+        public void SetTrasure(bool choice)
+        {
+            Treasure = choice;
+        }
+
         public string GetState()
         {
             return State;
