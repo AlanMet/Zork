@@ -8,6 +8,9 @@ namespace zrok
 {
     public class Enemy
     {
-        public 
+        public Enemy()
+        {
+
+        }
     }
 }
