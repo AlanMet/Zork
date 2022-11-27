@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -41,7 +42,7 @@ namespace zrok
             Room NorthOfHouse = new Room("North Of House", "You are facing the north side of a white house. There is no door here, and all the windows are boarded up. To the north a narrow path winds through thre trees.");
             Room ForestPath = new Room("Forest Path", "This is a path winding through a dimly lit forest. The path heads north-south here. One particularly large tree with some low branches stands at the edge of the path.");
             Room UpaTree = new Room("Up a Tree", "You are about 10 feet above the ground nestled among some large branches. The nearest branch above you is above your reach.");
-            Room Clearing1 = new Room("Clearing", "You are in a clearing, with a forest surrounding you on all sides. A path leads south.");
+            TrapDoorRoom Clearing1 = new TrapDoorRoom("Clearing", "You are in a clearing, with a forest surrounding you on all sides. A path leads south. There is a pile of leaves on the ground.");
             Room Clearing2 = new Room("Clearing", "You are in a small clearing in a well marked forest path that extends to the east and west.");
             Room Forest1 = new Room("Forest", "This is a forest, with trees in all directions. To the east there appears to be sunlight.");
             Room Forest2 = new Room("Forest", "This is a dimly lit forest, with large trees all around.");
@@ -170,7 +171,12 @@ namespace zrok
             mailbox.SetTakeable(true);
             WestOfHouse.AddItem(mailbox);
 
-
+            //forest patgh exits
+            ForestPath.AddExit(Direction.Up, UpaTree);
+            ForestPath.AddExit(Direction.North, Clearing1);
+            ForestPath.AddExit(Direction.West, Forest1);
+            ForestPath.AddExit(Direction.South, NorthOfHouse);
+            ForestPath.AddExit(Direction.East, Forest2);
 
             //north of house exits
             NorthOfHouse.AddExit(Direction.North, ForestPath);
@@ -222,17 +228,6 @@ namespace zrok
             EastOfChasmRoom.AddExit(Direction.North, Cellar);
             EastOfChasmRoom.AddExit(Direction.East, Gallery);
 
-            //gallery exits
-            Gallery.AddExit(Direction.West, EastOfChasmRoom);
-            Gallery.AddExit(Direction.North, Studio);
-
-            //gallery items
-            Item Painting = new Item("Painting", "A painting of unparalleled beauty");
-            Painting.AddSynonym("painting");
-            Painting.SetTrasure(true);
-            Painting.SetTakeable(true);
-            Gallery.AddItem(Painting);
-
             //attic exits
             Attic.AddExit(Direction.Down, Kitchen);
 
@@ -251,11 +246,13 @@ namespace zrok
             Studio.AddExit(Direction.South, Gallery);
             Studio.AddExit(Direction.Up, Kitchen);
 
-            //clearing 1 exits
-            Clearing1.AddExit(Direction.East, CanyonView);
-            Clearing1.AddExit(Direction.West, BehindHouse);
-            Clearing1.AddExit(Direction.South, Forest3);
-            Clearing1.AddExit(Direction.North, Forest2);
+            //clearing1
+
+            //clearing 2 exits
+            Clearing2.AddExit(Direction.East, CanyonView);
+            Clearing2.AddExit(Direction.West, BehindHouse);
+            Clearing2.AddExit(Direction.South, Forest3);
+            Clearing2.AddExit(Direction.North, Forest2);
 
             //canyon view exits
             CanyonView.AddExit(Direction.West, Forest3);
@@ -387,6 +384,59 @@ namespace zrok
 
             //Deadend4 exits
             DeadEnd4.AddExit(Direction.South, Maze12);
+
+
+            //treasure rooms
+            UpaTree.AddExit(Direction.Down, ForestPath);
+            Item JewelEncrustedEgg = new Item("Jewel-encrusted egg", "");
+            JewelEncrustedEgg.SetTrasure(true);
+            JewelEncrustedEgg.SetTakeable(true);
+            UpaTree.AddItem(JewelEncrustedEgg);
+
+            Gallery.AddExit(Direction.West, EastOfChasmRoom);
+            Gallery.AddExit(Direction.North, Studio);
+            Item Painting = new Item("Painting", "A painting of unparalleled beauty");
+            Painting.AddSynonym("painting");
+            Painting.SetTrasure(true);
+            Painting.SetTakeable(true);
+            Gallery.AddItem(Painting);
+
+            GasRoom.AddExit(Direction.Down, SmellyRoom);
+            GasRoom.AddExit(Direction.East, CoalMine1);
+            Item SapphireBracelet = new Item("Sapphire Bracelet", "");
+            SapphireBracelet.SetTrasure(true);
+            SapphireBracelet.SetTakeable(true);
+            GasRoom.AddItem(SapphireBracelet);
+
+            BatRoom.AddExit(Direction.East, ShaftRoom);
+            BatRoom.AddExit(Direction.South, SqueakyRoom);
+            Item JadeFigurine = new Item("Jade Figurine", "");
+            JadeFigurine.SetTrasure(true);
+            JadeFigurine.SetTakeable(true);
+            BatRoom.AddItem(JadeFigurine);
+
+            AtlantisRoom.AddExit(Direction.Up, Cave);
+            AtlantisRoom.AddExit(Direction.South, ReservoirNorth);
+            Item CrystalTrident = new Item("Crystal Trident", "");
+            CrystalTrident.SetTrasure(true);
+            CrystalTrident.SetTakeable(true);
+            AtlantisRoom.AddItem(CrystalTrident);
+
+            Reservoir.AddExit(Direction.South, ReservoirSouth);
+            Reservoir.AddExit(Direction.West, Stream);
+            Item TrunkOfJewels = new Item("Trunk of Jewels", "");
+            TrunkOfJewels.SetTrasure(true);
+            TrunkOfJewels.SetTakeable(true);
+            Reservoir.AddItem(TrunkOfJewels);
+
+            LoudRoom.AddExit(Direction.Up, DeepCanyon);
+            LoudRoom.AddExit(Direction.West, RoundRoom);
+            LoudRoom.AddExit(Direction.East, DampCave);
+            Item PlatinumBar = new Item("Platinum Bar", "");
+            PlatinumBar.SetTrasure(true);
+            PlatinumBar.SetTakeable(true);
+            LoudRoom.AddItem(PlatinumBar);
+
 
 
 
