@@ -59,7 +59,7 @@ namespace zrok
 
             //underground
             Room EastOfChasmRoom = new Room("East of Chasm", "You are on the east edge of a chasm, the bottom of which cannot be seen. A narrow passage goes north, and the path you are on continues to the east.");
-            Room Gallery= new Room("Gallery", "This is an art gallery. Most of the paintings have been stolen by vandals with exceptional taste. The vandals left through either the north or west exits.\r\n\r\nFortunately, there is still one chance for you to be a vandal, for on the far wall is a painting of unparalleled beauty.\r\n\r\n ");
+            Room Gallery = new Room("Gallery", "This is an art gallery. Most of the paintings have been stolen by vandals with exceptional taste. The vandals left through either the north or west exits.\r\n\r\nFortunately, there is still one chance for you to be a vandal, for on the far wall is a painting of unparalleled beauty.\r\n\r\n ");
             Room Studio= new Room("Studio", "This appears to have been an artist's studio. The walls and floors are splattered with paints of 69 different colors. Strangely enough, nothing of value is hanging here. At the south end of the room is an open door (also covered with paint). A dark and narrow chimney leads up from a fireplace; although you might be able to get up it, it seems unlikely you could get back down.\r\n\r\nLoosely attached to a wall is a small piece of paper.\r\n\r\n ");
             Room StrangePassage= new Room("", "");
             Room CyclopsRoom= new Room("", "");
@@ -167,7 +167,7 @@ namespace zrok
             mailbox.AddSynonym("box");
             mailbox.AddItem(leaflet);
             //string name, string description, bool takeable,  string negative
-            mailbox.SetTakeable();
+            mailbox.SetTakeable(true);
             WestOfHouse.AddItem(mailbox);
 
 
@@ -191,6 +191,7 @@ namespace zrok
             //kitchen exits
             Kitchen.AddExit(Direction.West, LivingRoom);
             Kitchen.AddExit(Direction.East, BehindHouse);
+            Kitchen.AddExit(Direction.Up, Attic);
 
             //living room exits
             LivingRoom.AddExit(Direction.Down, Cellar);
@@ -201,6 +202,16 @@ namespace zrok
             BrassLantern.AddSynonym("lantern");
             BrassLantern.AddSynonym("lamp");
             LivingRoom.AddItem(BrassLantern);
+
+            Weapon ElvishSword = new Weapon("Elvish Sword", "");
+            ElvishSword.AddSynonym("sword");
+            LivingRoom.AddItem(ElvishSword);
+
+            TrophyCase trophyCase = new TrophyCase("Trophy Case", "");
+            trophyCase.AddSynonym("case");
+            trophyCase.AddSynonym("trophycase");
+            trophyCase.SetTakeable(false);
+            LivingRoom.AddItem(trophyCase);
 
             //cellar exits
             Cellar.AddExit(Direction.South, EastOfChasmRoom);
@@ -217,8 +228,24 @@ namespace zrok
 
             //gallery items
             Item Painting = new Item("Painting", "A painting of unparalleled beauty");
-            Gallery.AddItem(Painting);
+            Painting.AddSynonym("painting");
             Painting.SetTrasure(true);
+            Painting.SetTakeable(true);
+            Gallery.AddItem(Painting);
+
+            //attic exits
+            Attic.AddExit(Direction.Down, Kitchen);
+
+            //attic items
+            Item Rope = new Item("Rope", "");
+            Rope.AddSynonym("rope");
+            Rope.SetTakeable(true);
+            Attic.AddItem(Rope);
+
+            Weapon Knife = new Weapon("nasty-looking knife", "");
+            Knife.AddSynonym("knife");
+            Knife.SetTakeable(true);
+            Attic.AddItem(Knife);
 
             //studio exits
             Studio.AddExit(Direction.South, Gallery);
@@ -613,9 +640,6 @@ namespace zrok
                 Console.WriteLine("You don't see that here");
             }
 
-
-
-
             foreach (var item in room.GetItems())
             {
                 if (item.GetType() == typeof(Container) && item.IsSynonym(Object))
@@ -623,6 +647,65 @@ namespace zrok
                     var newitem = (Container)item;
                     newitem.Open();
                     return;
+                }
+                else if (item.GetType() == typeof(TrophyCase) && item.IsSynonym(Object))
+                {
+                    var newitem = (TrophyCase)item;
+                    newitem.Open();
+                    return;
+                }
+            }
+        }
+
+        public void PutObInContainer(string Object, string Container)
+        {
+            Item currentitem = null;
+            Container currentcontainer;
+            TrophyCase TrophyCase;
+            foreach (var item in Inventory.GetItems().ToList())
+            {
+                if (item.IsSynonym(Object))
+                {
+                    currentitem = item;
+                }
+            }
+            if (currentitem == null)
+            {
+                Console.WriteLine("You don't have that");
+                return;
+            }
+            foreach (var item in room.GetItems())
+            {
+                if (item.GetType() == typeof(TrophyCase) && item.IsSynonym(Container))
+                {
+                    TrophyCase = (TrophyCase)item;
+                    if (TrophyCase.IsOpen())
+                    {
+                        bool result = TrophyCase.AddItem(currentitem);
+                        if (result)
+                        {
+                            Inventory.Remove(Object);
+                        }
+                        return;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"The {TrophyCase.GetName()} is closed");
+                    }
+                }
+                else if (item.GetType() == typeof(Container) && item.IsSynonym(Container))
+                {
+                    currentcontainer = (Container)item;
+                    if (currentcontainer.GetOpened())
+                    {
+                        Inventory.Remove(Object);
+                        currentcontainer.AddItem(item);
+                        return;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"The {currentcontainer.GetName()} is closed");
+                    }
                 }
             }
         }

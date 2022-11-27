@@ -104,6 +104,7 @@ namespace zrok
             Console.Write("Enter filename to load: ");
             //check for symbols
             filename = Console.ReadLine();
+            //error on not found
             fs = new FileStream(filename, FileMode.Open);
             binfmt = new BinaryFormatter();
             try

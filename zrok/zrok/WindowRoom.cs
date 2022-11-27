@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace zrok
 {
+    [Serializable()]
     public class WindowRoom: Room
     {
         private bool Open;

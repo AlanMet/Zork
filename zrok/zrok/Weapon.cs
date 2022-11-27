@@ -9,11 +9,8 @@ namespace zrok
     [Serializable]
     public class Weapon : Item
     {
-        private int Damage;
-        
-        public Weapon(int damage, string name, string description) : base (name, description)
+        public Weapon(string name, string description) : base (name, description)
         {
-            Damage = damage;
         }
     }
 }

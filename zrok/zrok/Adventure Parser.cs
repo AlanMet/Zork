@@ -59,6 +59,7 @@ namespace zrok{
             Vocab.Add("describe", WordType.VERB);
             Vocab.Add("enter", WordType.VERB);
             Vocab.Add("turn", WordType.VERB);
+            Vocab.Add("put", WordType.VERB);
 
             //nouns 
             Vocab.Add("mailbox", WordType.NOUN);
@@ -72,6 +73,10 @@ namespace zrok{
             Vocab.Add("lantern", WordType.NOUN);
             Vocab.Add("lamp", WordType.NOUN);
             Vocab.Add("painting", WordType.NOUN);
+            Vocab.Add("knife", WordType.NOUN);
+            Vocab.Add("rope", WordType.NOUN);
+            Vocab.Add("case", WordType.NOUN);
+            Vocab.Add("trophycase", WordType.NOUN);
 
             //adjectives
 
@@ -84,6 +89,7 @@ namespace zrok{
             Vocab.Add("at", WordType.PREPOSITION);
             Vocab.Add("to", WordType.PREPOSITION);
             Vocab.Add("in", WordType.PREPOSITION);
+            Vocab.Add("inside", WordType.PREPOSITION);
             Vocab.Add("under", WordType.PREPOSITION);
             Vocab.Add("on", WordType.PREPOSITION);
 
@@ -156,17 +162,6 @@ namespace zrok{
                     case "down":
                     case "d":
                         player.Move(Direction.Down);
-                        break;
-                    case "restart":
-                        Console.WriteLine("Are you sure? y/n ");
-                        string choice = Console.ReadKey().ToString().ToLower();
-                        if (choice == "y")
-                        {
-                            //restart();
-                        }
-                        else
-                        {
-                        }
                         break;
                     default:
                         Console.WriteLine($"Sorry, I can't {wt.GetWord()}!");
@@ -348,6 +343,12 @@ namespace zrok{
                             case "northwest":
                                 player.Move(Direction.NorthWest);
                                 break;
+                            case "down":
+                                player.Move(Direction.Down);
+                                break;
+                            case "up":
+                                player.Move(Direction.Up);
+                                break;
                         };
                         break;
                     case "south":
@@ -404,7 +405,6 @@ namespace zrok{
                     case "lookat":
                         player.LookAt(wt3.GetWord());
                         break;
-
                     case "turnon":
                         player.TurnOn();
                         break;
@@ -441,12 +441,13 @@ namespace zrok{
             {
                 switch (wt1.GetWord() + wt3.GetWord())
                 {
+                    case "putinside":
                     case "putin":
-                    case "putinto":         // allow either "put in" or "put into"...
-                        //PutObInContainer(wt2.Word, wt4.Word);
+                    case "putinto":
+                        // allow either "put in" or "put into"...
+                        player.PutObInContainer(wt2.GetWord(), wt4.GetWord());
                         break;
                     default:
-                        Console.WriteLine("left");
                         Console.WriteLine($"I don't know how to {wt1.GetWord()} {wt2.GetWord()} {wt3.GetWord()} {wt4.GetWord()}!");
                         break;
                 }

@@ -14,7 +14,6 @@ namespace zrok
         private List<string> Synonyms;
         private string Description;
         private string State = "";
-        private string Sound = null;
         private bool Treasure = false;
         private bool Takeable = true;
         private string TakeableNegative;
@@ -61,16 +60,9 @@ namespace zrok
             }
         }
 
-        public void SetTakeable()
+        public void SetTakeable(bool choice)
         {
-            if (Takeable)
-            {
-                Takeable = false;
-            }
-            else
-            {
-                Takeable = true;
-            }
+            Takeable = choice;
         }
 
         public bool GetTakeable()

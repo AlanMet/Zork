@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace zrok
 {
+    [Serializable()]
     public class Lamp: Item
     {
         bool lit;
