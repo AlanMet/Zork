@@ -76,11 +76,11 @@ namespace zrok
             if (item.IsTreasure())
             {
                 items.Add(item);
-                if (items.Count == 11)
+                Console.WriteLine("Done.");
+                if (items.Count == 1)
                 {
                     Console.WriteLine("Congratulations, You have completed Zork I! Feel free to keep exploring!");
                 }
-                Console.WriteLine("Done.");
                 return true;
             }
             else

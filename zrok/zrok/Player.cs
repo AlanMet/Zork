@@ -62,27 +62,27 @@ namespace zrok
             Room EastOfChasmRoom = new Room("East of Chasm", "You are on the east edge of a chasm, the bottom of which cannot be seen. A narrow passage goes north, and the path you are on continues to the east.");
             Room Gallery = new Room("Gallery", "This is an art gallery. Most of the paintings have been stolen by vandals with exceptional taste. The vandals left through either the north or west exits.\r\n\r\nFortunately, there is still one chance for you to be a vandal, for on the far wall is a painting of unparalleled beauty.\r\n\r\n ");
             Room Studio= new Room("Studio", "This appears to have been an artist's studio. The walls and floors are splattered with paints of 69 different colors. Strangely enough, nothing of value is hanging here. At the south end of the room is an open door (also covered with paint). A dark and narrow chimney leads up from a fireplace; although you might be able to get up it, it seems unlikely you could get back down.\r\n\r\nLoosely attached to a wall is a small piece of paper.\r\n\r\n ");
-            Room StrangePassage= new Room("Strange Passge", "");
-            Room CyclopsRoom= new Room("Cyclops room", "");
-            Room TreasureRoom= new Room("Treasure Room", "");
+            Room StrangePassage= new Room("Strange Passge", "This is a long passage. To the west is one entrance. On the east there is an old wooden door, with a large opening in it (about cyclops sized).");
+            Room CyclopsRoom= new Room("Cyclops room", "This room has an exit on the northwest, and a staircase leading up. There is a painting of a cyclops on the wall.");
+            Room TreasureRoom= new Room("Treasure Room", "This is a large room, whose east wall is solid granite. A number of discarded bags, which crumble at your touch, are scattered about on the floor. There is an exit down a staircase. You see a silver chalice on the ground.");
             Room TrollRoom= new Room("Troll room", "You see an image of a troll on the wall, it does nothing.");
             Room EastWestPassage= new Room("East-West Passage", "");
-            Room RoundRoom= new Room("Round Room", "");
+            Room RoundRoom= new Room("Round Room", "This is a circular stone room with passages in all directions. Several of them have unfortunately been blocked by cave-ins.");
             Room NarrowPassage= new Room("Narrow Passage", "");
-            Room SouthMirrorRoom= new Room("South Mirror Room", "");
+            Room SouthMirrorRoom= new Room("South Mirror Room", "Mirror Room\r\n\r\nYou are in a large square room with tall ceilings. On the south wall is an enormous mirror which fills the entire wall. There are exits on the other three sides of the room.");
             Room WindingPassage= new Room("Winding Passage", "");
             Room Cave= new Room("Cave", "");//above entrance to hades
             Room EntranceToHades = new Room("Entrance to Hades", "");
 
-            Room LandOfTheDead = new Room("Land Of The Dead", "");
+            Room LandOfTheDead = new Room("Land Of The Dead", "You see a crystal skull on the ground.");
             Room GratingRoom = new Room("Grating Room", "");
             Room Altar = new Room("Altar", "");
             Room Temple = new Room("Temple", "");
-            Room EgyptianRoom = new Room("Egyptian Room", "");
+            Room EgyptianRoom = new Room("Egyptian Room", "You see a gold coffin on the ground.");
             Room TorchRoom = new Room("Torch Room", "");
             Room DomeRoom = new Room("Dome Room", "");
             Room EngravingsCave = new Room("Engravings Cave", "");
-            Room LoudRoom = new Room("Loud Room", "");
+            Room LoudRoom = new Room("Loud Room", "You see a platinum bar on the ground.");
             Room DampCave = new Room("Damp Cave", "");
             Room NorthWhiteCliffsBeach = new Room("North White Cliffs Beach", "");
             Room SouthWhiteCliffsBeach = new Room("South White Cliffs Beach", "");
@@ -106,9 +106,9 @@ namespace zrok
             Room ReservoirSouth = new Room("Southern Reservoir", "");
             Room StreamView = new Room("Stream View", "");
             Room Stream = new Room("Stream", "");
-            Room Reservoir = new Room("Reservoir", "");
+            Room Reservoir = new Room("Reservoir", "You see a trunk of jewels on the ground.");
             Room ReservoirNorth = new Room("North Reservoir", "");
-            Room AtlantisRoom = new Room("Atlantis Room", "");
+            Room AtlantisRoom = new Room("Atlantis Room", "You see a crystal trident on the ground");
             Room Cave1 = new Room("Cave 1", ""); //above atlantis room
             Room TwistingPassage = new Room("Twisting passage", "");
             Room NorthMirrorRoom = new Room("North Mirror Room", "");
@@ -116,10 +116,10 @@ namespace zrok
             Room SlideRoom = new Room("Slide Room", "");
             Room MineEntrance = new Room("Mine Entrance", "");
             Room SqueakyRoom = new Room("Squeeky Room", "");
-            Room BatRoom = new Room("Bat Room", "");
+            Room BatRoom = new Room("Bat Room", "You see a jade figurine on the ground");
             Room ShaftRoom = new Room("Shaft Room", "");
             Room SmellyRoom = new Room("Smelly Room", "");
-            Room GasRoom = new Room("Gas Room", "");
+            Room GasRoom = new Room("Gas Room", "You see a sapphire bracelet on the ground.");
             Room CoalMine1 = new Room("Coal Mine", "");
             Room CoalMine2 = new Room("Coal Mine", "");
             Room CoalMine3 = new Room("Coal Mine", "");
@@ -137,7 +137,7 @@ namespace zrok
             Room Maze2 = new Room("Maze", "You are in a maze.");
             Room Maze3 = new Room("Maze", "You are in a maze.");
             Room Maze4 = new Room("Maze", "You are in a maze.");
-            Room Maze5 = new Room("Maze", "You are in a maze.");
+            Room Maze5 = new Room("Maze", "You are in a maze. You see a bag of coins on the ground.");
             Room Maze6 = new Room("Maze", "You are in a maze.");
             Room Maze7 = new Room("Maze", "You are in a maze.");
             Room Maze8 = new Room("Maze", "You are in a maze.");
@@ -356,7 +356,7 @@ namespace zrok
 
             CoalMine2.AddExit(Direction.South, CoalMine1);
             CoalMine2.AddExit(Direction.North, CoalMine2);
-            CoalMine2.AddExit(Direction.SouthEast, CoalMine3);
+            CoalMine2.AddExit(Direction.East, CoalMine3);
 
             CoalMine3.AddExit(Direction.West, CoalMine2);
             CoalMine3.AddExit(Direction.SouthWest, CoalMine4);
@@ -433,6 +433,7 @@ namespace zrok
             //Canyon bottom exits
             CanyonBottom.AddExit(Direction.Up, RockyLedge);
             CanyonBottom.AddExit(Direction.North, EndOfRainbow);
+            EndOfRainbow.AddExit(Direction.South, CanyonBottom);
 
             //winding passage rooms
             WindingPassage.AddExit(Direction.North, SouthMirrorRoom);
@@ -449,7 +450,6 @@ namespace zrok
             Forest2.AddExit(Direction.West, Forest2);
 
             //forest 2 exits
-            Forest2.AddExit(Direction.West, ForestPath);
             Forest2.AddExit(Direction.South, Clearing1);
             Forest2.AddExit(Direction.East, Forest4);
 
@@ -579,7 +579,6 @@ namespace zrok
             Gallery.AddItem(Painting);
 
             GasRoom.AddExit(Direction.Down, SmellyRoom);
-            GasRoom.AddExit(Direction.East, CoalMine1);
             Item SapphireBracelet = new Item("Sapphire Bracelet", "");
             SapphireBracelet.AddSynonym("bracelet");
             SapphireBracelet.SetTrasure(true);
@@ -634,6 +633,76 @@ namespace zrok
             //setting dark rooms
             Attic.SetDark(true);
             Cellar.SetDark(true);
+            EastOfChasmRoom.SetDark(true);
+            Gallery.SetDark(true);
+            Studio.SetDark(true);
+            TrollRoom.SetDark(true);
+            StrangePassage.SetDark(true);
+            CyclopsRoom.SetDark(true);
+            TreasureRoom.SetDark(true);
+            EastWestPassage.SetDark(true);
+            RoundRoom.SetDark(true);
+            NarrowPassage.SetDark(true);
+            NorthMirrorRoom.SetDark(true);
+            SouthMirrorRoom.SetDark(true);
+            WindingPassage.SetDark(true);
+            Cave.SetDark(true);
+            EntranceToHades.SetDark(true);
+            LandOfTheDead.SetDark(true);
+            Altar.SetDark(true);
+            Temple.SetDark(true);
+            EgyptianRoom.SetDark(true);
+            TorchRoom.SetDark(true);
+            EngravingsCave.SetDark(true);
+            DomeRoom.SetDark(true);
+            LoudRoom.SetDark(true);
+            DampCave.SetDark(true);
+            NorthSouthPassage.SetDark(true);
+            Chasm.SetDark(true);
+            DeepCanyon.SetDark(true);
+            GratingRoom.SetDark(true);
+            Cave.SetDark(true);
+            Cave1.SetDark(true);
+            TwistingPassage.SetDark(true);
+            ColdPassage.SetDark(true);
+            SlideRoom.SetDark(true);
+            MineEntrance.SetDark(true);
+            SqueakyRoom.SetDark(true);
+            BatRoom.SetDark(true);
+            ShaftRoom.SetDark(true);
+            SmellyRoom.SetDark(true);
+            GasRoom.SetDark(true);
+            CoalMine1.SetDark(true);
+            CoalMine2.SetDark(true);
+            CoalMine3.SetDark(true);
+            CoalMine4.SetDark(true);
+            LadderBottom.SetDark(true);
+            TimberRoom.SetDark(true);
+            DeadEnd5.SetDark(true);
+            TimberRoom.SetDark(true);
+            DraftyRoom.SetDark(true);
+            MachineRoom.SetDark(true);
+
+            Maze1.SetDark(true);
+            Maze2.SetDark(true);
+            Maze3.SetDark(true);
+            Maze4.SetDark(true);
+            Maze5.SetDark(true);
+            Maze6.SetDark(true);
+            Maze7.SetDark(true);
+            Maze8.SetDark(true);
+            Maze9.SetDark(true);
+            Maze10.SetDark(true);
+            Maze11.SetDark(true);
+            Maze12.SetDark(true);
+            Maze13.SetDark(true);
+            Maze14.SetDark(true);
+            Maze15.SetDark(true);
+
+            DeadEnd.SetDark(true);
+            DeadEnd2.SetDark(true);
+            DeadEnd3.SetDark(true);
+            DeadEnd4.SetDark(true);
 
             return WestOfHouse;
         }
@@ -699,6 +768,21 @@ namespace zrok
             if (room.GetExits().TryGetValue(direction, out destination))
             {
                 if (this.room.GetName() == "South Of House")
+                {
+                    room = destination;
+                    return;
+                }
+                if (this.room.GetName() == "Clearing")
+                {
+                    room = destination;
+                    return;
+                }
+                if (this.room.GetName() == "North Of House")
+                {
+                    room = destination;
+                    return;
+                }
+                if (destination.GetName() == "Clearing")
                 {
                     room = destination;
                     return;
