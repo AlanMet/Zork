@@ -209,7 +209,7 @@ namespace zrok
             BrassLantern.AddSynonym("lamp");
             LivingRoom.AddItem(BrassLantern);
 
-            Weapon ElvishSword = new Weapon("Elvish Sword", "");
+            Item ElvishSword = new Item("Elvish Sword", "");
             ElvishSword.AddSynonym("sword");
             LivingRoom.AddItem(ElvishSword);
 
@@ -231,7 +231,7 @@ namespace zrok
             EastOfChasmRoom.AddExit(Direction.East, Gallery);
 
             CyclopsRoom.AddExit(Direction.Down, TreasureRoom);
-            CyclopsRoom.AddExit(Direction.Up, Maze15);
+            CyclopsRoom.AddExit(Direction.NorthWest, Maze15);
 
             GratingRoom.AddExit(Direction.Up, Clearing1);
             GratingRoom.AddExit(Direction.SouthWest, Maze1);
@@ -243,9 +243,10 @@ namespace zrok
             RoundRoom.AddExit(Direction.South, NarrowPassage);
             RoundRoom.AddExit(Direction.SouthEast, EngravingsCave);
             RoundRoom.AddExit(Direction.North, NorthSouthPassage);
-            RoundRoom.AddExit(Direction.West, LoudRoom);
+            RoundRoom.AddExit(Direction.East, LoudRoom);
+            RoundRoom.AddExit(Direction.West, EastWestPassage);
 
-            NarrowPassage.AddExit(Direction.North, LoudRoom);
+            NarrowPassage.AddExit(Direction.North, RoundRoom);
             NarrowPassage.AddExit(Direction.South, SouthMirrorRoom);
 
             SouthMirrorRoom.AddExit(Direction.North, NarrowPassage);
@@ -280,7 +281,7 @@ namespace zrok
 
             Chasm.AddExit(Direction.SouthWest, EastWestPassage);
             Chasm.AddExit(Direction.South, NorthSouthPassage);
-            Chasm.AddExit(Direction.NorthEast, ReservoirNorth);
+            Chasm.AddExit(Direction.NorthWest, ReservoirSouth);
 
             DeepCanyon.AddExit(Direction.Down, LoudRoom);
             DeepCanyon.AddExit(Direction.SouthWest, NorthSouthPassage);
@@ -293,20 +294,98 @@ namespace zrok
             ReservoirSouth.AddExit(Direction.North, Reservoir);
             ReservoirSouth.AddExit(Direction.SouthWest, Chasm);
             ReservoirSouth.AddExit(Direction.SouthEast, DeepCanyon);
+            ReservoirSouth.AddExit(Direction.West, StreamView);
+
+            StreamView.AddExit(Direction.North, Stream);
+            StreamView.AddExit(Direction.East, ReservoirSouth);
+
+            Stream.AddExit(Direction.South, StreamView);
+            Stream.AddExit(Direction.East, Reservoir);
 
             Reservoir.AddExit(Direction.North, ReservoirNorth);
             Reservoir.AddExit(Direction.South, ReservoirSouth);
+            Reservoir.AddExit(Direction.West, Stream);
 
             ReservoirNorth.AddExit(Direction.North, AtlantisRoom);
-            ReservoirSouth.AddExit(Direction.South, Reservoir);
+            ReservoirNorth.AddExit(Direction.South, Reservoir);
 
-            AtlantisRoom.AddExit(Direction.North, BatRoom);
+            AtlantisRoom.AddExit(Direction.Up, Cave1);
             AtlantisRoom.AddExit(Direction.South, ReservoirNorth);
 
-            BatRoom.AddExit(Direction.South, AtlantisRoom);
-            BatRoom.AddExit(Direction.East, GasRoom);
+            Cave1.AddExit(Direction.South, AtlantisRoom);
+            Cave1.AddExit(Direction.North, NorthMirrorRoom);
+            Cave1.AddExit(Direction.West, TwistingPassage);
 
-            GasRoom.AddExit(Direction.West, BatRoom);
+            TwistingPassage.AddExit(Direction.North, NorthMirrorRoom);
+            TwistingPassage.AddExit(Direction.East, Cave);
+
+            NorthMirrorRoom.AddExit(Direction.West, TwistingPassage);
+            NorthMirrorRoom.AddExit(Direction.East, Cave1);
+            NorthMirrorRoom.AddExit(Direction.North, ColdPassage);
+
+            ColdPassage.AddExit(Direction.West, SlideRoom);
+            ColdPassage.AddExit(Direction.South, NorthMirrorRoom);
+
+            SlideRoom.AddExit(Direction.Down, Cellar);
+            SlideRoom.AddExit(Direction.East, ColdPassage);
+            SlideRoom.AddExit(Direction.North, MineEntrance);
+
+            MineEntrance.AddExit(Direction.West, SqueakyRoom);
+            MineEntrance.AddExit(Direction.South, SlideRoom);
+
+            SqueakyRoom.AddExit(Direction.North, BatRoom);
+            SqueakyRoom.AddExit(Direction.East, MineEntrance);
+
+            BatRoom.AddExit(Direction.South, SqueakyRoom);
+            BatRoom.AddExit(Direction.East, ShaftRoom);
+
+            ShaftRoom.AddExit(Direction.North, SmellyRoom);
+            ShaftRoom.AddExit(Direction.West, BatRoom);
+
+            SmellyRoom.AddExit(Direction.South, ShaftRoom);
+            SmellyRoom.AddExit(Direction.Down, GasRoom);
+
+            GasRoom.AddExit(Direction.Up, SmellyRoom);
+            GasRoom.AddExit(Direction.East, CoalMine1);
+
+            CoalMine1.AddExit(Direction.East, CoalMine1);
+            CoalMine1.AddExit(Direction.North, GasRoom);
+            CoalMine1.AddExit(Direction.NorthEast, CoalMine2);
+
+            CoalMine2.AddExit(Direction.South, CoalMine1);
+            CoalMine2.AddExit(Direction.North, CoalMine2);
+            CoalMine2.AddExit(Direction.SouthEast, CoalMine3);
+
+            CoalMine3.AddExit(Direction.West, CoalMine2);
+            CoalMine3.AddExit(Direction.SouthWest, CoalMine4);
+            CoalMine3.AddExit(Direction.South, CoalMine3);
+
+            CoalMine4.AddExit(Direction.North, CoalMine3);
+            CoalMine4.AddExit(Direction.West, CoalMine4);
+            CoalMine4.AddExit(Direction.Down, LadderBottom);
+
+            LadderBottom.AddExit(Direction.South, DeadEnd);
+            LadderBottom.AddExit(Direction.West, TimberRoom);
+
+            TimberRoom.AddExit(Direction.East, LadderBottom);
+            TimberRoom.AddExit(Direction.West, DraftyRoom);
+
+            DraftyRoom.AddExit(Direction.East, TimberRoom);
+            DraftyRoom.AddExit(Direction.South, MachineRoom);
+
+            MachineRoom.AddExit(Direction.North, DraftyRoom);
+
+
+            //damp cave exits
+            DampCave.AddExit(Direction.West, LoudRoom);
+            DampCave.AddExit(Direction.East, NorthWhiteCliffsBeach);
+
+            //white cliffs beach
+            NorthWhiteCliffsBeach.AddExit(Direction.West, DampCave);
+            NorthWhiteCliffsBeach.AddExit(Direction.South, SouthWhiteCliffsBeach);
+
+            //white cliffs beach 
+            SouthWhiteCliffsBeach.AddExit(Direction.North, NorthWhiteCliffsBeach);
 
 
             //attic exits
@@ -318,7 +397,7 @@ namespace zrok
             Rope.SetTakeable(true);
             Attic.AddItem(Rope);
 
-            Weapon Knife = new Weapon("nasty-looking knife", "");
+            Item Knife = new Item("nasty-looking knife", "");
             Knife.AddSynonym("knife");
             Knife.SetTakeable(true);
             Attic.AddItem(Knife);
@@ -328,6 +407,10 @@ namespace zrok
             Studio.AddExit(Direction.Up, Kitchen);
 
             //clearing1
+            Clearing1.AddExit(Direction.West, Forest1);
+            Clearing1.AddExit(Direction.East, Forest2);
+            Clearing1.AddExit(Direction.South, ForestPath);
+            Clearing1.AddExit(Direction.Down, GratingRoom);
 
             //clearing 2 exits
             Clearing2.AddExit(Direction.East, CanyonView);
@@ -348,11 +431,24 @@ namespace zrok
             CanyonBottom.AddExit(Direction.Up, RockyLedge);
             CanyonBottom.AddExit(Direction.North, EndOfRainbow);
 
+            //winding passage rooms
+            WindingPassage.AddExit(Direction.North, SouthMirrorRoom);
+            WindingPassage.AddExit(Direction.East, Cave);
 
             //forest 3 exits
             Forest3.AddExit(Direction.North, Clearing1);
             Forest3.AddExit(Direction.NorthWest, SouthOfHouse);
             Forest3.AddExit(Direction.West, Forest1);
+
+            //forest 4
+            Forest4.AddExit(Direction.North, Forest2);
+            Forest4.AddExit(Direction.South, Forest2);
+            Forest2.AddExit(Direction.West, Forest2);
+
+            //forest 2 exits
+            Forest2.AddExit(Direction.West, ForestPath);
+            Forest2.AddExit(Direction.South, Clearing1);
+            Forest2.AddExit(Direction.East, Forest4);
 
             //forest1 exits
             Forest1.AddExit(Direction.North, Clearing1);
