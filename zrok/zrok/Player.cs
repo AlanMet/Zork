@@ -154,6 +154,8 @@ namespace zrok
             Room DeadEnd3 = new Room("Dead End", "You are in a dead end.");//se maze8
             Room DeadEnd4 = new Room("Dead End", "ou are in a dead end.");//up maze12
 
+            Room DeadEnd5 = new Room("Dead End", "ou are in a dead end.");//south ladder
+
 
             //west of house exits and items
             WestOfHouse.AddExit(Direction.North, NorthOfHouse);
@@ -364,7 +366,7 @@ namespace zrok
             CoalMine4.AddExit(Direction.West, CoalMine4);
             CoalMine4.AddExit(Direction.Down, LadderBottom);
 
-            LadderBottom.AddExit(Direction.South, DeadEnd);
+            LadderBottom.AddExit(Direction.South, DeadEnd5);
             LadderBottom.AddExit(Direction.West, TimberRoom);
 
             TimberRoom.AddExit(Direction.East, LadderBottom);
@@ -375,6 +377,7 @@ namespace zrok
 
             MachineRoom.AddExit(Direction.North, DraftyRoom);
 
+            DeadEnd5.AddExit(Direction.North, LadderBottom);
 
             //damp cave exits
             DampCave.AddExit(Direction.West, LoudRoom);
