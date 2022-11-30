@@ -49,10 +49,13 @@ namespace zrok
         public void Describe()
         {
             Console.WriteLine($"{this.Name}, \n{this.Description}");
-            Console.WriteLine("You see:");
-            foreach (var item in items)
+            if (items.Count >0)
             {
-                Console.WriteLine(item.GetName());
+                Console.WriteLine("You see:");
+                foreach (var item in items)
+                {
+                    Console.WriteLine(item.GetName());
+                }
             }
         }
 

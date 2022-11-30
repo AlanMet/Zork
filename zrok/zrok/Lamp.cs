@@ -23,6 +23,13 @@ namespace zrok
             Console.WriteLine($"The {this.GetName()} is now on.");
         }
 
+        public void UnLight()
+        {
+            lit = false;
+            Console.WriteLine($"The {this.GetName()} is now off.");
+        }
+
+
         public bool GetLit()
         {
             return lit;

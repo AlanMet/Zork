@@ -77,6 +77,14 @@ namespace zrok{
             Vocab.Add("rope", WordType.NOUN);
             Vocab.Add("case", WordType.NOUN);
             Vocab.Add("trophycase", WordType.NOUN);
+            Vocab.Add("egg", WordType.NOUN);
+            Vocab.Add("figurine", WordType.NOUN);
+            Vocab.Add("bracelet", WordType.NOUN);
+            Vocab.Add("trident", WordType.NOUN);
+            Vocab.Add("platinum", WordType.NOUN);
+            Vocab.Add("coffin", WordType.NOUN);
+            Vocab.Add("bag", WordType.NOUN);
+
 
             //adjectives
 
@@ -92,6 +100,7 @@ namespace zrok{
             Vocab.Add("inside", WordType.PREPOSITION);
             Vocab.Add("under", WordType.PREPOSITION);
             Vocab.Add("on", WordType.PREPOSITION);
+            Vocab.Add("off", WordType.PREPOSITION);
 
             //pronouns
 
@@ -409,7 +418,7 @@ namespace zrok{
                         player.TurnOn();
                         break;
                     case "turnoff":
-                        //player.TurnOff(wt3.GetWord());
+                        player.TurnOff();
                         break;
                     default:
                         Console.WriteLine("right ");
