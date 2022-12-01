@@ -714,6 +714,9 @@ namespace zrok
 
         public bool GetLampStatus()
         {
+            //check all items in inv
+            //if lamp return status
+            //only 1 type of lamp item so no need to check name
             Lamp currentitem;
             foreach (var item in Inventory.GetItems())
             {
@@ -728,6 +731,8 @@ namespace zrok
 
         public void TurnOn()
         {
+            //check all inv items
+            //if lamp, turn on
             Lamp currentitem;
             foreach (var item in Inventory.GetItems())
             {
@@ -744,6 +749,8 @@ namespace zrok
 
         public void TurnOff()
         {
+            // check all inv items
+            //if lamp, turn off
             Lamp currentitem;
             foreach (var item in Inventory.GetItems())
             {
@@ -767,6 +774,7 @@ namespace zrok
             WindowRoom destination2;
             if (room.GetExits().TryGetValue(direction, out destination))
             {
+                //hard coding exits that are fine
                 if (this.room.GetName() == "South Of House")
                 {
                     room = destination;
@@ -787,6 +795,7 @@ namespace zrok
                     room = destination;
                     return;
                 }
+                //if the destination room is a window room, check status
                 else if (destination.GetType() == typeof(WindowRoom))
                 {
                     destination2 = (WindowRoom)destination;
@@ -799,6 +808,7 @@ namespace zrok
                         Console.WriteLine("You can't go that way.");
                     }
                 }
+                //if the current room is a windowroom check status
                 else if (room.GetType() == typeof(WindowRoom))
                 {
                     destination2 = (WindowRoom)room;
@@ -831,16 +841,21 @@ namespace zrok
         {
             Item item1 = null;
             string dialogue = null;
+            //check all items in room
             foreach (var item in room.GetItems().ToList())
             {
                 if (item.IsSynonym(Object))
                 {
+                    //if you can take the item
                     if (item.GetTakeable())
                     {
+                        //if the item was added to the inventory
                         bool succesful = this.Inventory.Add(item);
                         if (succesful)
                         {
+                            //remove from room
                             room.RemoveItem(item.GetName());
+                            //set the dialogue
                             dialogue = item.GetTakeableDialogue();
                         }
                     }
@@ -852,9 +867,11 @@ namespace zrok
                 }
                 else
                 {
+                    //if it's a container
                     if (item.GetType() == typeof(Container))
                     {
                         Container container2 = (Container)item;
+                        //check opened
                         if (container2.GetOpened())
                         {
                             Container container = (Container)item;
