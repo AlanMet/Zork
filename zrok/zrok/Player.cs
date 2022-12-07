@@ -170,7 +170,7 @@ namespace zrok
             mailbox.AddSynonym("box");
             mailbox.AddItem(leaflet);
             //string name, string description, bool takeable,  string negative
-            mailbox.SetTakeable(true);
+            mailbox.SetTakeable(false);
             WestOfHouse.AddItem(mailbox);
 
             //forest patgh exits
