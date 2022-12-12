@@ -41,6 +41,7 @@ namespace zrok
                         Console.WriteLine("Oh, no!  A fearsome grue slithered into the room and devoured you.");
                         Console.WriteLine();
                         Console.WriteLine("You have died.");
+                        System.Diagnostics.Process.Start("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
                         restart();
                     }
                 }
