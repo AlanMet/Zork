@@ -72,7 +72,7 @@ namespace zrok
             } while (input != "q" && input !="quit");
         }
 
-        public void SaveGame()
+        private void SaveGame()
         {
             FileStream fs;
             BinaryFormatter binfmt;
@@ -97,7 +97,7 @@ namespace zrok
             }
         }
 
-        public void LoadGame()
+        private void LoadGame()
         {
             FileStream fs;
             BinaryFormatter binfmt;
