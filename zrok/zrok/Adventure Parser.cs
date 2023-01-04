@@ -320,6 +320,7 @@ namespace zrok{
                 {
                     case "move":
                     case "go":
+                        //Console.WriteLine(wt2.GetWord());
                         switch (wt2.GetWord())
                         {
                             case "n":
@@ -346,7 +347,9 @@ namespace zrok{
                             case "southwest":
                                 player.Move(Direction.SouthWest);
                                 break;
-                            case "West":
+                            case "w":
+                            case "west":
+                                //Console.WriteLine(wt2.GetWord());
                                 player.Move(Direction.West);
                                 break;
                             case "northwest":
@@ -355,6 +358,7 @@ namespace zrok{
                             case "down":
                                 player.Move(Direction.Down);
                                 break;
+                            case "u":
                             case "up":
                                 player.Move(Direction.Up);
                                 break;

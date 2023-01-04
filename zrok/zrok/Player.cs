@@ -821,6 +821,19 @@ namespace zrok
                         Console.WriteLine("You can't go that way.");
                     }
                 }
+                else if (room.GetType() == typeof(TrapDoorRoom))
+                {
+                    //Console.WriteLine(direction);
+                    TrapDoorRoom thisroom = (TrapDoorRoom)room;
+                    if (thisroom.GetOpen() && direction.ToString() == "Down")
+                    {
+                        room = destination;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You can't go that way.");
+                    }
+                }
                 else
                 {
                     room = destination;
