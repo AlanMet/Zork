@@ -1112,17 +1112,17 @@ namespace zrok
         public void TakeAll()
         {
             int count = 0;
-            foreach (Item value in room.GetItems())
+            for (int i = 0; i < room.GetItems().Count; i++)
             {
-                if (value.GetTakeable())
+                Item item= room.GetItems()[i];
+                if (item.GetTakeable())
                 {
-                    Item item = this.room.RemoveItem(value.GetName());
-
                     bool confirmed = this.Inventory.Add(item);
                     if (confirmed)
                     {
+                        item = this.room.RemoveItem(item.GetName());
                         count++;
-                        Console.WriteLine($"Taken {value.GetName()}");
+                        Console.WriteLine($"Taken {item.GetName()}");
                     }
                     else
                     {

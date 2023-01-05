@@ -427,7 +427,7 @@ namespace zrok{
                         player.TurnOff();
                         break;
                     default:
-                        Console.WriteLine("right ");
+                        //Console.WriteLine("right ");
                         Console.WriteLine($"I don't know how to {wt.GetWord()} {wt2.GetWord()} a {wt3.GetWord()}!");
                         break;
                 }
