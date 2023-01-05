@@ -853,6 +853,11 @@ namespace zrok
 
         public void TakeObject(string Object)
         {
+            if (Object == "all")
+            {
+                TakeAll();
+                return;
+            }
             Item item1 = null;
             string dialogue = null;
             //check all items in room
@@ -1109,19 +1114,22 @@ namespace zrok
             int count = 0;
             foreach (Item value in room.GetItems())
             {
-                Item item = this.room.RemoveItem(value.GetName());
+                if (value.GetTakeable())
+                {
+                    Item item = this.room.RemoveItem(value.GetName());
 
-                bool confirmed = this.Inventory.Add(item);
-                if (confirmed)
-                {
-                    count++;
-                    Console.WriteLine($"Taken {value.GetName()}");
-                }
-                else
-                {
-                    Console.WriteLine("You are holding too many items");
-                    Console.WriteLine($"Took {count} items");
-                    return;
+                    bool confirmed = this.Inventory.Add(item);
+                    if (confirmed)
+                    {
+                        count++;
+                        Console.WriteLine($"Taken {value.GetName()}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("You are holding too many items");
+                        Console.WriteLine($"Took {count} items");
+                        return;
+                    }
                 }
             }
         }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,7 +20,8 @@ namespace zrok{
 
         private Dictionary<string, WordType> Vocab = new Dictionary<string, WordType>();
 
-        private void InitVocab() {
+        private void InitVocab()
+        {
             //vocab.Add("", WordType.);
             //including synonyms
             //verbs
@@ -62,6 +65,7 @@ namespace zrok{
             Vocab.Add("put", WordType.VERB);
 
             //nouns 
+            Vocab.Add("all", WordType.NOUN);
             Vocab.Add("mailbox", WordType.NOUN);
             Vocab.Add("leaflet", WordType.NOUN);
             Vocab.Add("box", WordType.NOUN);
@@ -239,7 +243,7 @@ namespace zrok{
                         Console.WriteLine($"I don't know how to {wt.GetWord()} a {wt2.GetWord()}!");
                         return;
                 }
-                if (wt.GetWord()+wt2.GetWord() == "takeall")
+                if (wt.GetWord() + wt2.GetWord() == "takeall")
                 {
                     player.TakeAll();
                 }
@@ -259,7 +263,7 @@ namespace zrok{
             {
                 Console.WriteLine($"Can't do this because '{wt2.GetWord()}' is not a direction!");
             }
-            else if(wt3.GetType() != WordType.VERB)
+            else if (wt3.GetType() != WordType.VERB)
             {
                 Console.WriteLine($"Can't do this because '{wt2.GetWord()}' is not a direction!");
             }
@@ -485,7 +489,7 @@ namespace zrok{
                 else
                 {
                     ProcessVerbVerb(WordAndType);
-                } 
+                }
             }
             else if (length == 3)
             {
@@ -497,7 +501,7 @@ namespace zrok{
                 {
                     ProcessVerbPrepositionNoun(WordAndType);
                 }
-                
+
             }
             else if (length == 4)
             {
@@ -513,16 +517,16 @@ namespace zrok{
         {
             List<WordAndType> wordandtype = new List<WordAndType>();
             WordType wordtype;
-            foreach (string word in StringList) 
+            foreach (string word in StringList)
             {
-                if(Vocab.ContainsKey(word))
+                if (Vocab.ContainsKey(word))
                 {
                     wordtype = Vocab[word];
                     if (wordtype == WordType.PREPOSITION)
                     {
                         wordandtype.Add(new WordAndType(word, wordtype));
                     }
-                    else if(wordtype == WordType.OTHER)
+                    else if (wordtype == WordType.OTHER)
                     {
                     }
                     else
@@ -534,7 +538,17 @@ namespace zrok{
                 {
                     //levenshtein distance to find the percentage differance between words in the dictionary and respond with
                     //did you mean {word}?
+                    
                     Console.WriteLine($"I don't understand {word}");
+                    foreach (var item in Vocab)
+                    {
+                        string worda = item.Key;
+
+                        if (CalcLevenshteinDistance(worda, word) <= 2)
+                        {
+                            Console.WriteLine($"did you mean {worda}?");
+                        }
+                    }
                     return;
                 }
             }
@@ -551,15 +565,50 @@ namespace zrok{
             char[] Delims = { ' ', '.' };
             List<string> StringList;
             string lowstr = command.Trim().ToLower();
-            if(lowstr == "")
+            if (lowstr == "")
             {
                 Console.WriteLine("I beg your pardon?");
                 return;
             }
             else
+            {
                 StringList = new List<string>(command.Split(Delims, StringSplitOptions.RemoveEmptyEntries));
                 ProcessCommand(StringList);
             }
         }
+
+        private static int CalcLevenshteinDistance(string a, string b)
+        {
+            if (String.IsNullOrEmpty(a) && String.IsNullOrEmpty(b))
+            {
+                return 0;
+            }
+            if (String.IsNullOrEmpty(a))
+            {
+                return b.Length;
+            }
+            if (String.IsNullOrEmpty(b))
+            {
+                return a.Length;
+            }
+            int lengthA = a.Length;
+            int lengthB = b.Length;
+            var distances = new int[lengthA + 1, lengthB + 1];
+            for (int i = 0; i <= lengthA; distances[i, 0] = i++) ;
+            for (int j = 0; j <= lengthB; distances[0, j] = j++) ;
+
+            for (int i = 1; i <= lengthA; i++)
+                for (int j = 1; j <= lengthB; j++)
+                {
+                    int cost = b[j - 1] == a[i - 1] ? 0 : 1;
+                    distances[i, j] = Math.Min
+                        (
+                        Math.Min(distances[i - 1, j] + 1, distances[i, j - 1] + 1),
+                        distances[i - 1, j - 1] + cost
+                        );
+                }
+            return distances[lengthA, lengthB];
+        }
     }
+}
 
