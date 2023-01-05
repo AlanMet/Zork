@@ -53,6 +53,7 @@ namespace zrok
                 }
                 else
                 {
+                    Console.WriteLine("Opened.");
                     Console.WriteLine($"{this.GetName()} is empty");
                 }
             }
@@ -78,7 +79,7 @@ namespace zrok
                 items.Add(item);
                 Console.WriteLine("Done.");
                 //hard code number of treasures
-                if (items.Count == 1)
+                if (items.Count == 11)
                 {
                     Console.WriteLine("Congratulations, You have completed Zork I! Feel free to keep exploring!");
                 }
