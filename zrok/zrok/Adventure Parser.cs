@@ -532,6 +532,8 @@ namespace zrok{
                 }
                 else
                 {
+                    //levenshtein distance to find the percentage differance between words in the dictionary and respond with
+                    //did you mean {word}?
                     Console.WriteLine($"I don't understand {word}");
                     return;
                 }

@@ -616,6 +616,7 @@ namespace zrok
             BafOfCoins.SetTrasure(true);
             BafOfCoins.SetTakeable(true);
             BafOfCoins.AddSynonym("Bag");
+            BafOfCoins.AddSynonym("Coins");
             Maze5.AddItem(BafOfCoins);
 
             Item CrystalSkull = new Item("Crystal Skull", "");
@@ -1093,6 +1094,11 @@ namespace zrok
                 if (item.GetType() == typeof(Container) && item.IsSynonym(Object))
                 {
                     var newitem = (Container)item;
+                    newitem.Close();
+                }
+                else if (item.GetType() == typeof(TrophyCase) && item.IsSynonym(Object))
+                {
+                    var newitem = (TrophyCase)item;
                     newitem.Close();
                 }
             }
