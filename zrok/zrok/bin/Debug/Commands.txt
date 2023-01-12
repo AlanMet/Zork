@@ -1,0 +1,69 @@
+take mailbox
+take inventory
+take Leaflet
+open mailbox
+take leaflet
+imventory
+inventory
+read leaflet
+drop leaflet
+i
+go north
+n
+up
+take egg
+d
+s
+e
+go west
+open window
+go west
+w
+take all
+put egg in case
+open case
+put egg in case
+put lamp in case
+close case
+go down
+move rug
+open trapdoor
+save
+go down
+f
+load
+down
+turn on lantern
+south
+east
+take painting
+north
+up
+west
+open case
+put painting in case
+go east
+e
+n
+n
+n
+move leaves
+go down
+open trapdoor
+d
+sw
+nw
+e
+n
+n
+take coins
+n
+n
+n
+e
+s
+s
+e
+n
+u
+put coins in case

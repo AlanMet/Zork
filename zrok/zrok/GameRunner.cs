@@ -11,6 +11,7 @@ namespace zrok
 {
     public class GameRunner
     {
+        string adminfilename = "";
         Adventure adv;
 
         public GameRunner()
@@ -23,14 +24,34 @@ namespace zrok
         {
             int darkcounter = 0;
             string input;
+            int count = 0;
+            string lines = "";
+            string[] Delims = { "\n", "\r", "\r\n" };
+            List<string> commands = new List<string>();
             do
             {
+                if (adminfilename != "" && lines == "")
+                {
+                    try
+                    {
+                        using (StreamReader streamReader = new StreamReader(adminfilename))
+                        {
+                            lines = streamReader.ReadToEnd();
+                            commands = lines.Split(Delims, StringSplitOptions.RemoveEmptyEntries).ToList();
+                            count = 0;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("filename doesn't exist");
+                    }
+
+                }
                 Console.WriteLine();
-                
-                
+
                 if (adv.GetPlayer().GetRoom().GetDark() == true && adv.GetPlayer().GetLampStatus() == false)
                 {
-                    
+
                     darkcounter++;
                     if (darkcounter == 1)
                     {
@@ -52,7 +73,24 @@ namespace zrok
                     darkcounter = 0;
                 }
                 Console.Write("> ");
-                input = Console.ReadLine().ToLower();
+                if (commands.Count > 0)
+                {
+                    input = commands[count];
+                    if (count == commands.Count - 1)
+                    {
+                        commands = new List<string>();
+                        continue;
+                    }
+                    else
+                    {
+                        count += 1;
+                    }
+                }
+                else
+                {
+                    input = Console.ReadLine().ToLower();
+                }
+                Console.WriteLine(input);
                 if (input.Trim() == "save")
                 {
                     SaveGame();
@@ -68,8 +106,18 @@ namespace zrok
                     restart();
                     continue;
                 }
-                adv.ParseCommand(input);
-            } while (input != "q" && input !="quit");
+                else if (input.Trim() == "adminload")
+                {
+                    Console.Write("filename: ");
+                    adminfilename = Console.ReadLine();
+                    adminfilename += ".txt";
+                    Console.WriteLine();
+                }
+                else
+                {
+                    adv.ParseCommand(input.ToLower());
+                }
+            } while (input != "q" && input != "quit");
         }
 
         private void SaveGame()
