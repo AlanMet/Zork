@@ -66,12 +66,14 @@ namespace zrok{
             Vocab.Add("all", WordType.NOUN);
             Vocab.Add("mailbox", WordType.NOUN);
             Vocab.Add("leaflet", WordType.NOUN);
+            Vocab.Add("coins", WordType.NOUN);
             Vocab.Add("box", WordType.NOUN);
             Vocab.Add("room", WordType.NOUN);
             Vocab.Add("sword", WordType.NOUN);
             Vocab.Add("window", WordType.NOUN);
             Vocab.Add("rug", WordType.NOUN);
             Vocab.Add("trapdoor", WordType.NOUN);
+            Vocab.Add("leaves", WordType.NOUN);
             Vocab.Add("lantern", WordType.NOUN);
             Vocab.Add("lamp", WordType.NOUN);
             Vocab.Add("painting", WordType.NOUN);
@@ -545,6 +547,7 @@ namespace zrok{
                         if (CalcLevenshteinDistance(worda, word) <= 2)
                         {
                             Console.WriteLine($"did you mean {worda}?");
+                            return;
                         }
                     }
                     return;

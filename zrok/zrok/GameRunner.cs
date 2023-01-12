@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace zrok
 {
@@ -85,6 +86,7 @@ namespace zrok
                     {
                         count += 1;
                     }
+                    //Thread.Sleep(1000);
                 }
                 else
                 {

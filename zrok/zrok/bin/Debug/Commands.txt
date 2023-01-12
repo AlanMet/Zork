@@ -52,18 +52,21 @@ go down
 open trapdoor
 d
 sw
-nw
-e
+sw
+u
 n
-n
+d
 take coins
 n
 n
 n
+s
+s
 e
 s
 s
 e
 n
 u
+w
 put coins in case

@@ -133,21 +133,21 @@ namespace zrok
 
 
             //Maze
-            Room Maze1 = new Room("Maze", "You are in a maze.");
-            Room Maze2 = new Room("Maze", "You are in a maze.");
-            Room Maze3 = new Room("Maze", "You are in a maze.");
-            Room Maze4 = new Room("Maze", "You are in a maze.");
-            Room Maze5 = new Room("Maze", "You are in a maze. You see a bag of coins on the ground.");
-            Room Maze6 = new Room("Maze", "You are in a maze.");
-            Room Maze7 = new Room("Maze", "You are in a maze.");
-            Room Maze8 = new Room("Maze", "You are in a maze.");
-            Room Maze9 = new Room("Maze", "You are in a maze.");
-            Room Maze10 = new Room("Maze", "You are in a maze.");
-            Room Maze11 = new Room("Maze", "You are in a maze.");
-            Room Maze12 = new Room("Maze", "You are in a maze.");
-            Room Maze13 = new Room("Maze", "You are in a maze.");
-            Room Maze14 = new Room("Maze", "You are in a maze.");
-            Room Maze15 = new Room("Maze", "You are in a maze.");
+            Room Maze1 = new Room("Maze1", "You are in a maze.");
+            Room Maze2 = new Room("Maze2", "You are in a maze.");
+            Room Maze3 = new Room("Maze3", "You are in a maze.");
+            Room Maze4 = new Room("Maze4", "You are in a maze.");
+            Room Maze5 = new Room("Maze5", "You are in a maze. You see a bag of coins on the ground.");
+            Room Maze6 = new Room("Maze6", "You are in a maze.");
+            Room Maze7 = new Room("Maze7", "You are in a maze.");
+            Room Maze8 = new Room("Maze8", "You are in a maze.");
+            Room Maze9 = new Room("Maze9", "You are in a maze.");
+            Room Maze10 = new Room("Maze10", "You are in a maze.");
+            Room Maze11 = new Room("Maze11", "You are in a maze.");
+            Room Maze12 = new Room("Maze12", "You are in a maze.");
+            Room Maze13 = new Room("Maze13", "You are in a maze.");
+            Room Maze14 = new Room("Maze14", "You are in a maze.");
+            Room Maze15 = new Room("Maze15", "You are in a maze.");
 
             Room DeadEnd1 = new Room("Dead End", "You are in a dead end.");//ne maze4
             Room DeadEnd2 = new Room("Dead End", "You are in a dead end.");//e maze5
@@ -163,7 +163,7 @@ namespace zrok
             WestOfHouse.AddExit(Direction.South, SouthOfHouse);
 
             
-            Item leaflet = new Item("Leaflet", "'Welcome To Zork!'\n\n Zork is a game of adventure and danger, and low cunnin. In it you will explore some of the most amazing territory ever seen by mortals. No comuter should be without one! ");
+            Item leaflet = new Item("Leaflet", "'Welcome To Zork!'\n\n Zork is a game of adventure and danger, and low cunning. In it you will explore some of the most amazing territory ever seen by mortals. No comuter should be without one! ");
             leaflet.AddSynonym("leaflet");
             leaflet.AddSynonym("paper");
             Container mailbox = new Container("mailbox", "mailbox", false, "It is firmly attached to the ground");
@@ -236,7 +236,7 @@ namespace zrok
             CyclopsRoom.AddExit(Direction.NorthWest, Maze15);
 
             GratingRoom.AddExit(Direction.Up, Clearing1);
-            GratingRoom.AddExit(Direction.SouthWest, Maze1);
+            GratingRoom.AddExit(Direction.SouthWest, Maze11);
 
             EastWestPassage.AddExit(Direction.West, TrollRoom);
             EastWestPassage.AddExit(Direction.North, Chasm);
@@ -615,8 +615,8 @@ namespace zrok
             Item BafOfCoins = new Item("Bag Of Coins", "");
             BafOfCoins.SetTrasure(true);
             BafOfCoins.SetTakeable(true);
-            BafOfCoins.AddSynonym("Bag");
-            BafOfCoins.AddSynonym("Coins");
+            BafOfCoins.AddSynonym("bag");
+            BafOfCoins.AddSynonym("coins");
             Maze5.AddItem(BafOfCoins);
 
             Item CrystalSkull = new Item("Crystal Skull", "");
@@ -775,30 +775,36 @@ namespace zrok
             WindowRoom destination2;
             if (room.GetExits().TryGetValue(direction, out destination))
             {
+                //Console.WriteLine(direction);
                 //hard coding exits that are fine
                 if (this.room.GetName() == "South Of House")
                 {
+                    //Console.WriteLine(direction);
                     room = destination;
                     return;
                 }
-                if (this.room.GetName() == "Clearing")
+                if (this.room.GetName() == "Clearing" && this.room.GetType() != typeof(TrapDoorRoom))
                 {
+                    //Console.WriteLine(direction);
                     room = destination;
                     return;
                 }
                 if (this.room.GetName() == "North Of House")
                 {
+                    //Console.WriteLine(direction);
                     room = destination;
                     return;
                 }
-                if (destination.GetName() == "Clearing")
+                if (destination.GetName() == "Clearing" && this.room.GetType() != typeof(TrapDoorRoom))
                 {
+                    //Console.WriteLine(direction);
                     room = destination;
                     return;
                 }
                 //if the destination room is a window room, check status
                 else if (destination.GetType() == typeof(WindowRoom))
                 {
+                    //Console.WriteLine(direction);
                     destination2 = (WindowRoom)destination;
                     if (destination2.GetOpen())
                     {
@@ -812,6 +818,7 @@ namespace zrok
                 //if the current room is a windowroom check status
                 else if (room.GetType() == typeof(WindowRoom))
                 {
+                    //Console.WriteLine(direction);
                     destination2 = (WindowRoom)room;
                     if (destination2.GetOpen())
                     {
@@ -830,18 +837,24 @@ namespace zrok
                     {
                         room = destination;
                     }
-                    else
+                    else if (!thisroom.GetOpen() && direction.ToString() == "Down")
                     {
                         Console.WriteLine("You can't go that way.");
+                    }
+                    else
+                    {
+                        room = destination;
                     }
                 }
                 else
                 {
+                    //Console.WriteLine("jeff");
                     room = destination;
                 }
             }
             else
             {
+                //Console.WriteLine(direction + " " + destination);
                 Console.WriteLine("You can't go that way");
             }
         }

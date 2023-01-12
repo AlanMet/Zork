@@ -79,7 +79,8 @@ namespace zrok
                 items.Add(item);
                 Console.WriteLine("Done.");
                 //hard code number of treasures
-                if (items.Count == 11)
+                //true number should be 11
+                if (items.Count == 3)
                 {
                     Console.WriteLine("Congratulations, You have completed Zork I! Feel free to keep exploring!");
                 }
