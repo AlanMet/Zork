@@ -86,13 +86,13 @@ namespace zrok
                     {
                         count += 1;
                     }
-                    //Thread.Sleep(1000);
+                    Console.WriteLine(input);
+                    Thread.Sleep(2000);
                 }
                 else
                 {
                     input = Console.ReadLine().ToLower();
                 }
-                Console.WriteLine(input);
                 if (input.Trim() == "save")
                 {
                     SaveGame();
@@ -156,22 +156,20 @@ namespace zrok
             //check for symbols
             filename = Console.ReadLine();
             //error on not found
-            fs = new FileStream(filename, FileMode.Open);
-            binfmt = new BinaryFormatter();
             try
             {
+                fs = new FileStream(filename, FileMode.Open);
+                binfmt = new BinaryFormatter();
                 adv = (Adventure)binfmt.Deserialize(fs);
-            }
-            catch (SerializationException e)
-            {
-                Console.WriteLine("there was an error doing that." + e);
-            }
-            finally
-            {
                 fs.Close();
                 Console.Clear();
                 Console.WriteLine($"Successfully loaded {filename}");
             }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine("The file was not found.");
+            }
+            catch { Console.WriteLine("There was an issue doing that."); };
         }
 
         public void restart()
