@@ -10,8 +10,8 @@ namespace zrok
     [Serializable]
     public class Inventory
     {
-        int maxitems = 8;
-        List<Item> items;
+        private int maxitems = 8;
+        private List<Item> items;
 
         public Inventory()
         {

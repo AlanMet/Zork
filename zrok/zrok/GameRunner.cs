@@ -15,6 +15,7 @@ namespace zrok
         string adminfilename = "";
         Adventure adv;
 
+        //instantiaton and input loop start
         public GameRunner()
         {
             adv = new Adventure();
@@ -24,13 +25,14 @@ namespace zrok
         private void StartGame()
         {
             int darkcounter = 0;
-            string input;
+            string input = "";
             int count = 0;
             string lines = "";
             string[] Delims = { "\n", "\r", "\r\n" };
             List<string> commands = new List<string>();
             do
             {
+                //if a filename has been entered but not yet loaded
                 if (adminfilename != "" && lines == "")
                 {
                     try
@@ -49,7 +51,7 @@ namespace zrok
 
                 }
                 Console.WriteLine();
-
+                //if the room is dark but the player doesnt have his lantern turned on
                 if (adv.GetPlayer().GetRoom().GetDark() == true && adv.GetPlayer().GetLampStatus() == false)
                 {
 
@@ -60,15 +62,18 @@ namespace zrok
                     }
                     if (darkcounter >= 2)
                     {
+                        //dies when player makes any move that isn't turning on the lamp
                         Console.WriteLine("Oh, no!  A fearsome grue slithered into the room and devoured you.");
                         Console.WriteLine();
                         Console.WriteLine("You have died.");
+                        //rickroll
                         //System.Diagnostics.Process.Start("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
                         restart();
                     }
                 }
                 else
                 {
+                    //describe room and set entered to true
                     adv.Describe();
                     adv.GetPlayer().GetRoom().entered();
                     darkcounter = 0;
@@ -76,21 +81,24 @@ namespace zrok
                 Console.Write("> ");
                 if (commands.Count > 0)
                 {
-                    input = commands[count];
-                    if (count == commands.Count - 1)
+                    if (count == commands.Count)
                     {
                         commands = new List<string>();
                         continue;
                     }
                     else
                     {
+                        //input when file loaded
+                        input = commands[count];
                         count += 1;
                     }
                     Console.WriteLine(input);
+                    //for reader convenience
                     Thread.Sleep(2000);
                 }
                 else
                 {
+                    //input
                     input = Console.ReadLine().ToLower();
                 }
                 if (input.Trim() == "save")
@@ -110,6 +118,8 @@ namespace zrok
                 }
                 else if (input.Trim() == "adminload")
                 {
+                    //automatically run commands
+                    //still runs them as usual
                     Console.Write("filename: ");
                     adminfilename = Console.ReadLine();
                     adminfilename += ".txt";
@@ -124,6 +134,7 @@ namespace zrok
 
         private void SaveGame()
         {
+            //convert to binary file
             FileStream fs;
             BinaryFormatter binfmt;
             string filename;
@@ -149,6 +160,7 @@ namespace zrok
 
         private void LoadGame()
         {
+            //load from binary file
             FileStream fs;
             BinaryFormatter binfmt;
             string filename;
@@ -182,6 +194,7 @@ namespace zrok
                 if (Choice.Trim() == "y")
                 {
                     Console.Clear();
+                    //reset state of console.
                     adv = new Adventure();
                     return;
                 }

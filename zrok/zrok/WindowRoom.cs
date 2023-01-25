@@ -30,9 +30,5 @@ namespace zrok
         {
             return Open;
         }
-
-        public void AddWindowExit(Direction direction, Room room)
-        {
-        }
     }
 }
