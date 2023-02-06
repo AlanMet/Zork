@@ -27,11 +27,4 @@ namespace zrok
         UNKNOWN,
         ERROR
     }
-
-    public enum ItemType
-    {
-        Weapon,
-        Tool,
-        Food
-    }
 }

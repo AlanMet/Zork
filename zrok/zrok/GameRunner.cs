@@ -140,7 +140,6 @@ namespace zrok
             string filename;
             Console.Write("Enter filename to save: ");
             filename = Console.ReadLine();
-            //check for symbols
             fs = new FileStream(filename, FileMode.Create);
             binfmt = new BinaryFormatter();
             try

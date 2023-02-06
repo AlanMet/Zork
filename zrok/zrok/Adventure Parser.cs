@@ -118,6 +118,7 @@ namespace zrok{
         public void ProcessVerb(List<WordAndType> WordAndType)
         {
             WordAndType wt = WordAndType[0];
+            //checking for valid sentence type
             if (wt.GetType() != WordType.VERB)
             {
                 Console.WriteLine($"Can't do this because '{wt.GetWord()}' is not a command!");
@@ -186,6 +187,7 @@ namespace zrok{
         {
             WordAndType wt = WordAndType[0];
             WordAndType wt2 = WordAndType[1];
+            //checking for valid sentence type
             if (wt.GetType() != WordType.VERB)
             {
                 Console.WriteLine($"Can't do this because '{wt.GetWord()}' is not a command!");
@@ -255,6 +257,7 @@ namespace zrok{
             WordAndType wt = WordAndType[0];
             WordAndType wt2 = WordAndType[1];
             WordAndType wt3 = WordAndType[2];
+            //checking for valid sentence type
             if (wt.GetType() != WordType.VERB)
             {
                 Console.WriteLine($"Can't do this because '{wt.GetWord()}' is not a command!");
@@ -310,6 +313,7 @@ namespace zrok{
         {
             WordAndType wt = WordAndType[0];
             WordAndType wt2 = WordAndType[1];
+            //checking for valid sentence type
             if (wt.GetType() != WordType.VERB)
             {
                 Console.WriteLine($"Can't do this because '{wt.GetWord()}' is not a command!");
